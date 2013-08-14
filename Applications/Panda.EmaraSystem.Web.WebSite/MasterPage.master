@@ -1,0 +1,312 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Emara System</title>
+
+    <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap-responsive.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/Font-awesome/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/theme.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/chosen/chosen/chosen.css"/>
+    <link type="text/css" rel="stylesheet" href="/assets/css/prettify.css"/>
+
+    <link href="/assets/Noti/jquery.pnotify.default.css" rel="stylesheet" />
+    <link href="assets/uniform/themes/default/css/uniform.default.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/flick/jquery-ui.css"/>
+
+    <link rel="stylesheet" href="/assets/css/colorpicker.css" />
+    <link rel="stylesheet" href="/assets/css/timepicker.css" />
+    <link rel="stylesheet" href="/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap-toggle-buttons.css" />
+    
+    <script type="text/javascript" src="/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+
+        <div id="wrap">
+
+
+            <!-- BEGIN TOP BAR -->
+            <div id="top">
+                <!-- .navbar -->
+                <div class="navbar navbar-inverse navbar-static-top">
+                    <div class="navbar-inner">
+                        <div class="container-fluid">
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <a class="brand" href="/Default.aspx">Emara System</a>
+                            <!-- .topnav -->
+                            <div class="btn-toolbar topnav">
+                                <div class="btn-group">
+                                    <a id="changeSidebarPos" class="btn btn-success" rel="tooltip"
+                                        data-original-title="Show / Hide Sidebar" data-placement="bottom">
+                                        <i class="icon-resize-horizontal"></i>
+                                    </a>
+                                </div>
+
+
+                                <div class="btn-group">
+                                    <a class="btn btn-inverse" rel="tooltip" href="/SystemSettings/Stuff.aspx" data-original-title="Settings"
+                                        data-placement="bottom">
+                                        <i class="icon-cogs"></i>
+                                    </a>
+
+                                    <a href="#helpModal" class="btn btn-inverse" rel="tooltip" data-placement="bottom"
+                                        data-original-title="Help" data-toggle="modal">
+                                        <i class="icon-question-sign"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn btn-inverse" data-placement="bottom" data-original-title="Logout" rel="tooltip"
+                                        href="login.html"><i class="icon-off"></i></a>
+                                </div>
+                            </div>
+                            <!-- /.topnav -->
+                            <div class="nav-collapse collapse">
+                                <!-- .nav 
+                                <ul class="nav">
+                                    <li><a href="/Default.aspx">Dashboard</a></li>
+                                 
+                                    <li class="dropdown">
+                                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                            Form Elements <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="form-general.html">General</a></li>
+                                            <li><a href="form-validation.html">Validation</a></li>
+                                            <li><a href="form-wysiwyg.html">WYSIWYG</a></li>
+                                            <li><a href="form-wizard.html">Wizard &amp; File Upload</a></li> 
+                                </ul>
+                                -->
+                                <!-- /.nav -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.navbar -->
+            </div>
+            <!-- END TOP BAR -->
+
+
+            <!-- BEGIN HEADER.head -->
+            <header class="head">
+                <div class="search-bar">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="search-bar-inner">
+                                <a id="menu-toggle" href="#menu" data-toggle="collapse"
+                                    class="accordion-toggle btn btn-inverse visible-phone"
+                                    rel="tooltip" data-placement="bottom" data-original-title="Show/Hide Menu">
+                                    <i class="icon-sort"></i>
+                                </a>
+
+                                <div class="main-search">
+                                    <input class="input-block-level" type="text" placeholder="Not Available Yet... ">
+                                    <button id="searchBtn" type="submit" class="btn btn-inverse">
+                                        <i class="icon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ."main-bar -->
+                <div class="main-bar">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h3><i class="icon-home"></i> Dashboard</h3>
+                            </div>
+                        </div>
+                        <!-- /.row-fluid -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- /.main-bar -->
+            </header>
+            <!-- END HEADER.head -->
+
+            <!-- BEGIN LEFT  -->
+            <div id="left">
+                <!-- .user-media -->
+                <div class="media user-media hidden-phone">
+                    <a href="#" class="user-link">
+                        <img src="/assets/img/user.png" alt="" class="media-object img-polaroid user-img" />
+                        <span class="label user-label"></span>
+                    </a>
+
+                    <div class="media-body hidden-tablet">
+                        <h5 class="media-heading">
+                            <asp:Literal ID="litName" runat="server" />
+
+                        </h5>
+                        <ul class="unstyled user-info">
+                            <li><a href="#">Role</a></li>
+                            <li>Last Access :
+                                <br />
+                                <small><i class="icon-calendar"></i>16 Mar 16:32</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.user-media -->
+                <!-- BEGIN MAIN NAVIGATION -->
+                <ul id="menu"  class="unstyled accordion collapse in">
+
+
+                    <li id="MenuDash" class="accordion-group">
+                        <a data-parent="#menu"
+                             data-toggle="collapse" href="/Default.aspx"
+                             class="accordion-toggle" data-target="#dashboard-nav">
+                            <i class="icon-dashboard  icon-large"></i> Dashboard
+                        </a>
+                    </li>
+
+
+                    <li class="accordion-group ">
+                        <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#component-nav">
+                            <i class="icon-user icon-large"></i> Clients <span class="label label-inverse pull-right">2</span>
+                        </a>
+                        <ul class="collapse " id="component-nav">
+                            <li><a href="/Clients/Clients.aspx"><i class="icon-male"></i> CLients</a></li>
+                            <li><a href="/Clients/Relatives.aspx"><i class="icon-link"></i> Relative Clients</a></li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="accordion-group ">
+                        <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
+                            <i class="icon-table icon-large"></i> Waiting List <span class="label label-inverse pull-right">2</span>
+                        </a>
+                        <ul class="collapse" id="form-nav">
+                            <li><a href="/WaitingList/WaitingList.aspx"><i class="icon-list-ol"></i> Waiting List</a></li>
+                            <li><a href="/WaitingList/Appointments.aspx"><i class="icon-list-alt"></i> Appointments</a></li>
+                        </ul>
+                    </li>
+
+
+
+                    <li><a href="/Sessions/Sessions.aspx"><i class="icon-desktop icon-large"></i> Sessions</a></li>
+                    <li><a href="/Prescriptions/Prescriptions.aspx"><i class="icon-medkit icon-large"></i> Prescriptions</a></li>
+                    <li><a href="#"><i class="icon-calendar icon-large"></i> Organizing</a></li>
+
+
+                    <li class="accordion-group ">
+                        <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Setting">
+                            <i class="icon-wrench icon-large"></i> System Settings <span class="label label-inverse pull-right">2</span>
+                        </a>
+                        <ul class="collapse " id="Setting">
+                            <li><a href="/SystemSettings/Users.aspx"><i class="icon-user"></i> Users</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <!-- END MAIN NAVIGATION -->
+
+            </div>
+            <!-- END LEFT -->
+
+            <!-- #content -->
+            <div id="content" class="">
+                <!-- .outer -->
+                <div class="container-fluid outer">
+                    <div class="row-fluid">
+                        <!-- .inner -->
+                        <div class="span12 inner">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                                                <!-- content is here -->
+
+                            </asp:ContentPlaceHolder>
+                            
+
+
+                        </div>
+                        <!-- /.inner -->
+                    </div>
+                    <!-- /.row-fluid -->
+                </div>
+                <!-- /.outer -->
+            </div>
+            <!-- /#content -->
+            <!-- #push do not remove -->
+            <div id="push"></div>
+
+            <!-- /#push -->
+        </div>
+        <!-- /#wrap -->
+
+        <div class="clearfix"></div>
+
+        <!-- #helpModal -->
+        
+        <!-- /#helpModal -->
+         <!-- Java Script -->   
+
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+      <script src="/assets/js/vendor/jquery-migrate-1.2.1.min.js"></script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script>window.jQuery.ui || document.write('<script src="/assets/js/vendor/jquery-ui-1.10.0.custom.min.js"><\/script>')</script>
+
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+                <script src="/assets/Noti/jquery.pnotify.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/lib/bootstrap-progressbar.min.js"></script>
+    <script src="/assets/js/lib/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/prettify.js"></script>
+    <script src="/assets/js/lib/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/jquery.dualListBox-1.3.min.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/bootstrap-inputmask.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/jquery.autosize-min.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/jquery.inputlimiter.1.3.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/jquery.tagsinput.min.js"></script>
+            <script type="text/javascript" src="/assets/chosen/chosen/chosen.jquery.min.js"></script>
+
+    <script type="text/javascript" src="/assets/uniform/jquery.uniform.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/lib/jquery.validVal-4.3.2.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/date.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/daterangepicker.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/bootstrap-colorpicker.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/bootstrap-timepicker.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/jquery.toggle.buttons.js"></script>
+
+
+       <script src="/assets/js/lib/jquery.tablesorter.min.js"></script>
+
+
+
+     <script src="/assets/js/main.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                dashboard();
+                formGeneral();
+         
+            });
+        </script>
+    <!-- Java Script -->
+
+   </form>
+</body>
+</html>

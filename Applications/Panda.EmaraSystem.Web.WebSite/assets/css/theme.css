@@ -1,0 +1,29 @@
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a,
+ul#menu > li > a:hover,
+ul#menu > li:hover > a,
+ul#menu > li.active > a {
+	background-color: #0088cc;
+	background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+ul#menu > li > a:hover,
+ul#menu > li:hover > a,
+ul#menu > li.active > a {
+	-webkit-box-shadow: 0 1px 0 0 #0088cc inset;
+	-moz-box-shadow: 0 1px 0 0 #0088cc inset;
+	box-shadow: 0 1px 0 0 #0088cc inset;
+	-webkit-transition: height 0.4s ease-out 0s;
+	-moz-transition: height 0.4s ease-out 0s;
+	-o-transition: height 0.4s ease-out 0s;
+	transition: height 0.4s ease-out 0s;
+}
+
+#top > .navbar {
+	border-top: 3px solid #0088cc;
+}
