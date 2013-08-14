@@ -41,6 +41,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Panda.EmaraSystem.BO\Panda.EmaraSystem.BO.csproj">
+      <Project>{2ab14e58-a47d-46ba-bf40-a9ba6cc60cef}</Project>
+      <Name>Panda.EmaraSystem.BO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Panda.EmaraSystem.DAL\Panda.EmaraSystem.DAL.csproj">
+      <Project>{54a5e1a1-2428-4a67-8854-b07616512d35}</Project>
+      <Name>Panda.EmaraSystem.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

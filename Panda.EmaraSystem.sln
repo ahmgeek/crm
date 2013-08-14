@@ -12,6 +12,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Panda.EmaraSystem.Web.WebSite", "Applications\Panda.EmaraSystem.Web.WebSite\", "{ABAC7D00-EFF4-40E5-9DD7-08B5605C87BE}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{5777724e-5905-47f4-8c4b-fe689a7d5ae0}|Panda.EmaraSystem.BLL.dll;{2AB14E58-A47D-46BA-BF40-A9BA6CC60CEF}|Panda.EmaraSystem.BO.dll;{54A5E1A1-2428-4A67-8854-B07616512D35}|Panda.EmaraSystem.DAL.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Panda.EmaraSystem.Web.WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "Applications\Panda.EmaraSystem.Web.WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Panda.EmaraSystem.Web.WebSite\"

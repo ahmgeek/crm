@@ -7,7 +7,7 @@
     <ProjectGuid>{54A5E1A1-2428-4A67-8854-B07616512D35}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Panda.EmaraSystem.DAL</RootNamespace>
+    <RootNamespace>Panda.EmaraSystem.BO</RootNamespace>
     <AssemblyName>Panda.EmaraSystem.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -39,7 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentsDAL.cs" />
+    <Compile Include="ClientDAL.cs" />
+    <Compile Include="Helper\DataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelativesDAL.cs" />
+    <Compile Include="WaitingListDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Panda.EmaraSystem.BO\Panda.EmaraSystem.BO.csproj">
+      <Project>{2ab14e58-a47d-46ba-bf40-a9ba6cc60cef}</Project>
+      <Name>Panda.EmaraSystem.BO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
