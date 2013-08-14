@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ESystem.BLL;
-using ESystem.Entities;
+using Panda.EmaraSystem.BLL;
+using Panda.EmaraSystem.BO;
 
 public partial class Clients_ClientsDetail : System.Web.UI.Page
 {

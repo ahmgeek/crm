@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ESystem.BLL;
-using ESystem.Entities;
+using Panda.EmaraSystem.BLL;
+using Panda.EmaraSystem.BO;
 
 
 
@@ -14,7 +14,7 @@ public partial class Clients_RelClients : System.Web.UI.Page
 
 
     ClientBLL clntBLL = new ClientBLL();
-    ClientENT clntENT = new ClientENT();
+    ClientBO clntBO = new ClientBO();
 
     protected void Page_Load(object sender, EventArgs e)
     {

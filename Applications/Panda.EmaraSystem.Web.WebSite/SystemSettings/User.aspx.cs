@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ESystem.BLL;
-using ESystem.Entities;
 using System.Collections;
-
+using Panda.EmaraSystem.BLL;
+using Panda.EmaraSystem.BO;
 
 public partial class SystemSettings_User : System.Web.UI.Page
 {

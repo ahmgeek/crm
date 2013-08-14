@@ -10,9 +10,6 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Membership.ValidateUser("Admin", "123456"))
-        {
-            FormsAuthentication.RedirectFromLoginPage("Admin", true);
-        }
+      
     }
 }

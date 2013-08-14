@@ -11,17 +11,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-      
-
-        if (Request.IsAuthenticated)
-        {
-            //Menu
-            litName.Text = Membership.GetUser().UserName;
-        }
-        else
-        {
-
-        }
+          
     }
 
 

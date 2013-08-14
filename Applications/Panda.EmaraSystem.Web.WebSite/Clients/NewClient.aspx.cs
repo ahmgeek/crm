@@ -6,16 +6,21 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ESystem.Entities;
-using ESystem.BLL;
 using System.Data.SqlTypes;
+using Panda.EmaraSystem.BLL;
+using Panda.EmaraSystem.BO;
 
 
 public partial class Clients_NewClient : System.Web.UI.Page {
-    ClientENT clntENT = new ClientENT();
+
+
+    ClientBO clntBO = new ClientBO();
     ClientBLL clntBLL = new ClientBLL();
     UsersBLL usrBLL = new UsersBLL();
     SqlDateTime NullDate;
+
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -29,28 +34,28 @@ public partial class Clients_NewClient : System.Web.UI.Page {
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        clntENT.AccountNumer = txtAccNum.Text;
-        clntENT.FirstName = txtFName.Text.Trim();
-        clntENT.MiddleName = txtMiddleName.Text.Trim();
-        clntENT.SurrName = txtSurrName.Text;
-        clntENT.City = txtCity.Text;
-        clntENT.Country = drpCountry.SelectedItem.Text;
-        clntENT.Address = txtAdress.Text;
-        clntENT.Telephone = txtTelephone.Text;
-        clntENT.Mobile = txtMob.Text;
-        clntENT.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
-        clntENT.Gender = drpGender.SelectedItem.Text;
-        clntENT.PrfrdTimeForCall = drpTime.SelectedItem.Text;
-        clntENT.CreationDate = DateTime.Now;
-        clntENT.CreatedBy = usrBLL.GetUser("Admin").UserName;
-        clntENT.LstModifiedDate = (DateTime)(NullDate);
-        clntENT.LstModifiedBy = string.Empty;
-        clntENT.Notes = txtNotes.Text;
+        clntBO.AccountNumer = txtAccNum.Text;
+        clntBO.FirstName = txtFName.Text.Trim();
+        clntBO.MiddleName = txtMiddleName.Text.Trim();
+        clntBO.SurrName = txtSurrName.Text;
+        clntBO.City = txtCity.Text;
+        clntBO.Country = drpCountry.SelectedItem.Text;
+        clntBO.Address = txtAdress.Text;
+        clntBO.Telephone = txtTelephone.Text;
+        clntBO.Mobile = txtMob.Text;
+        clntBO.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
+        clntBO.Gender = drpGender.SelectedItem.Text;
+        clntBO.PrfrdTimeForCall = drpTime.SelectedItem.Text;
+        clntBO.CreationDate = DateTime.Now;
+        clntBO.CreatedBy = usrBLL.GetUser("Admin").UserName;
+        clntBO.LstModifiedDate = (DateTime)(NullDate);
+        clntBO.LstModifiedBy = string.Empty;
+        clntBO.Notes = txtNotes.Text;
 
         //asign the entities to the bll
        
-            clntBLL.ClientInsert(clntENT);
-            Response.Redirect("/Clients/RelClients.aspx?Acc=" + clntENT.CLientId);
+            clntBLL.ClientInsert(clntBO);
+            Response.Redirect("/Clients/RelClients.aspx?Acc=" + clntBO.CLientId);
         
         //    ClientScript.RegisterStartupScript(this.GetType(), "Enfo", HelperNotify.HelperMessage("Error", "", HelperNotify.NotificationType.info));
         
