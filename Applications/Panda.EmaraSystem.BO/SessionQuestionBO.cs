@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Panda.EmaraSystem.BO {
+namespace Panda.EmaraSystem.BO
+{
    public class SessionQuestionBO {
        public int SessionQuestId { get; set; }
        public int SessionId { get; set; }
