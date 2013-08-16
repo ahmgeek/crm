@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Panda.EmaraSystem.BO {
-    public  class PrsecriptionBO {
+    public  class PrescriptionBO {
         public int PrescId { get; set; }
         public int ClientId { get; set; }
         public string ClientName { get; set; }

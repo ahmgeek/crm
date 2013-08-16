@@ -26,9 +26,11 @@ namespace Panda.EmaraSystem.BO
         public SqlDateTime LstModifiedDate { get; set; }
         public string LstModifiedBy { get; set; }
         public string Notes { get; set; }
-
+        public bool IsActive { get; set; }
         public string FullName { get; set; }
-        
-            
+        public RelativesBO Relatives { get; set; }
+        public SessionBO Session { get; set; }
+        public PrescriptionBO Prescription { get; set; }
+
     }
 }
