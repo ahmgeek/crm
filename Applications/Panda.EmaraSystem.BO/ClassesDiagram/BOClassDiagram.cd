@@ -1,77 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Panda.EmaraSystem.BO.AppointmentsBO">
-    <Position X="2.25" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAACAAAAAAAAAAAkAAAAAAAIggAQAAAQAAAAAAAAAE=</HashCode>
-      <FileName>AppointmentsBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.ClientBO">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAggAEAAAAIAAYCIEAEQAAAAEQIQAACCAIQAIAAAAAE=</HashCode>
-      <FileName>ClientBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.CoursesBO">
-    <Position X="5.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAA=</HashCode>
-      <FileName>CoursesBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.PrescriptionDetailBO">
-    <Position X="7.5" Y="3" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AACEAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAIEAAAQ=</HashCode>
-      <FileName>PrescriptionDetailBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.PrescriptionBO">
-    <Position X="7.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAgQAAAQAQAAAAAEAAAE=</HashCode>
-      <FileName>PrescriptionBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.RelativesBO">
+  <Class Name="Panda.EmaraSystem.BO.Client" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAgAAAAAAAAAAAQAAAQAhAAAAAAAA=</HashCode>
-      <FileName>RelativesBO.cs</FileName>
+      <HashCode>QAggAEAAAAIAAYCIEAEQAAAAEQ4QAAACAIAAIAAAAAE=</HashCode>
+      <FileName>Client.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Panda.EmaraSystem.BO.SessionBO">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+  <Class Name="Panda.EmaraSystem.BO.Session" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAkAAAAAAIAAAAAAACQAAAAABABAA=</HashCode>
-      <FileName>SessionBO.cs</FileName>
+      <HashCode>AAAgAAAAAAAAAAAAkAAAAAAIAAAAAAQCQAAAAAAABAA=</HashCode>
+      <FileName>Session.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Panda.EmaraSystem.BO.SessionQuestionBO">
-    <Position X="4" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAgAAAAA=</HashCode>
-      <FileName>SessionQuestionBO.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Panda.EmaraSystem.BO.WaitinListBO">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="Panda.EmaraSystem.BO.WaitingList" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAQAAAAEAAAAgCAAAAAAAAAIAAQAQAAAAAAAAAE=</HashCode>
-      <FileName>WaitinListBO.cs</FileName>
+      <FileName>WaitingList.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="Panda.EmaraSystem.BO.IsActive">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+  <Class Name="Panda.EmaraSystem.BO.Appointments">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QEAACAAAAAAAAAAAkCAAAAQAABAAAAAAQACAAAAAAAE=</HashCode>
+      <FileName>Appointments.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Panda.EmaraSystem.BO.Prescription">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAgAAAAAAAAAAAAAQAQAAAAAEAAAU=</HashCode>
+      <FileName>Prescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Panda.EmaraSystem.BO.PrescriptionDetail" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEAAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAABEAAAQ=</HashCode>
+      <FileName>PrescriptionDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Panda.EmaraSystem.BO.SessionQuestion" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAIAAAAAAAEAAAAAgAAAAA=</HashCode>
+      <FileName>SessionQuestion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Panda.EmaraSystem.BO.Courses" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Courses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Panda.EmaraSystem.BO.Relatives" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIACgAAAAAAAAAAAAAAAQAwAAAAAAAA=</HashCode>
+      <FileName>Relatives.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Panda.EmaraSystem.BO.IsActive" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAgAAAAA=</HashCode>
       <FileName>IsActive.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Panda.EmaraSystem.BO.IsServed">
-    <Position X="9.75" Y="2" Width="1.5" />
+  <Enum Name="Panda.EmaraSystem.BO.IsServed" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>IsServed.cs</FileName>

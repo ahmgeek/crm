@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Data.SqlClient;
 using Panda.EmaraSystem.BO;
 
 
@@ -11,108 +12,195 @@ namespace Panda.EmaraSystem.DAL
     public class ClientDAL
     {
 
-        //All Clients Selection 
-        public DataSet GetAllClients()
+
+        public static Client GetItem(int id)
         {
-            return DataManager.GetDataSet("ESystem_CLientGetAllConc", "y");
+            Client clnt = null;
+            SqlConnection con;
+            using (SqlDataReader dr = DataManager.GetDataReader("ESystem_CLientGetById", out con,
+                DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+            {
+
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        clnt = FillDataRecord(dr);
+                    }
+                }
+
+
+                else
+                {
+                    throw new Exception("No Data");
+                }
+                con.Close();
+            }
+            return clnt;
         }
 
-        public DataSet GetAllExcept(int id)
+        public static List<Client> GetList()
         {
-            DataSet ds = DataManager.GetDataSet("ESystem_CLientGetAllConcExcept", "z",
-                DataManager.CreateParameter("@id", SqlDbType.Int, id));
-            return ds;
+            List<Client> list = new List<Client>();
+            SqlConnection con;
+            using (SqlDataReader dr =
+                DataManager.GetDataReader("ESystem_CLientGetAll", out con))
+            {
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        list.Add(FillDataRecord(dr));
+                    }
+                }
+                else
+                {
+                    throw new Exception("No Data");
+                }
+
+                con.Close();
+            }
+            return list;
         }
 
-        //Client Insert
-        public int ClientInsert(ClientBO clntBO)
-        {            
-
-         object o=   DataManager.ExecuteScalar("ESystem_ClientInsert",
-                DataManager.CreateParameter("@accountNumber", SqlDbType.NVarChar, clntBO.AccountNumer),
-                DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, clntBO.FirstName),
-                DataManager.CreateParameter("@middlename", SqlDbType.NVarChar, clntBO.MiddleName),
-                DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, clntBO.SurrName),
-                DataManager.CreateParameter("@city", SqlDbType.NVarChar, clntBO.City),
-                DataManager.CreateParameter("@country", SqlDbType.NVarChar, clntBO.Country),
-                DataManager.CreateParameter("@address", SqlDbType.NVarChar, clntBO.Address),
-                DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, clntBO.Telephone),
-                DataManager.CreateParameter("@mob", SqlDbType.NVarChar, clntBO.Mobile),
-                DataManager.CreateParameter("@dateofbirth", SqlDbType.Date, clntBO.DateOfBirth),
-                DataManager.CreateParameter("@gender", SqlDbType.NVarChar, clntBO.Gender),
-                DataManager.CreateParameter("@preferedTimeForCall", SqlDbType.NVarChar, clntBO.PrfrdTimeForCall),
-                DataManager.CreateParameter("@creationDate", SqlDbType.DateTime, clntBO.CreationDate),
-                DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, clntBO.CreatedBy),
-                DataManager.CreateParameter("@lastModifiedDate", SqlDbType.DateTime, clntBO.LstModifiedDate),
-                DataManager.CreateParameter("@lastModifiedBy", SqlDbType.NVarChar, clntBO.LstModifiedBy),
-                DataManager.CreateParameter("@notes", SqlDbType.NVarChar, clntBO.Notes));
-
-            clntBO.CLientId = Convert.ToInt32(o);
-             return clntBO.CLientId;
-        }
-
-        //Client Update
-        public void ClientUpdate(ClientBO clntBO)
+        public static int Insert(Client client)
         {
-            DataManager.ExecuteNonQuery("ESystem_ClientUpdate",
-              DataManager.CreateParameter("@clientid", SqlDbType.Int, clntBO.CLientId),
-              DataManager.CreateParameter("@accountNumber", SqlDbType.NVarChar, clntBO.AccountNumer),
-              DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, clntBO.FirstName),
-              DataManager.CreateParameter("@middlename", SqlDbType.NVarChar, clntBO.MiddleName),
-              DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, clntBO.SurrName),
-              DataManager.CreateParameter("@address", SqlDbType.NVarChar, clntBO.Address),
-              DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, clntBO.Telephone),
-              DataManager.CreateParameter("@mob", SqlDbType.NVarChar, clntBO.Mobile),
-              DataManager.CreateParameter("@dateofbirth", SqlDbType.Date, clntBO.DateOfBirth),
-              DataManager.CreateParameter("@gender", SqlDbType.NVarChar, clntBO.Gender),
-              DataManager.CreateParameter("@preferedTimeForCall", SqlDbType.NVarChar, clntBO.PrfrdTimeForCall),
-              DataManager.CreateParameter("@creationDate", SqlDbType.DateTime, clntBO.CreationDate),
-              DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, clntBO.CreatedBy),
-              DataManager.CreateParameter("@lastModifiedDate", SqlDbType.DateTime, clntBO.LstModifiedDate),
-              DataManager.CreateParameter("@lastModifiedBy", SqlDbType.NVarChar, clntBO.LstModifiedBy),
-              DataManager.CreateParameter("@notes", SqlDbType.NVarChar, clntBO.Notes));
-       
- 
+            object o = DataManager.ExecuteScalar("ESystem_ClientInsert",
+             DataManager.CreateParameter("@accountNumber", SqlDbType.NVarChar, client.AccountNumber),
+             DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, client.FirstName),
+             DataManager.CreateParameter("@middleName", SqlDbType.NVarChar, client.MiddleName),
+             DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, client.SurrName),
+             DataManager.CreateParameter("@city", SqlDbType.NVarChar, client.City),
+             DataManager.CreateParameter("@country", SqlDbType.NVarChar, client.Country),
+             DataManager.CreateParameter("@address", SqlDbType.NVarChar, client.Address),
+             DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, client.Telephone),
+             DataManager.CreateParameter("@mob", SqlDbType.NVarChar, client.Mob),
+             DataManager.CreateParameter("@dateofbirth", SqlDbType.DateTime, client.DateOfBirth),
+             DataManager.CreateParameter("@gender", SqlDbType.NVarChar, client.Gender),
+             DataManager.CreateParameter("@preferedTimeForCall", SqlDbType.NVarChar, client.PrfrdTimeForCall),
+             DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
+             DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
+             DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
+             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes));
+            
+            return Convert.ToInt32(o);
         }
 
-        //Client Delete
-        public void ClientDelete(ClientBO clntBO)
+        public static int Update(Client client)
         {
-            DataManager.ExecuteNonQuery("ESystem_ClientDelete",
-                DataManager.CreateParameter("@clientid", SqlDbType.Int, clntBO.CLientId));
+            int result = 0;
+
+            result = (int)DataManager.ExecuteScalar("ESystem_ClientUpdate",
+             DataManager.CreateParameter("@clientId", SqlDbType.Int,client.CLientId),
+             DataManager.CreateParameter("@accountNumber", SqlDbType.NVarChar, client.AccountNumber),
+             DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, client.FirstName),
+             DataManager.CreateParameter("@middleName", SqlDbType.NVarChar, client.MiddleName),
+             DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, client.SurrName),
+             DataManager.CreateParameter("@city", SqlDbType.NVarChar, client.City),
+             DataManager.CreateParameter("@country", SqlDbType.NVarChar, client.Country),
+             DataManager.CreateParameter("@address", SqlDbType.NVarChar, client.Address),
+             DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, client.Telephone),
+             DataManager.CreateParameter("@mob", SqlDbType.NVarChar, client.Mob),
+             DataManager.CreateParameter("@dateofbirth", SqlDbType.Date, client.DateOfBirth),
+             DataManager.CreateParameter("@gender", SqlDbType.NVarChar, client.Gender),
+             DataManager.CreateParameter("@preferedTimeForCall", SqlDbType.NVarChar, client.PrfrdTimeForCall),
+             DataManager.CreateParameter("@creationDate", SqlDbType.DateTime, client.CreationDate),
+             DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
+             DataManager.CreateParameter("@IsActive", SqlDbType.NVarChar, client.IsActive),
+             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes));
+
+
+            return result;
         }
 
-        public  ClientBO GetClientById(int id)
+        public static bool Delete(int id)
         {
-            ClientBO clntBO = new ClientBO();
-
-            DataSet ds= DataManager.GetDataSet("ESystem_CLientGetById", "x",
-                DataManager.CreateParameter("@id", SqlDbType.Int,id));
-
-            clntBO.CLientId = id;
-
-            clntBO.FullName = ds.Tables["x"].Rows[0]["Name"].ToString();
-            clntBO.FirstName = ds.Tables["x"].Rows[0]["FirstName"].ToString();
-            clntBO.MiddleName = ds.Tables["x"].Rows[0]["MiddleName"].ToString();
-            clntBO.SurrName = ds.Tables["x"].Rows[0]["SurrName"].ToString();
-            clntBO.AccountNumer = ds.Tables["x"].Rows[0]["AccountNumber"].ToString();
-            clntBO.City = ds.Tables["x"].Rows[0]["city"].ToString();
-            clntBO.Country = ds.Tables["x"].Rows[0]["country"].ToString();
-            clntBO.Address = ds.Tables["x"].Rows[0]["address"].ToString();
-            clntBO.Telephone = ds.Tables["x"].Rows[0]["Telephone"].ToString();
-            clntBO.Mobile = ds.Tables["x"].Rows[0]["Mob"].ToString();
-            clntBO.DateOfBirth = Convert.ToDateTime(ds.Tables["x"].Rows[0]["DateOfBirth"].ToString());
-            clntBO.Gender = ds.Tables["x"].Rows[0]["Gender"].ToString();
-            clntBO.PrfrdTimeForCall = ds.Tables["x"].Rows[0]["PreferedTimeForCall"].ToString();
-            clntBO.CreationDate = Convert.ToDateTime(ds.Tables["x"].Rows[0]["CreationDate"].ToString());
-            clntBO.CreatedBy = ds.Tables["x"].Rows[0]["CreatedBy"].ToString();
-            clntBO.LstModifiedDate = Convert.ToDateTime(ds.Tables["x"].Rows[0]["LastModifiedDate"].ToString());
-            clntBO.LstModifiedBy = ds.Tables["x"].Rows[0]["LastModifiedBy"].ToString();
-
-            return clntBO;
+            int result = 0;
+            result = DataManager.ExecuteNonQuery("ESystem_ClientDelete",
+                DataManager.CreateParameter("@clientid", SqlDbType.Int, id));
+            return result > 0;
         }
 
+        private static Client FillDataRecord(IDataRecord myDataRecord)
+        {
+            Client client = new Client();
 
+            client.CLientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("CLientId"));
 
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("AccountNumber")))
+            {
+                client.AccountNumber = myDataRecord.GetString(myDataRecord.GetOrdinal("AccountNumber"));
+            }
+
+            client.FirstName = myDataRecord.GetString(myDataRecord.GetOrdinal("FirstName"));
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("MiddleName")))
+            {
+                client.MiddleName = myDataRecord.GetString(myDataRecord.GetOrdinal("MiddleName"));
+            }
+
+            client.SurrName = myDataRecord.GetString(myDataRecord.GetOrdinal("SurrName"));
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("city")))
+            {
+             client.City = myDataRecord.GetString(myDataRecord.GetOrdinal("city"));
+
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("country")))
+            {
+                client.Country = myDataRecord.GetString(myDataRecord.GetOrdinal("country"));
+
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("address")))
+            {
+                client.Address = myDataRecord.GetString(myDataRecord.GetOrdinal("address"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Telephone")))
+            {
+                client.Telephone = myDataRecord.GetString(myDataRecord.GetOrdinal("Telephone"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Mob")))
+            {
+                client.Mob = myDataRecord.GetString(myDataRecord.GetOrdinal("Mob"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("DateOfBirth")))
+            {
+                client.DateOfBirth = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("DateOfBirth"));
+            }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Gender")))
+            {
+                client.Gender = myDataRecord.GetString(myDataRecord.GetOrdinal("Gender"));
+            }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("PreferedTimeForCall")))
+            {
+                client.PrfrdTimeForCall = myDataRecord.GetString(myDataRecord.GetOrdinal("PreferedTimeForCall"));
+            }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("CreationDate")))
+            {
+                client.CreationDate = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("CreationDate"));
+            }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("CreatedBy")))
+            {
+                client.CreatedBy = myDataRecord.GetString(myDataRecord.GetOrdinal("CreatedBy"));
+            }
+          
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("IsActive")))
+            {
+                client.IsActive =  (IsActive) myDataRecord.GetInt32(myDataRecord.GetOrdinal("IsActive"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("notes")))
+            {
+                client.Notes = myDataRecord.GetString(myDataRecord.GetOrdinal("notes"));
+            }
+            return client;
+        }
+
+        
     }
 }

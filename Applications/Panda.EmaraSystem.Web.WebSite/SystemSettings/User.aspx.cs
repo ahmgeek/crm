@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
@@ -22,10 +23,10 @@ public partial class SystemSettings_User : System.Web.UI.Page
             {
                 btnUpdate.Visible = true;
                 btnSave.Visible = false;
+                MembershipUser user = userBll.GetUser(Request.QueryString["name"].ToString());
 
-                userBll.GetUser(Request.QueryString["name"].ToString());
-                txtUserName.Text = userBll.Name;
-                txtEmail.Text = userBll.Email;
+                txtUserName.Text = user.UserName;
+                txtEmail.Text = user.Email;
 
             }
             else

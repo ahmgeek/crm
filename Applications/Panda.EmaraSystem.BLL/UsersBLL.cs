@@ -12,13 +12,14 @@ namespace Panda.EmaraSystem.BLL
 
     public class UsersBLL
     {
-        RolesBLL rol = new RolesBLL();
+        public string[] UserRoles(string username)
+        {
+            MembershipUser mu = Membership.GetUser(username);
+            string user = mu.UserName;
 
-        public string Name { get; set; }
-        public string Email { get; set; }
-
-
-
+            string[] roles = Roles.GetRolesForUser(user);
+            return roles;
+        }
 
         public string CreatUser(string UserName,string Email,String Password,string[] UserRoles)
         {
@@ -58,29 +59,33 @@ namespace Panda.EmaraSystem.BLL
         {
            return Membership.GetAllUsers();
         }
-
-
-        public bool DeleteUser(string username)
+        public MembershipUser GetUser()
         {
-           return  Membership.DeleteUser(username);
+            MembershipUser u = Membership.GetUser();
+            return u;
         }
-
-
         public MembershipUser GetUser(string name)
         {
             MembershipUser u = Membership.GetUser(name);
-            Name = u.UserName;
-            Email = u.Email;
             return u;
         }
-        public string[] UserRoles(string username)
-        {
-            MembershipUser mu = Membership.GetUser(username);
-            string user = mu.UserName;
 
-            string[] roles = Roles.GetRolesForUser(user);
-            return roles;
+        public bool DeleteUser(string username)
+        {
+            return Membership.DeleteUser(username);
         }
+
+
+        public static bool ValidateUser(string name, string pass)
+        {
+            if (Membership.ValidateUser(name, pass))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
 
     }
 }

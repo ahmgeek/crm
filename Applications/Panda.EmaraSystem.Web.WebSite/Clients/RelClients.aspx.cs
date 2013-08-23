@@ -13,8 +13,7 @@ public partial class Clients_RelClients : System.Web.UI.Page
 {
 
 
-    ClientBLL clntBLL = new ClientBLL();
-    ClientBO clntBO = new ClientBO();
+    Client clntBO = new Client();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,8 +24,8 @@ public partial class Clients_RelClients : System.Web.UI.Page
             {
                 drpClients.DataBind();
                 int id = Convert.ToInt32(Request.QueryString["Acc"].ToString());
-                txtAccNum.Text= clntBLL.GetClientById(id).AccountNumer;
-                txtClientName.Text = clntBLL.GetClientById(id).FullName;
+                txtAccNum.Text= ClientBLL.GetItem(id).AccountNumber;
+                txtClientName.Text = ClientBLL.GetItem(id).FullName;
             }
             else
             {
@@ -59,8 +58,8 @@ public partial class Clients_RelClients : System.Web.UI.Page
     void BindClients()
     {
         int id = Convert.ToInt32(Request.QueryString["Acc"].ToString());
-        drpClients.DataSource = clntBLL.GetAllClientsExcept(id);
-        drpClients.DataTextField = "Name";
+        drpClients.DataSource = ClientBLL.GetList();
+        drpClients.DataTextField = "FullName";
         drpClients.DataValueField = "ClientId";
         drpClients.DataBind();
     }

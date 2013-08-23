@@ -18,9 +18,55 @@
         <div id="List" class="body collapse in">
 
             <div class="tac">
-
-                
             </div>
+            <asp:GridView ID="grdWaitList"
+                CssClass="table table-bordered responsive"
+                runat="server"
+                GridLines="None"
+                CellSpacing="-1"
+                AutoGenerateColumns="False"
+                ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="Empty !" OnRowDataBound="grdUsers_RowDataBound" OnPageIndexChanging="grdUsers_PageIndexChanging" OnLoad="grdWaitList_Load">
+                <Columns>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:CheckBox ID="chkAll" runat="server" AutoPostBack="True" OnCheckedChanged="chkAll_CheckedChanged" />
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chk" runat="server" AutoPostBack="True" OnCheckedChanged="chk_CheckedChanged" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField  HeaderText="#">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRank" runat="server" Text='<%# Container.DataItem %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                     <asp:TemplateField HeaderText="Name">
+                        <ItemTemplate>
+                            <asp:Label ID="lblFullName" runat="server"  Text='<%#Eval("FullName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Status">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server"  Text='<%#Eval("IsReserved") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Time">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTime" Visible="false" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
+                            <asp:Label ID="lblDate"  runat="server"></asp:Label>
+                            <asp:Label ID="lblNewTime" runat="server"></asp:Label>
+
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+
+                </Columns>
+
+            </asp:GridView>
+
         </div>
     </div>
 </asp:Content>

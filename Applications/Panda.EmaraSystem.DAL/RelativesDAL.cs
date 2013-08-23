@@ -4,71 +4,161 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using Panda.EmaraSystem.BO;
-
+using System.Data.SqlClient;
 
 namespace Panda.EmaraSystem.DAL
 {
     
     
-   public class RelativesDAL {
-
-       public static RelativesBO GetRelations(int id)
+   public class RelativesDAL
+   {
+       
+       public static Relatives GetByClientId(int id)
        {
-           RelativesBO relBO = new RelativesBO();
-           ClientDAL clntDAL = new ClientDAL();
+           Relatives relative = null;
+           SqlConnection con;
+           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_RelativeGetByClientId", out con,
+               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       relative = FillDataRecord(dr);
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
 
-           DataSet ds = DataManager.GetDataSet("ESystem_RelativeGetByClientId", "x",
-                DataManager.CreateParameter("@id", SqlDbType.Int, id));
-
-
-           relBO.ClientId = id;
-           relBO.ClientRelId = (int)ds.Tables["x"].Rows[0]["CLientRelId"];
-           relBO.ClientRelName = ds.Tables["x"].Rows[0]["RelaionName"].ToString();
-           int clntrelID = (int)ds.Tables["x"].Rows[0]["CLientRelId"];
-
-
-           relBO.ClientName = clntDAL.GetClientById(id).FullName;
-           relBO.ClientRelName = clntDAL.GetClientById(clntrelID).FullName;
-
-           return relBO;
-
-       }
-
-
-
-       public int RelativeInert(RelativesBO relBO)
-       {
-           object o = DataManager.ExecuteScalar("ESystem_RelativeInsert",
-               DataManager.CreateParameter("@ClientId", System.Data.SqlDbType.Int, relBO.ClientId),
-               DataManager.CreateParameter("@ClientRelId", System.Data.SqlDbType.Int, relBO.ClientRelId),
-               DataManager.CreateParameter("@RelaionName", System.Data.SqlDbType.NVarChar, relBO.RelationName));
-           relBO.RelId = (int)o;
-           return relBO.RelId;
-
-       }
-
-
-       public void RelativeUpdate(RelativesBO relBO)
-       {
-           DataManager.ExecuteNonQuery("ESystem_RelativeUpdate",
-               DataManager.CreateParameter("@RelativeId", System.Data.SqlDbType.Int,relBO.RelId),
-               DataManager.CreateParameter("@ClientId", System.Data.SqlDbType.Int,relBO.ClientId),
-               DataManager.CreateParameter("@CLientRelId", System.Data.SqlDbType.Int,relBO.ClientRelId),
-               DataManager.CreateParameter("@RelaionName", System.Data.SqlDbType.NVarChar,relBO.RelationName));
-               
-               
-               
-               
-               
                }
 
-
-       public void RelativeDelete(RelativesBO relBO)
-       {
-           DataManager.ExecuteNonQuery("ESystem_RelativeDelete",
-    DataManager.CreateParameter("@RelativeId", SqlDbType.Int,relBO.RelId ));
+               con.Close();
+           }
+           return relative;
 
        }
+       public static Relatives GetItem(int id)
+       {
+           Relatives relative = null;
+           SqlConnection con;
+           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_RelativeGetById", out con,
+               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       relative = FillDataRecord(dr);
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+
+               }
+
+               con.Close();
+           }
+           return relative;
+       }
+
+       public static List<Relatives> GetList()
+       {
+           List<Relatives> list = new List<Relatives>();
+           SqlConnection con;
+           using (SqlDataReader dr =
+               DataManager.GetDataReader("ESystem_RelativeGetAll", out con))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       list.Add(FillDataRecord(dr));
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+               }
+
+               con.Close();
+           }
+           return list;
+       }
+       public static int Insert(Relatives rel)
+       {
+           object o =DataManager.ExecuteScalar("ESystem_RelativeInsert",
+            DataManager.CreateParameter("@ClientId", SqlDbType.Int, rel.ClientId),
+            DataManager.CreateParameter("@CLientRelId", SqlDbType.Int, rel.CLientRelId),
+            DataManager.CreateParameter("@RelaionName", SqlDbType.NVarChar, rel.RelationName));
+           return Convert.ToInt32(o) ;
+       }
+
+       public static int Update(Relatives rel)
+       {
+           object o = DataManager.ExecuteScalar("ESystem_RelativeUpdate",
+            DataManager.CreateParameter("@RelativeId", SqlDbType.Int, rel.RelativeId),
+            DataManager.CreateParameter("@ClientId", SqlDbType.Int, rel.ClientId),
+            DataManager.CreateParameter("@CLientRelId", SqlDbType.Int, rel.CLientRelId),
+            DataManager.CreateParameter("@RelaionName", SqlDbType.NVarChar, rel.RelationName));
+           return Convert.ToInt32(o);
+       }
+
+       public static bool Delete(int id)
+       {
+           int result = 0;
+           result = DataManager.ExecuteNonQuery("ESystem_RelativeDelete",
+                  DataManager.CreateParameter("@RelativeId", SqlDbType.Int, id));
+
+           return result > 0;
+       }
+
+       private static Relatives FillDataRecord(IDataRecord myDataRecord)
+       {
+           Relatives relative = new Relatives();
+
+           relative.RelativeId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("RelativeId"));
+           relative.ClientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
+
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("CLientRelId")))
+           {
+               relative.CLientRelId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("CLientRelId"));
+
+           }
+
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("RelaionName")))
+           {
+               relative.RelationName = myDataRecord.GetString(myDataRecord.GetOrdinal("RelaionName"));
+           }
+
+           return relative;
+       }
+
+       //public static List<Relatives> GetListExeptThis()
+       //{
+       //    List<Relatives> list = new List<Relatives>();
+       //    SqlConnection con;
+       //    using (SqlDataReader dr =
+       //        DataManager.GetDataReader("ESystem_RelativeGetAll", out con))
+       //    {
+       //        if (dr.HasRows)
+       //        {
+       //            while (dr.Read())
+       //            {
+       //                list.Add(FillDataRecord(dr));
+       //            }
+       //        }
+       //        else
+       //        {
+       //            throw new Exception("No Data");
+       //        }
+
+       //        con.Close();
+       //    }
+       //    return list;
+
+       //}
 
     }
 }

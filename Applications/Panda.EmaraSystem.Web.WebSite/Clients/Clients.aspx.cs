@@ -6,21 +6,26 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
-
+using Notification.Helper;
 
 public partial class Clients_Clients : System.Web.UI.Page
 {
     private int rankUser = 0;
     private int currentPageUser = 0;
-    ClientBLL clntBLL = new ClientBLL();
-    ClientBO clntBO = new ClientBO();
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Request.QueryString.ToString() != string.Empty)
+        {
+            string message = Request.QueryString["message"];
+            this.ShowHelperMessage("Info", message, HelperNotify.NotificationType.info);
+        }
+       
         if (!IsPostBack)
         {
             BindGrid();
             btnDeleteUser.Enabled = false;
+
         }
         
     }
@@ -58,9 +63,20 @@ public partial class Clients_Clients : System.Web.UI.Page
 
     void BindGrid()
     {
+        try
+        {
+            List<Client> ds = ClientBLL.GetList();
+            grdUsers.DataSource = ds;  //clntBLL.GetAllClients();
+            grdUsers.DataBind();
 
-        grdUsers.DataSource = clntBLL.GetAllClients();
-        grdUsers.DataBind();
+        }
+        catch (Exception ex)
+        {
+
+            grdUsers.EmptyDataText = ex.Message;
+            grdUsers.DataBind();
+        }
+
     }
 
 
@@ -75,7 +91,7 @@ public partial class Clients_Clients : System.Web.UI.Page
             if (chkUser.Checked)
             {
                 chkAllUser.Checked = false;
-                btnDeleteUser.Enabled = true;
+                //btnDeleteUser.Enabled = true;
                 return;
             }
         }
@@ -84,7 +100,7 @@ public partial class Clients_Clients : System.Web.UI.Page
     protected void chkAllUser_CheckedChanged(object sender, EventArgs e)
     {
         CheckBox chkallUser = (CheckBox)sender;
-        btnDeleteUser.Enabled = chkallUser.Checked;
+        //btnDeleteUser.Enabled = chkallUser.Checked;
         CheckBox chkUSer;
         foreach (GridViewRow row in grdUsers.Rows)
         {

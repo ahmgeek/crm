@@ -57,42 +57,22 @@
                                     </a>
                                 </div>
 
-
                                 <div class="btn-group">
-                                    <a class="btn btn-inverse" rel="tooltip" href="/SystemSettings/Stuff.aspx" data-original-title="Settings"
-                                        data-placement="bottom">
-                                        <i class="icon-cogs"></i>
-                                    </a>
-
-                                    <a href="#helpModal" class="btn btn-inverse" rel="tooltip" data-placement="bottom"
-                                        data-original-title="Help" data-toggle="modal">
-                                        <i class="icon-question-sign"></i>
-                                    </a>
+                                    <asp:LinkButton id="btnSetting"
+                                        class="btn btn-inverse" rel="tooltip"
+                                        Text='<i class="icon-cogs"></i>' 
+                                        data-original-title="Settings"
+                                        data-placement="bottom"
+                                         runat="server"
+                                        OnClick="btnSetting_Click"
+                                         />
                                 </div>
                                 <div class="btn-group">
-                                    <a class="btn btn-inverse" data-placement="bottom" data-original-title="Logout" rel="tooltip"
-                                        href="login.html"><i class="icon-off"></i></a>
+                                    <asp:LinkButton  ID="btnLogOut" data-placement="bottom" data-original-title="Logout" rel="tooltip" class="btn btn-inverse"  Text='<i class="icon-off"></i>' runat="server" OnClick="btnLogOut_Click" />
+                                    
                                 </div>
                             </div>
                             <!-- /.topnav -->
-                            <div class="nav-collapse collapse">
-                                <!-- .nav 
-                                <ul class="nav">
-                                    <li><a href="/Default.aspx">Dashboard</a></li>
-                                 
-                                    <li class="dropdown">
-                                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                            Form Elements <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="form-general.html">General</a></li>
-                                            <li><a href="form-validation.html">Validation</a></li>
-                                            <li><a href="form-wysiwyg.html">WYSIWYG</a></li>
-                                            <li><a href="form-wizard.html">Wizard &amp; File Upload</a></li> 
-                                </ul>
-                                -->
-                                <!-- /.nav -->
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,15 +132,20 @@
                     <div class="media-body hidden-tablet">
                         <h5 class="media-heading">
                             <asp:Literal ID="litName" runat="server" />
-
                         </h5>
                         <ul class="unstyled user-info">
-                            <li><a href="#">Role</a></li>
-                            <li>Last Access :
+
+                            <li>Last Activity :
                                 <br />
-                                <small><i class="icon-calendar"></i>16 Mar 16:32</small>
+                                <small><i class="icon-calendar"></i>
+                                    <asp:Literal ID="litTime" runat="server" /></small>
                             </li>
+                            <li> Roles :
+                                  <small>
+                                <br />
+                            <asp:Literal ID="liteRole" runat="server"/></small></li>
                         </ul>
+                        
                     </div>
                 </div>
                 <!-- /.user-media -->

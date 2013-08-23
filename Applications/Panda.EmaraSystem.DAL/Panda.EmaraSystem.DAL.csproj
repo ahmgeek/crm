@@ -45,6 +45,9 @@
     <Compile Include="Helper\DataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativesDAL.cs" />
+    <Compile Include="SessionDAL.cs" />
+    <Compile Include="SessionQuestionDAL.cs" />
+    <Compile Include="StuffDAL.cs" />
     <Compile Include="WaitingListDAL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
       <Project>{2ab14e58-a47d-46ba-bf40-a9ba6cc60cef}</Project>
       <Name>Panda.EmaraSystem.BO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassesDiagram\DALClassesDigram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

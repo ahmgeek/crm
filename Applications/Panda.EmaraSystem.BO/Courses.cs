@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Panda.EmaraSystem.BO
 {
-  public  class CoursesBO {
+  public  class Courses {
       public int CourseId { get; set; }
-      public string Coursename { get; set; }
-      public string CourseNote { get; set; }
+      public string CourseName { get; set; }
+      public string Notes { get; set; }
 
 
     }

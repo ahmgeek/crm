@@ -10,7 +10,7 @@
        <div class="tac">
         <a class="quick-btn"  href="/Clients/NewClient.aspx">
             <i class="icon-user icon-2x"></i>
-            <span>New User</span>
+            <span>New Client</span>
             <span class="label label-important">New Client</span>
         </a>
     </div>
@@ -38,7 +38,11 @@
                 GridLines="None"
                 CellSpacing="-1"
                 AutoGenerateColumns="False"
-                ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="Empty !" OnRowDataBound="grdUsers_RowDataBound" OnPageIndexChanging="grdUsers_PageIndexChanging">
+                ShowFooter="True" ShowHeaderWhenEmpty="True" 
+                EmptyDataText="Empty !" 
+                OnRowDataBound="grdUsers_RowDataBound" 
+                OnPageIndexChanging="grdUsers_PageIndexChanging"
+                >
                 <Columns>
                     <asp:TemplateField>
                         <HeaderTemplate>
@@ -55,7 +59,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:BoundField DataField="Name" HeaderText="Client Name" />
+                    <asp:BoundField DataField="FullName" HeaderText="Client Name" />
                     <asp:BoundField DataField="AccountNumber" HeaderText="Account Number" />
                     <asp:BoundField DataField="city" HeaderText="City" />
                     <asp:BoundField DataField="Telephone" HeaderText="Phone" />
@@ -74,7 +78,7 @@
                             
                              <asp:LinkButton ID="LinkButton2"
                                 href='<%#"/Clients/"%>'
-                                 runat="server" CssClass="btn btn-small btn-metis-4" Text="Session" />
+                                 runat="server" CssClass="btn btn-small btn-metis-1" Text="DeActivate" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

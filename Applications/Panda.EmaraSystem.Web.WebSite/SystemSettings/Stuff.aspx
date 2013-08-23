@@ -22,9 +22,10 @@
 
                 <div class="controls with-tooltip">
 
-                    <asp:TextBox ID="txtFName" runat="server" class="span5 input-tooltip"
+                    <asp:TextBox ID="txtFName" runat="server" class="span3 input-tooltip"
                         data-original-title="First Name"
                         data-placement="right"></asp:TextBox>
+                    <asp:RequiredFieldValidator ErrorMessage="*" ForeColor="Red" ControlToValidate="txtFName" runat="server" />
                 </div>
             </div>
                         <div class="control-group">
@@ -32,36 +33,65 @@
 
                 <div class="controls with-tooltip">
 
-                    <asp:TextBox ID="txtSurrName" runat="server" class="span5 input-tooltip"
-                        data-original-title="Email"
+                    <asp:TextBox ID="txtSurrName" runat="server" class="span3 input-tooltip"
+                        data-original-title="Surr name"
                         data-placement="right"></asp:TextBox>
+                    <asp:RequiredFieldValidator ErrorMessage="*" ForeColor="Red" ControlToValidate="txtSurrName" runat="server" />
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label"> Gender  </label>
+                <label class="control-label"> Date Of Birth  </label>
                 <div class="controls ">
-                    <asp:RadioButtonList ID="rdGender" CssClass="uniform" RepeatDirection="Horizontal" CellPadding="10" runat="server">
-                        <asp:ListItem>Male</asp:ListItem>
-                        <asp:ListItem>Female</asp:ListItem>
-                    </asp:RadioButtonList>
+
+                          <div class="input-append date" 
+                              id="dpYears" 
+                              data-date=""
+                               data-date-format="dd/mm/yyyy"
+                               data-date-viewmode="years">
+                              <asp:TextBox data-original-title="Please enter Mobile Number"
+                                   data-placement="right" ID="txtDateOf" runat="server" type="text"
+                                   class="span11" data-date-format="dd/mm/yyyy"></asp:TextBox>
+                              <span class="add-on"><i class="icon-calendar"></i></span>
+                          </div>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ErrorMessage="*" 
+                                  ForeColor="Red"
+                                  ControlToValidate="txtDateOf" runat="server" />
+                          <asp:CompareValidator
+                        id="dateValidator" runat="server" 
+                        Type="Date"
+                        Operator="DataTypeCheck"
+                        ControlToValidate="txtDateOf" ForeColor="Red"
+                        ErrorMessage="Please enter a valid date.">
+                    </asp:CompareValidator>
+
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Moblie</label>
 
                 <div class="controls">
-                    <asp:TextBox ID="txtMob" runat="server" class="span5 input-tooltip"
-                    TextMode="Password"    data-original-title="Please Re enter your password" data-placement="right">
-
+                    <asp:TextBox ID="txtMob" runat="server" class="span3 input-tooltip"
+                        data-original-title="MobileNumber"
+                        data-placement="right">
                     </asp:TextBox>
+                    <asp:RequiredFieldValidator ErrorMessage="*"
+                        ForeColor="Red" ControlToValidate="txtMob" runat="server" />
+                    <asp:RegularExpressionValidator 
+                        ErrorMessage="Please Proveide A Valid Number" 
+                        ForeColor="Red"
+                        ControlToValidate="txtMob" runat="server" 
+                        ValidationExpression="\d+" />
+
                 </div>
             </div>
 
         </div>
 
         <div class="form-actions">
-        <asp:Button ID="btnSave" type="submit"  class="btn btn-primary" runat="server" Text="Save" />
+         <asp:Button ID="btnInsert" Visible="false" type="submit"  class="btn btn-primary" runat="server" Text="Insert" OnClick="btnInsert_Click" />
+
+            <asp:Button ID="btnSave" Visible="false" type="submit"  class="btn btn-primary" runat="server" Text="Save" OnClick="btnSave_Click" />
         </div>
 
     </div>

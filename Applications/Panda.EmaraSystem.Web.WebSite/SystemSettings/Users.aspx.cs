@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 using Panda.EmaraSystem.BLL;
+using Notification.Helper;
 
 public partial class SystemSetting_Users : System.Web.UI.Page {
 

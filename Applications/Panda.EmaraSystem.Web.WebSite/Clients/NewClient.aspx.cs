@@ -9,101 +9,186 @@ using System.Web.UI.WebControls;
 using System.Data.SqlTypes;
 using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
-
+using Countreis.CountryList;
+using System.Web.Services;
+using System.Data.SqlClient;
+using System.Transactions;
 
 public partial class Clients_NewClient : System.Web.UI.Page {
 
-
-    ClientBO clntBO = new ClientBO();
-    ClientBLL clntBLL = new ClientBLL();
-    UsersBLL usrBLL = new UsersBLL();
-    SqlDateTime NullDate;
-
-
-
+    UsersBLL user = new UsersBLL();
+    Client client = new Client();
+    int clientID = 0;
+    string userName;
     protected void Page_Load(object sender, EventArgs e)
     {
+        userName = user.GetUser().UserName;
+
+        //pnlClient.Visible = true;
         if (!IsPostBack)
         {
-
             txtAccNum.Text = GetUniqueId.GetRandomString();
             CountryBind();
-           
+            pnlClient.Visible = true;
+            pnlFinal.Visible = false;
+            
+
         }
     
     }
-    protected void btnSave_Click(object sender, EventArgs e)
-    {
-        clntBO.AccountNumer = txtAccNum.Text;
-        clntBO.FirstName = txtFName.Text.Trim();
-        clntBO.MiddleName = txtMiddleName.Text.Trim();
-        clntBO.SurrName = txtSurrName.Text;
-        clntBO.City = txtCity.Text;
-        clntBO.Country = drpCountry.SelectedItem.Text;
-        clntBO.Address = txtAdress.Text;
-        clntBO.Telephone = txtTelephone.Text;
-        clntBO.Mobile = txtMob.Text;
-        clntBO.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
-        clntBO.Gender = drpGender.SelectedItem.Text;
-        clntBO.PrfrdTimeForCall = drpTime.SelectedItem.Text;
-        clntBO.CreationDate = DateTime.Now;
-        clntBO.CreatedBy = usrBLL.GetUser("Admin").UserName;
-        clntBO.LstModifiedDate = (DateTime)(NullDate);
-        clntBO.LstModifiedBy = string.Empty;
-        clntBO.Notes = txtNotes.Text;
 
-        //asign the entities to the bll
-       
-            clntBLL.ClientInsert(clntBO);
-            Response.Redirect("/Clients/RelClients.aspx?Acc=" + clntBO.CLientId);
-        
-        //    ClientScript.RegisterStartupScript(this.GetType(), "Enfo", HelperNotify.HelperMessage("Error", "", HelperNotify.NotificationType.info));
-        
+    protected void btnNext_Click(object sender, EventArgs e)
+    {
+        client.AccountNumber = txtAccNum.Text;
+        client.FirstName = txtFName.Text;
+        client.MiddleName = txtMiddleName.Text;
+        client.SurrName = txtSurrName.Text;
+
+        pnlRelTxtAccNum.Text = client.AccountNumber;
+        pnlRelTxtClientName.Text = client.FullName;
+
+        pnlClient.Visible = false;
+        pnlRelation.Visible = true;
+        pnlFinal.Visible = true;
     }
-
-    void CountryBind()
+    private void CountryBind()
     {
-        List<string> myList = new List<string>();
-        myList.Insert(0, "");
-        myList.Add("ألبانيا");
-        myList.Add("الجزائر");
-        myList.Add("أنغولا");
-        myList.Add("أنجويلا");
-        myList.Add("أذربيجان");
-        myList.Add("البحرين");
-        myList.Add("بنغلاديش");
-        myList.Add("البوسنة والهرسك");
-        myList.Add("بوركينا فاسو");
-        myList.Add("مصر");
-        myList.Add("إيران");
-        myList.Add("العراق");
-        myList.Add("المنطقة المحايدة بين العراق والسعودية");
-        myList.Add("الكويت");
-        myList.Add("ليبيا");
-        myList.Add("لبنان");
-        myList.Add("ليتوانيا");
-        myList.Add("مقدونيا");
-        myList.Add("مدغشقر");
-        myList.Add("ماليزيا");
-        myList.Add("مالطا");
-        myList.Add("موريتانيا");
-        myList.Add("المغرب");
-        myList.Add("عمان");
-        myList.Add("فلسطين");
-        myList.Add("قطر");
-        myList.Add("المملكة العربية السعودية");
-        myList.Add("جزر سليمان");
-        myList.Add("الصومال");
-        myList.Add("السودان");
-        myList.Add("سوريا");
-        myList.Add("تونس");
-        myList.Add("تركيا");
-        myList.Add("الإمارات العربية المتحدة");
-        myList.Add("اليمن");
-        myList.Add("الجزائر");
-        myList.Add("الأردن");
-
-        drpCountry.DataSource = myList;
+        
+        drpCountry.DataSource = Countries.BindCountries() ;
         drpCountry.DataBind();
     }
+
+
+
+
+
+    //Relation Scree Methods
+    public bool HasArelation()
+    {
+        if (rdlst.SelectedIndex == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    protected void rdlst_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        btnWaitList.Enabled = true;
+        if (HasArelation())
+        {
+            pnlClient.Visible = false;
+            pnlRel.Visible = true;
+            BindClients();
+        }
+        else
+        {
+            pnlClient.Visible = false;
+            pnlRel.Visible = false;
+
+        }
+    }
+
+
+
+    void BindClients()
+    {
+        drpClients.DataSource = ClientBLL.GetList();
+        drpClients.DataTextField = "FullName";
+        drpClients.DataValueField = "ClientId";
+        drpClients.DataBind();
+
+    }
+
+    protected void btnPrevious_Click(object sender, EventArgs e)
+    {
+        pnlClient.Visible = true;
+        pnlRelation.Visible = false;
+        pnlFinal.Visible = false;
+    }
+    protected void btnWaitList_Click(object sender, EventArgs e)
+    {
+        try
+        {
+
+
+                #region CLient Data
+                //Load the data into the object
+
+                //Re Initialize
+                client.AccountNumber = string.Empty;
+                client.AccountNumber = txtAccNum.Text;
+
+
+                client.FirstName = string.Empty;
+                client.FirstName = txtFName.Text;
+
+
+                client.MiddleName = string.Empty;
+                client.MiddleName = txtMiddleName.Text;
+
+
+                client.SurrName = string.Empty;
+                client.SurrName = txtSurrName.Text;
+
+
+                client.City = txtCity.Text;
+                client.Country = drpCountry.SelectedItem.Text;
+                client.Address = txtAdress.Text;
+                client.Telephone = txtTelephone.Text;
+                client.Mob = txtMob.Text;
+                client.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
+                client.Gender = drpGender.SelectedItem.Text;
+                client.PrfrdTimeForCall = drpTime.SelectedItem.Text;
+                client.Notes = txtNotes.Text;
+                client.CreationDate = DateTime.Now;
+                client.CreatedBy = userName;
+                client.IsActive = IsActive.Active;
+                clientID = ClientBLL.Insert(client);
+
+                #endregion
+                #region Relation Data
+
+                if (HasArelation())
+                {
+
+
+                    Relatives relative = new Relatives();
+                    relative.ClientId = clientID;
+                    relative.CLientRelId = Convert.ToInt32(drpClients.SelectedItem.Value);
+                    relative.RelationName = txtRelName.Text;
+                    RelativesBLL.Insert(relative);
+                }
+
+                #endregion
+
+                #region WaitList Data
+                WaitingList waitList = new WaitingList();
+                waitList.ClientId = clientID;
+                waitList.DateTime = DateTime.Now;
+                waitList.IsReserved = IsServed.UnServed;
+                waitList.Notes = string.Empty;
+                waitList.CreatedBy = userName;
+                WaitingListBLL.Insert(waitList);
+                #endregion
+
+                //session fore firing the jquery notify
+                string message = "CLient has been sent to the WaitingList";
+                Response.Redirect("/Clients/Clients.aspx?message="+message);
+
+        }
+        catch (Exception ex)
+        {
+            Session["Result"] = ex.Message;
+            Response.Redirect("/Clients/Clients.aspx");
+        }
+    }
+    protected void btnAppointMent_Click(object sender, EventArgs e)
+    {
+        //TODO
+    }
+
+
 }

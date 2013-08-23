@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Panda.EmaraSystem.BO
 {
-    public  enum  IsServed
+    public class User
     {
-        Served = 1,
-        UnServed = 0 
+        public  string Name { get; set; }
+        public  string Email { get; set; }
     }
 }

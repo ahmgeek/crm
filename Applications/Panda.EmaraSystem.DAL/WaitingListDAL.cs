@@ -4,72 +4,127 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using Panda.EmaraSystem.BO;
-
+using System.Data.SqlClient;
 
 namespace Panda.EmaraSystem.DAL 
 {
-   public class WaitingListDAL {
+   public class WaitingListDAL
+   {
 
-       public DataSet WaitListGetAll()
+       public static WaitingList GetItem(int id)
        {
-           return DataManager.GetDataSet("ESystem_WaitingListGetAll", "x");
+           WaitingList waitingList = null;
+           SqlConnection con;
+           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_WaitingListGetById", out con,
+               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       waitingList = FillDataRecord(dr);
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+
+               }
+
+               con.Close();
+           }
+           return waitingList;
        }
 
-       public int WaitListInsert(WaitinListBO waitBO)
+       public static List<WaitingList> GetList()
+       {
+           List<WaitingList> list = new List<WaitingList>();
+           SqlConnection con;
+           using (SqlDataReader dr =
+               DataManager.GetDataReader("ESystem_WaitingListGetAll", out con))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       list.Add(FillDataRecord(dr));
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+               }
+
+               con.Close();
+           }
+           return list;
+       }
+
+       public static int Insert(WaitingList waitingList)
        {
            object o = DataManager.ExecuteScalar("ESystem_WaitingListInsert",
-               DataManager.CreateParameter("@clintid", System.Data.SqlDbType.Int, waitBO.ClientId),
-               DataManager.CreateParameter("@datetime", System.Data.SqlDbType.DateTime, waitBO.DateTime),
-               DataManager.CreateParameter("@clientnumber", System.Data.SqlDbType.Int, waitBO.ClientNumber),
-               DataManager.CreateParameter("@isreserved", System.Data.SqlDbType.Bit, waitBO.IsReserved),
-               DataManager.CreateParameter("@notes", System.Data.SqlDbType.NVarChar, waitBO.Notes),
-               DataManager.CreateParameter("@createdby", System.Data.SqlDbType.NVarChar, waitBO.CreatedBy));
-
-           waitBO.WaitListId = (int)o;
-           return waitBO.WaitListId;
+            DataManager.CreateParameter("@clintid", SqlDbType.Int, waitingList.ClientId),
+            DataManager.CreateParameter("@datetime", SqlDbType.DateTime, waitingList.DateTime),
+            DataManager.CreateParameter("@isreserved", SqlDbType.Int, waitingList.IsReserved),
+            DataManager.CreateParameter("@notes", SqlDbType.NVarChar, waitingList.Notes),
+            DataManager.CreateParameter("@createdby", SqlDbType.NVarChar, waitingList.CreatedBy));
+           return Convert.ToInt32(o);
        }
 
-       public int WaitListUpdate(WaitinListBO waitBO)
+       public static int Update(WaitingList waitingList)
        {
-         object o=  DataManager.ExecuteScalar("ESystem_WaitingListUpdate",
-               DataManager.CreateParameter("@waitlistid", System.Data.SqlDbType.Int,waitBO.WaitListId),
-               DataManager.CreateParameter("@clintid", System.Data.SqlDbType.Int,waitBO.ClientId),
-               DataManager.CreateParameter("@datetime", System.Data.SqlDbType.DateTime,waitBO.DateTime),
-               DataManager.CreateParameter("@clientnumber", System.Data.SqlDbType.Int,waitBO.ClientNumber),
-               DataManager.CreateParameter("@isreserved", System.Data.SqlDbType.Bit,waitBO.IsReserved),
-               DataManager.CreateParameter("@notes", System.Data.SqlDbType.NVarChar,waitBO.Notes),
-               DataManager.CreateParameter("@createdby", System.Data.SqlDbType.NVarChar,waitBO.CreatedBy));
-
-         waitBO.WaitListId = (int)o;
-
-
-         return waitBO.WaitListId;
-               
+           object o = DataManager.ExecuteScalar("ESystem_WaitingListUpdate",
+            DataManager.CreateParameter("@waitlistid", SqlDbType.Int, waitingList.WaitListId),
+            DataManager.CreateParameter("@ClientId", SqlDbType.Int, waitingList.ClientId),
+            DataManager.CreateParameter("@datetime", SqlDbType.DateTime, waitingList.DateTime),
+            DataManager.CreateParameter("@isreserved", SqlDbType.Int, waitingList.IsReserved),
+            DataManager.CreateParameter("@notes", SqlDbType.NVarChar, waitingList.Notes),
+            DataManager.CreateParameter("@createdby", SqlDbType.NVarChar, waitingList.CreatedBy));
+           return Convert.ToInt32(o);
        }
 
-       public void WaitListDelete(WaitinListBO waitBO)
+       public static bool Delete(int id)
        {
-           DataManager.ExecuteNonQuery("ESystem_WaitingListDelete",
-               DataManager.CreateParameter("@waitlistid", System.Data.SqlDbType.Int, waitBO.WaitListId));
+           int result = 0;
+           result = DataManager.ExecuteNonQuery("ESystem_WaitingListDelete",
+                  DataManager.CreateParameter("@waitlistid", SqlDbType.Int, id));
+
+           return result > 0;
        }
 
-       public static WaitinListBO GetWaitList()
+
+       private static WaitingList FillDataRecord(IDataRecord myDataRecord)
        {
-           WaitinListBO waitBO = new WaitinListBO();
-           ClientDAL clientDAL = new ClientDAL();
+           WaitingList waitingList = new WaitingList();
 
-           DataSet ds= DataManager.GetDataSet("ESystem_WaitingListGetAll", "x");
+           waitingList.WaitListId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("WaitListId"));
+           waitingList.ClientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
+           waitingList.DateTime = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("DateTime"));
 
-           waitBO.WaitListId = (int)ds.Tables["x"].Rows[0]["WaitListId"];
-           waitBO.ClientId = (int)ds.Tables["x"].Rows[0]["ClientId"];
-           waitBO.DateTime = (DateTime)ds.Tables["x"].Rows[0]["DateTime"];
-           waitBO.ClientNumber = (int)ds.Tables["x"].Rows[0]["ClientNumber"];
-           waitBO.ClientName = clientDAL.GetClientById(waitBO.ClientId).FullName;
-           waitBO.IsReserved =(bool) ds.Tables["x"].Rows[0]["IsReserved"];
-           waitBO.Notes = ds.Tables["x"].Rows[0]["Notes"].ToString();
-           waitBO.CreatedBy = ds.Tables["x"].Rows[0]["CreatedBy"].ToString();
 
-           return waitBO;
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("IsReserved")))
+           {
+               waitingList.IsReserved = (IsServed)myDataRecord.GetInt32(myDataRecord.GetOrdinal("IsReserved"));
+           }
+
+
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Notes")))
+           {
+               waitingList.Notes = myDataRecord.GetString(myDataRecord.GetOrdinal("Notes"));
+
+           }
+
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("CreatedBy")))
+           {
+               waitingList.CreatedBy = myDataRecord.GetString(myDataRecord.GetOrdinal("CreatedBy"));
+
+           }
+
+           if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("FullName")))
+           {
+               waitingList.FullName = myDataRecord.GetString(myDataRecord.GetOrdinal("FullName"));
+           }
+           return waitingList;
        }
 
     }

@@ -7,8 +7,7 @@ namespace Panda.EmaraSystem.BO
 {
     public enum IsActive
     {
-        Active = 1 ,
-        InActive = 0,
-        NotDefined ,
+       Active = 1 , InActive = 0, NotDefined = -1
+    
     }
 }

@@ -12,35 +12,52 @@ namespace Panda.EmaraSystem.BLL
     public class ClientBLL
     {
 
-        ClientDAL cld = new ClientDAL();
 
-        public void ClientInsert(ClientBO c)
+
+        public static Client GetItem(int id)
         {
+            return GetItem(id,false);
+        }
 
-            cld.ClientInsert(c);
+        
+        //return client and his relatives
+        public static Client GetItem(int id, bool getRelative)
+        {
+            Client myClient = ClientDAL.GetItem(id);
+            if (myClient !=null&&getRelative)
+            {
+                myClient.Relatives = RelativesDAL.GetList();
+            }
+            return myClient;
         }
 
 
-        public DataSet GetAllClients()
+
+        public static List<Client> GetList()
         {
-           return cld.GetAllClients();
+            return ClientDAL.GetList();
+        }
+       
+
+        public static int Insert(Client client)
+        {
+          client.CLientId=  ClientDAL.Insert(client);  
+            return client.CLientId;
         }
 
-        public ClientBO GetAllClientsExcept(int id)
+
+
+        public static int Update(Client client)
         {
-            ClientBO clntBO = new ClientBO();
+            client.CLientId = ClientDAL.Update(client);
+            return client.CLientId;
 
-
-            return clntBO;
         }
 
-
-        public ClientBO GetClientById(int id)
+        public static bool Delete(Client client)
         {
-            ClientBO clntBO = new ClientBO();
-
-
-            return clntBO;
+            return ClientDAL.Delete(client.CLientId);
         }
+
     }
 }
