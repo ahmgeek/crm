@@ -14,23 +14,16 @@ namespace Panda.EmaraSystem.BLL
 
 
 
+
         public static Client GetItem(int id)
         {
-            return GetItem(id,false);
+            return ClientDAL.GetItem(id);
         }
 
-        
-        //return client and his relatives
-        public static Client GetItem(int id, bool getRelative)
+        public static Client GetItemMenimal(int id)
         {
-            Client myClient = ClientDAL.GetItem(id);
-            if (myClient !=null&&getRelative)
-            {
-                myClient.Relatives = RelativesDAL.GetList();
-            }
-            return myClient;
+            return ClientDAL.GetItemMenimal(id);
         }
-
 
 
         public static List<Client> GetList()

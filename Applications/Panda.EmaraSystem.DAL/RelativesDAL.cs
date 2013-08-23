@@ -135,30 +135,7 @@ namespace Panda.EmaraSystem.DAL
            return relative;
        }
 
-       //public static List<Relatives> GetListExeptThis()
-       //{
-       //    List<Relatives> list = new List<Relatives>();
-       //    SqlConnection con;
-       //    using (SqlDataReader dr =
-       //        DataManager.GetDataReader("ESystem_RelativeGetAll", out con))
-       //    {
-       //        if (dr.HasRows)
-       //        {
-       //            while (dr.Read())
-       //            {
-       //                list.Add(FillDataRecord(dr));
-       //            }
-       //        }
-       //        else
-       //        {
-       //            throw new Exception("No Data");
-       //        }
-
-       //        con.Close();
-       //    }
-       //    return list;
-
-       //}
+       
 
     }
 }

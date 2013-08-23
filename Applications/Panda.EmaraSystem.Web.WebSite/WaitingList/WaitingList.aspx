@@ -25,7 +25,11 @@
                 GridLines="None"
                 CellSpacing="-1"
                 AutoGenerateColumns="False"
-                ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="Empty !" OnRowDataBound="grdUsers_RowDataBound" OnPageIndexChanging="grdUsers_PageIndexChanging" OnLoad="grdWaitList_Load">
+                ShowFooter="True" ShowHeaderWhenEmpty="True"
+                 EmptyDataText="Empty !"
+                 OnRowDataBound="grdUsers_RowDataBound"
+                 OnPageIndexChanging="grdUsers_PageIndexChanging"
+                 OnPreRender="grdWaitList_PreRender">
                 <Columns>
                     <asp:TemplateField>
                         <HeaderTemplate>

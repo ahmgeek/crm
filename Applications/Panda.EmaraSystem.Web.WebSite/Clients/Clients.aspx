@@ -42,6 +42,7 @@
                 EmptyDataText="Empty !" 
                 OnRowDataBound="grdUsers_RowDataBound" 
                 OnPageIndexChanging="grdUsers_PageIndexChanging"
+                OnPreRender="grdUsers_PreRender"
                 >
                 <Columns>
                     <asp:TemplateField>
@@ -59,13 +60,33 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:BoundField DataField="FullName" HeaderText="Client Name" />
-                    <asp:BoundField DataField="AccountNumber" HeaderText="Account Number" />
-                    <asp:BoundField DataField="city" HeaderText="City" />
-                    <asp:BoundField DataField="Telephone" HeaderText="Phone" />
-                    <asp:BoundField DataField="Mob" HeaderText="Client Moblie" />
-                    <asp:BoundField DataField="DateOfBirth" HeaderText="Date Of Birth" DataFormatString="{0:dd/MM/yyyy}" />
 
+                      <asp:TemplateField HeaderText="Name">
+                        <ItemTemplate>
+                            <asp:Label ID="lblFullName" Font-Bold="true" Font-Size="Medium" runat="server"  Text='<%#Eval("FullName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                      <asp:TemplateField HeaderText="Account Number">
+                        <ItemTemplate>
+                            <asp:Label ID="lblAccountNumber" runat="server"  Text='<%#Eval("AccountNumber") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="City">
+                        <ItemTemplate>
+                            <asp:Label ID="lblcity" runat="server"  Text='<%#Eval("city") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Phone">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTelephone" runat="server"  Text='<%#Eval("Telephone") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Client Moblie">
+                        <ItemTemplate>
+                            <asp:Label ID="lblMob" runat="server"  Text='<%#Eval("Mob") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                    
 
                     <asp:TemplateField HeaderText="Action">

@@ -272,7 +272,7 @@
                                     <div class="controls with-tooltip">
                                         <asp:TextBox ID="txtRelName" runat="server" CssClass="span6">
                                         </asp:TextBox>
-
+                                        <asp:RequiredFieldValidator ErrorMessage="*" ForeColor="Red" ControlToValidate="txtRelName" runat="server" />
                                     </div>
                                 </div>
                              

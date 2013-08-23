@@ -38,9 +38,9 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
 
     void BindGrid()
     {
-            List<WaitingList> ds = WaitingListBLL.GetList();
-            grdWaitList.DataSource = ds;
-            grdWaitList.DataBind();
+        List<WaitingList> ds = WaitingListBLL.GetList();
+        grdWaitList.DataSource = ds;
+        grdWaitList.DataBind();
 
     }
     protected void grdUsers_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -64,6 +64,11 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
             // Set rank label to our new rank value
             lblRank.Text = rankUser.ToString();
         }
+
+
+
+
+
     }
     protected void grdUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -89,7 +94,7 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
         foreach (GridViewRow row in grdWaitList.Rows)
         {
             chk = (CheckBox)row.Cells[0].FindControl("chk");
-            chkAll = (CheckBox) grdWaitList.HeaderRow.Cells[0].FindControl("chkAll");
+            chkAll = (CheckBox)grdWaitList.HeaderRow.Cells[0].FindControl("chkAll");
             if (chk.Checked)
             {
                 chkAll.Checked = false;
@@ -98,10 +103,12 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
             }
         }
     }
-    protected void grdWaitList_Load(object sender, EventArgs e)
+    protected void grdWaitList_PreRender(object sender, EventArgs e)
     {
-        #region Status Colored
-        Label lblStatus = (Label)grdWaitList.Rows[0].FindControl("lblStatus");
+
+        foreach (GridViewRow item in grdWaitList.Rows)
+        {
+            Label lblStatus = (Label)item.FindControl("lblStatus");
 
         if (lblStatus.Text == "UnServed")
         {
@@ -111,10 +118,9 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
         {
             lblStatus.CssClass = "label label-success";
         }
-        #endregion
 
-        #region Rank Colored
-        Label lblRank = (Label)grdWaitList.Rows[0].FindControl("lblRank");
+
+        Label lblRank = (Label)item.FindControl("lblRank");
 
         for (int i = 0; i < rankUser; i++)
         {
@@ -122,22 +128,18 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
 
         }
 
-        #endregion
 
-        #region Name Colored
-        Label lblFullName = (Label)grdWaitList.Rows[0].FindControl("lblFullName");
+        Label lblFullName = (Label)item.FindControl("lblFullName");
         lblFullName.CssClass = "label label-info";
-        #endregion
 
-        #region Time Colored
-        Label lblTime = (Label)grdWaitList.Rows[0].FindControl("lblTime");
+        Label lblTime = (Label)item.FindControl("lblTime");
         string date = lblTime.Text.Substring(0, 10);
         string time = lblTime.Text.Substring(10, 11);
 
 
 
-        Label lblDate = (Label)grdWaitList.Rows[0].FindControl("lblDate");
-        Label lblNewTime = (Label)grdWaitList.Rows[0].FindControl("lblNewTime");
+        Label lblDate = (Label)item.FindControl("lblDate");
+        Label lblNewTime = (Label)item.FindControl("lblNewTime");
 
         lblDate.Text = date;
         lblDate.CssClass = "label label-info";
@@ -145,12 +147,8 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
 
         lblNewTime.Text = time;
         lblNewTime.CssClass = "label";
-
-
-        
-       
-        #endregion
-
-        //Stoped Here
+        }
     }
 }
+
+

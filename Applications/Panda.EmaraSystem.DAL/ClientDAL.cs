@@ -39,7 +39,6 @@ namespace Panda.EmaraSystem.DAL
             }
             return clnt;
         }
-
         public static List<Client> GetList()
         {
             List<Client> list = new List<Client>();
@@ -82,16 +81,17 @@ namespace Panda.EmaraSystem.DAL
              DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
              DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
              DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
-             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes));
+             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes),
+             DataManager.CreateParameter("@hasArelation", SqlDbType.Int, client.HasArelation)
+             );
             
             return Convert.ToInt32(o);
         }
 
         public static int Update(Client client)
         {
-            int result = 0;
 
-            result = (int)DataManager.ExecuteScalar("ESystem_ClientUpdate",
+            object o = DataManager.ExecuteScalar("ESystem_ClientUpdate",
              DataManager.CreateParameter("@clientId", SqlDbType.Int,client.CLientId),
              DataManager.CreateParameter("@accountNumber", SqlDbType.NVarChar, client.AccountNumber),
              DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, client.FirstName),
@@ -102,16 +102,18 @@ namespace Panda.EmaraSystem.DAL
              DataManager.CreateParameter("@address", SqlDbType.NVarChar, client.Address),
              DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, client.Telephone),
              DataManager.CreateParameter("@mob", SqlDbType.NVarChar, client.Mob),
-             DataManager.CreateParameter("@dateofbirth", SqlDbType.Date, client.DateOfBirth),
+             DataManager.CreateParameter("@dateofbirth", SqlDbType.DateTime, client.DateOfBirth),
              DataManager.CreateParameter("@gender", SqlDbType.NVarChar, client.Gender),
              DataManager.CreateParameter("@preferedTimeForCall", SqlDbType.NVarChar, client.PrfrdTimeForCall),
-             DataManager.CreateParameter("@creationDate", SqlDbType.DateTime, client.CreationDate),
+             DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
              DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
-             DataManager.CreateParameter("@IsActive", SqlDbType.NVarChar, client.IsActive),
-             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes));
+             DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
+             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes),
+             DataManager.CreateParameter("@hasArelation", SqlDbType.Int, client.HasArelation)
+             );
 
 
-            return result;
+            return Convert.ToInt32(o);
         }
 
         public static bool Delete(int id)
@@ -198,9 +200,77 @@ namespace Panda.EmaraSystem.DAL
             {
                 client.Notes = myDataRecord.GetString(myDataRecord.GetOrdinal("notes"));
             }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("HasArelation")))
+            {
+                client.HasArelation = myDataRecord.GetInt32(myDataRecord.GetOrdinal("HasArelation"));
+            }
+
             return client;
         }
 
-        
+
+
+        public static Client GetItemMenimal(int id)
+        {
+            Client clnt = null;
+            SqlConnection con;
+            using (SqlDataReader dr = DataManager.GetDataReader("ESystem_CLientMinemalGetById", out con,
+                DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+            {
+
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        clnt = FillDataRecorMenimal(dr);
+                    }
+                }
+
+
+                else
+                {
+                    throw new Exception("No Data");
+                }
+                con.Close();
+            }
+            return clnt;
+        }
+        private static Client FillDataRecorMenimal(IDataRecord myDataRecord)
+        {
+            Client client = new Client();
+
+            client.CLientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("CLientId"));
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("AccountNumber")))
+            {
+                client.AccountNumber = myDataRecord.GetString(myDataRecord.GetOrdinal("AccountNumber"));
+            }
+
+            client.FirstName = myDataRecord.GetString(myDataRecord.GetOrdinal("FirstName"));
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("MiddleName")))
+            {
+                client.MiddleName = myDataRecord.GetString(myDataRecord.GetOrdinal("MiddleName"));
+            }
+
+            client.SurrName = myDataRecord.GetString(myDataRecord.GetOrdinal("SurrName"));
+
+         
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Gender")))
+            {
+                client.Gender = myDataRecord.GetString(myDataRecord.GetOrdinal("Gender"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("HasArelation")))
+            {
+                client.HasArelation = myDataRecord.GetInt32(myDataRecord.GetOrdinal("HasArelation"));
+            }
+
+            return client;
+        }
+
+
+
     }
 }

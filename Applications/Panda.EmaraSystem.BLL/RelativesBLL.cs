@@ -16,10 +16,23 @@ namespace Panda.EmaraSystem.BLL
             return RelativesDAL.GetItem(id);
         }
 
+
+        public static Relatives GetByClient(int id)
+        {
+            int clientId = id;
+            Relatives rel = RelativesDAL.GetByClientId(clientId);
+            int relClientID = rel.CLientRelId;
+            Client relClient = ClientBLL.GetItemMenimal(relClientID);
+            rel.ClientRelName = relClient.FullName;
+            return rel;
+        }
+
+
         public static List<Relatives> GetList()
         {
             return RelativesDAL.GetList();
         }
+
 
         public static int Insert(Relatives relative)
         {

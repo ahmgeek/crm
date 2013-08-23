@@ -108,4 +108,40 @@ public partial class Clients_Clients : System.Web.UI.Page
             chkUSer.Checked = chkallUser.Checked;
         }
     }
+
+
+    protected void grdUsers_PreRender(object sender, EventArgs e)
+    {
+
+        foreach (GridViewRow item in grdUsers.Rows)
+        {
+
+            Label lblRank = (Label)item.FindControl("lblRank");
+
+            for (int i = 0; i < rankUser; i++)
+            {
+                lblRank.CssClass = "badge";
+
+            }
+
+      
+            Label lblFullName = (Label)item.FindControl("lblFullName");
+            lblFullName.CssClass = "label label-info";
+
+            Label lblAccountNumber = (Label)item.FindControl("lblAccountNumber");
+            lblAccountNumber.CssClass = "label label-important";
+
+            Label lblcity = (Label)item.FindControl("lblcity");
+            lblcity.CssClass = "label label-inverse";
+
+            Label lblTelephone = (Label)item.FindControl("lblTelephone");
+            lblTelephone.CssClass = "label label-success";
+
+            Label lblMob = (Label)item.FindControl("lblMob");
+            lblMob.CssClass = "label label-success";
+
+            
+
+        }
+    }
 }

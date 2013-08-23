@@ -10,9 +10,8 @@ using System.Data.SqlTypes;
 using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
 using Countreis.CountryList;
-using System.Web.Services;
 using System.Data.SqlClient;
-using System.Transactions;
+using System.Threading;
 
 public partial class Clients_NewClient : System.Web.UI.Page {
 
@@ -108,6 +107,8 @@ public partial class Clients_NewClient : System.Web.UI.Page {
         pnlRelation.Visible = false;
         pnlFinal.Visible = false;
     }
+
+    //Saving The Data TODO{ CommitTransAction() }
     protected void btnWaitList_Click(object sender, EventArgs e)
     {
         try
@@ -146,9 +147,12 @@ public partial class Clients_NewClient : System.Web.UI.Page {
                 client.CreationDate = DateTime.Now;
                 client.CreatedBy = userName;
                 client.IsActive = IsActive.Active;
+                client.HasArelation = Convert.ToInt16(HasArelation());
                 clientID = ClientBLL.Insert(client);
 
                 #endregion
+
+                Thread.Sleep(1000);
                 #region Relation Data
 
                 if (HasArelation())
@@ -163,7 +167,7 @@ public partial class Clients_NewClient : System.Web.UI.Page {
                 }
 
                 #endregion
-
+                Thread.Sleep(1000);
                 #region WaitList Data
                 WaitingList waitList = new WaitingList();
                 waitList.ClientId = clientID;
@@ -176,13 +180,13 @@ public partial class Clients_NewClient : System.Web.UI.Page {
 
                 //session fore firing the jquery notify
                 string message = "CLient has been sent to the WaitingList";
-                Response.Redirect("/Clients/Clients.aspx?message="+message);
+                Response.Redirect("/Clients/Clients.aspx?message="+message,false);
 
         }
         catch (Exception ex)
         {
-            Session["Result"] = ex.Message;
-            Response.Redirect("/Clients/Clients.aspx");
+            string message = ex.Message;
+            Response.Redirect("/Clients/Clients.aspx?message=" + message);
         }
     }
     protected void btnAppointMent_Click(object sender, EventArgs e)
