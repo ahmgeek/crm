@@ -91,7 +91,7 @@ public partial class Clients_Clients : System.Web.UI.Page
             if (chkUser.Checked)
             {
                 chkAllUser.Checked = false;
-                //btnDeleteUser.Enabled = true;
+                btnDeleteUser.Enabled = true;
                 return;
             }
         }
@@ -143,5 +143,9 @@ public partial class Clients_Clients : System.Web.UI.Page
             
 
         }
+    }
+    protected void btnDeleteUser_Click(object sender, EventArgs e)
+    {
+
     }
 }

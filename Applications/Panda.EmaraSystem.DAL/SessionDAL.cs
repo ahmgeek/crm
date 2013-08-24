@@ -112,8 +112,7 @@ namespace Panda.EmaraSystem.BO
 
         public static int Insert(Session Session)
         {
-            int result = 0;
-            result = (int)DataManager.ExecuteScalar("ESystem_RelativeInsert",
+             object o= DataManager.ExecuteScalar("ESystem_RelativeInsert",
              DataManager.CreateParameter("@ClientId", SqlDbType.Int, Session.ClientId),
              DataManager.CreateParameter("@stuffid", SqlDbType.UniqueIdentifier, Session.StuffId),
              DataManager.CreateParameter("@datetime", SqlDbType.DateTime, Session.DateTime),
@@ -121,14 +120,12 @@ namespace Panda.EmaraSystem.BO
              DataManager.CreateParameter("@notes", SqlDbType.NVarChar, Session.Notes),
              DataManager.CreateParameter("@isactive", SqlDbType.Bit, Session.IsActive));
 
-            return result;
+             return Convert.ToInt32(o);
         }
 
         public static int Update(Session Session)
         {
-            int result = 0;
-
-            result = (int)DataManager.ExecuteScalar("ESystem_RelativeUpdate",
+            object o = DataManager.ExecuteScalar("ESystem_RelativeUpdate",
              DataManager.CreateParameter("@sessionid", SqlDbType.Int,Session.SessionId),
              DataManager.CreateParameter("@ClientId", SqlDbType.Int, Session.ClientId),
              DataManager.CreateParameter("@stuffid", SqlDbType.UniqueIdentifier, Session.StuffId),
@@ -138,7 +135,7 @@ namespace Panda.EmaraSystem.BO
              DataManager.CreateParameter("@isactive", SqlDbType.Bit, Session.IsActive));
 
 
-            return result;
+            return Convert.ToInt32(o);
         }
 
         public static bool Delete(int id)

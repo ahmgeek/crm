@@ -88,27 +88,24 @@ namespace Panda.EmaraSystem.BO
 
         public static int Insert(SessionQuestion sessionQuestion)
         {
-            int result = 0;
-            result = (int)DataManager.ExecuteScalar("ESystem_SessionQuestionInsert",
+             Object o = DataManager.ExecuteScalar("ESystem_SessionQuestionInsert",
              DataManager.CreateParameter("@sessionid", SqlDbType.Int, sessionQuestion.SessionId),
              DataManager.CreateParameter("@question", SqlDbType.NVarChar, sessionQuestion.Question),
              DataManager.CreateParameter("@answer", SqlDbType.NVarChar, sessionQuestion.Answer));
 
-            return result;
+            return Convert.ToInt32(o);
         }
 
         public static int Update(SessionQuestion sessionQuestion)
         {
-            int result = 0;
 
-            result = (int)DataManager.ExecuteScalar("ESystem_RelativeUpdate",
+             Object o = DataManager.ExecuteScalar("ESystem_RelativeUpdate",
              DataManager.CreateParameter("@sessionquestionid", SqlDbType.Int, sessionQuestion.SessionQuestionId),
              DataManager.CreateParameter("@sessionid", SqlDbType.Int, sessionQuestion.SessionId),
              DataManager.CreateParameter("@question", SqlDbType.NVarChar, sessionQuestion.Question),
              DataManager.CreateParameter("@answer", SqlDbType.NVarChar, sessionQuestion.Answer));
 
-
-            return result;
+            return Convert.ToInt32(o);
         }
 
         public static bool Delete(int id)

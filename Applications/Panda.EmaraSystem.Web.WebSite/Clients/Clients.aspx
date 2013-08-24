@@ -109,6 +109,7 @@
                         <div class="form-actions">
                 <asp:Button ID="btnDeleteUser"
                      type="submit" class="btn btn-danger" OnClientClick="return confirm(' Delete ? ')"
+                    OnClick="btnDeleteUser_Click"
                      runat="server" Text="Delte" />
 
             </div>
