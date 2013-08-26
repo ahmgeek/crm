@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
-
+using Notification.Helper;
 
 public partial class Sessions_Sessions : System.Web.UI.Page
 {
@@ -15,7 +15,17 @@ public partial class Sessions_Sessions : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindGrid();
+        if (!IsPostBack)
+        {
+            BindGrid();
+            if (Session["Message"] != null)
+            {
+                string message = Session["Message"].ToString();
+                this.ShowHelperMessage("Info", message, HelperNotify.NotificationType.success);
+            }
+            Session.Remove("Message");
+        }
+        
     }
     protected void grdUsers_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -92,12 +102,24 @@ public partial class Sessions_Sessions : System.Web.UI.Page
     {
         currentPageUser = e.NewPageIndex;
         grdWaitList.PageIndex = e.NewPageIndex;
+        BindGrid();
     }
     void BindGrid()
     {
-        List<WaitingList> ds = WaitingListBLL.GetList();
-        grdWaitList.DataSource = ds;
-        grdWaitList.DataBind();
+        try
+        {
+            List<WaitingList> ds = WaitingListBLL.GetUnServedList();
+            grdWaitList.DataSource = ds;
+            grdWaitList.DataBind();
+
+        }
+        catch (Exception ex)
+        {
+
+            grdWaitList.EmptyDataText = ex.Message;
+            grdWaitList.DataBind();
+        }
+
 
     }
 

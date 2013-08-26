@@ -395,6 +395,26 @@ function formGeneral() {
     /*----------- BEGIN autosize CODE -------------------------*/
     $('#ContentPlaceHolder1_txtAdress').autosize();
     $('#ContentPlaceHolder1_txtNotes').autosize();
+    
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_0').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_1').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_2').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_3').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_4').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_5').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_6').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_7').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_8').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_9').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_10').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_11').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_12').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_13').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_14').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_15').autosize();
+    $('#ContentPlaceHolder1_questionRepeater_txtAns_16').autosize();
+    
+    $('#ContentPlaceHolder1_txtReport').autosize();
 
     /*----------- BEGIN inputlimiter CODE -------------------------*/
     $('#inputlimiter').inputlimiter({
@@ -418,7 +438,7 @@ function formGeneral() {
 
     /*----------- BEGIN spinner CODE -------------------------*/
 
-    $('#spin1').spinner();
+    $('#ContentPlaceHolder1_txtNumber').spinner();
     $("#spin2").spinner({
         step: 0.01,
         numberFormat: "n"
@@ -674,11 +694,11 @@ function metisTable() {
   
       /*----------- BEGIN TABLESORTER CODE -------------------------*/
     /* required jquery.tablesorter.min.js*/
-    $(".sortableTable").tablesorter();
+    $(".ContentPlaceHolder1_grdClients").tablesorter();
     /*----------- END TABLESORTER CODE -------------------------*/
 
     /*----------- BEGIN datatable CODE -------------------------*/
-    $('#dataTable').dataTable({
+    $('#ContentPlaceHolder1_dataTable').dataTable({
         "sDom": "<'pull-right'l>t<'row-fluid'<'span6'f><'span6'p>>",
         "sPaginationType": "bootstrap",
         "oLanguage": {

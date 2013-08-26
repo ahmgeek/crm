@@ -11,5 +11,6 @@ namespace Panda.EmaraSystem.BO
        public int SessionId { get; set; }
        public string Question { get; set; }
        public string Answer { get; set; }
+       public int ClientId { get; set; }
     }
 }

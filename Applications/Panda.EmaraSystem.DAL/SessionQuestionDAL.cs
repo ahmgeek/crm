@@ -61,13 +61,39 @@ namespace Panda.EmaraSystem.BO
             return session;
         }
 
-
+        //
         public static List<SessionQuestion> GetList()
         {
             List<SessionQuestion> list = new List<SessionQuestion>();
             SqlConnection con;
             using (SqlDataReader dr =
                 DataManager.GetDataReader("ESystem_SessionQuestionGetAll", out con))
+            {
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        list.Add(FillDataRecord(dr));
+                    }
+                }
+                else
+                {
+                    throw new Exception("No Data");
+                }
+
+                con.Close();
+            }
+            return list;
+        }
+
+
+        public static List<SessionQuestion> GetClientList(int clientId)
+        {
+            List<SessionQuestion> list = new List<SessionQuestion>();
+            SqlConnection con;
+            using (SqlDataReader dr =
+                DataManager.GetDataReader("ESystem_SessionQuestionByClient", out con,
+                DataManager.CreateParameter("@id", SqlDbType.Int,clientId)))
             {
                 if (dr.HasRows)
                 {
@@ -99,7 +125,7 @@ namespace Panda.EmaraSystem.BO
         public static int Update(SessionQuestion sessionQuestion)
         {
 
-             Object o = DataManager.ExecuteScalar("ESystem_RelativeUpdate",
+            Object o = DataManager.ExecuteScalar("ESystem_SessionQuestionUpdate",
              DataManager.CreateParameter("@sessionquestionid", SqlDbType.Int, sessionQuestion.SessionQuestionId),
              DataManager.CreateParameter("@sessionid", SqlDbType.Int, sessionQuestion.SessionId),
              DataManager.CreateParameter("@question", SqlDbType.NVarChar, sessionQuestion.Question),
@@ -122,6 +148,7 @@ namespace Panda.EmaraSystem.BO
             SessionQuestion sessionQuestion = new SessionQuestion();
 
             sessionQuestion.SessionQuestionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("SessionQuestionId"));
+
             sessionQuestion.SessionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("SessionId"));
 
             if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Question")))
@@ -130,10 +157,20 @@ namespace Panda.EmaraSystem.BO
 
             }
 
-            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Question")))
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Answer")))
             {
-                sessionQuestion.Question = myDataRecord.GetString(myDataRecord.GetOrdinal("Question"));
+                sessionQuestion.Answer = myDataRecord.GetString(myDataRecord.GetOrdinal("Answer"));
             }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("ClientId")))
+            {
+                sessionQuestion.ClientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("SessionId")))
+            {
+                sessionQuestion.SessionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("SessionId"));
+            }
+
             return sessionQuestion;
         }
 

@@ -13,9 +13,9 @@ namespace Panda.EmaraSystem.BO
     {
 
 
-        public static Session GetItem(int id)
+        public static Sessions GetItem(int id)
         {
-            Session session = null;
+            Sessions session = null;
             SqlConnection con;
             using (SqlDataReader dr = DataManager.GetDataReader("ESystem_SessionGetById", out con,
                 DataManager.CreateParameter("@sessionid", SqlDbType.Int, id)))
@@ -37,9 +37,9 @@ namespace Panda.EmaraSystem.BO
             }
             return session;
         }
-        public static Session GetByClient(int id)
+        public static Sessions GetByClient(int id)
         {
-            Session session = null;
+            Sessions session = null;
             SqlConnection con;
             using (SqlDataReader dr = DataManager.GetDataReader("ESystem_SessionGetByClient", out con,
                 DataManager.CreateParameter("@clientid", SqlDbType.Int, id)))
@@ -61,9 +61,9 @@ namespace Panda.EmaraSystem.BO
             }
             return session;
         }
-        public static Session GetByDate(DateTime date)
+        public static Sessions GetByDate(DateTime date)
         {
-            Session session = null;
+            Sessions session = null;
             SqlConnection con;
             using (SqlDataReader dr = DataManager.GetDataReader("ESystem_SessionGetByClient", out con,
                 DataManager.CreateParameter("@date", SqlDbType.Int, date)))
@@ -86,9 +86,9 @@ namespace Panda.EmaraSystem.BO
             return session;
         }
 
-        public static List<Session> GetList()
+        public static List<Sessions> GetList()
         {
-            List<Session> list = new List<Session>();
+            List<Sessions> list = new List<Sessions>();
             SqlConnection con;
             using (SqlDataReader dr =
                 DataManager.GetDataReader("ESystem_SessionGeAll", out con))
@@ -109,12 +109,59 @@ namespace Panda.EmaraSystem.BO
             }
             return list;
         }
-
-        public static int Insert(Session Session)
+        public static List<Sessions> GetUnServedList()
         {
-             object o= DataManager.ExecuteScalar("ESystem_RelativeInsert",
+            List<Sessions> list = new List<Sessions>();
+            SqlConnection con;
+            using (SqlDataReader dr =
+                DataManager.GetDataReader("ESystem_SessionGetUnServed", out con))
+            {
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        list.Add(FillDataRecord(dr));
+                    }
+                }
+                else
+                {
+                    throw new Exception("No Data");
+                }
+
+                con.Close();
+            }
+            return list;
+
+        }
+        public static List<Sessions> GetServedList()
+        {
+            List<Sessions> list = new List<Sessions>();
+            SqlConnection con;
+            using (SqlDataReader dr =
+                DataManager.GetDataReader("ESystem_SessionGetServed", out con))
+            {
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        list.Add(FillDataRecord(dr));
+                    }
+                }
+                else
+                {
+                    throw new Exception("No Data");
+                }
+
+                con.Close();
+            }
+            return list;
+
+        }
+
+        public static int Insert(Sessions Session)
+        {
+            object o = DataManager.ExecuteScalar("ESystem_SessionInsert",
              DataManager.CreateParameter("@ClientId", SqlDbType.Int, Session.ClientId),
-             DataManager.CreateParameter("@stuffid", SqlDbType.UniqueIdentifier, Session.StuffId),
              DataManager.CreateParameter("@datetime", SqlDbType.DateTime, Session.DateTime),
              DataManager.CreateParameter("@report", SqlDbType.NVarChar, Session.Report),
              DataManager.CreateParameter("@notes", SqlDbType.NVarChar, Session.Notes),
@@ -123,20 +170,6 @@ namespace Panda.EmaraSystem.BO
              return Convert.ToInt32(o);
         }
 
-        public static int Update(Session Session)
-        {
-            object o = DataManager.ExecuteScalar("ESystem_RelativeUpdate",
-             DataManager.CreateParameter("@sessionid", SqlDbType.Int,Session.SessionId),
-             DataManager.CreateParameter("@ClientId", SqlDbType.Int, Session.ClientId),
-             DataManager.CreateParameter("@stuffid", SqlDbType.UniqueIdentifier, Session.StuffId),
-             DataManager.CreateParameter("@datetime", SqlDbType.DateTime, Session.DateTime),
-             DataManager.CreateParameter("@report", SqlDbType.NVarChar, Session.Report),
-             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, Session.Notes),
-             DataManager.CreateParameter("@isactive", SqlDbType.Bit, Session.IsActive));
-
-
-            return Convert.ToInt32(o);
-        }
 
         public static bool Delete(int id)
         {
@@ -147,13 +180,12 @@ namespace Panda.EmaraSystem.BO
             return result > 0;
         }
 
-        private static Session FillDataRecord(IDataRecord myDataRecord)
+        private static Sessions FillDataRecord(IDataRecord myDataRecord)
         {
-            Session session = new Session();
+            Sessions session = new Sessions();
 
             session.SessionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("SessionId"));
             session.ClientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
-            session.StuffId = myDataRecord.GetGuid(myDataRecord.GetOrdinal("StuffId"));
             session.DateTime = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("DateTime"));
 
             if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Report")))
@@ -168,8 +200,17 @@ namespace Panda.EmaraSystem.BO
             }
             if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("IsActive")))
             {
-                session.IsActive = myDataRecord.GetBoolean(myDataRecord.GetOrdinal("IsActive"));
+                session.IsActive = (IsActive)myDataRecord.GetInt32(myDataRecord.GetOrdinal("IsActive"));
             }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("IsServed")))
+            {
+                session.IsServed = (IsServed)myDataRecord.GetInt32(myDataRecord.GetOrdinal("IsServed"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("FullName")))
+            {
+                session.FullName = myDataRecord.GetString(myDataRecord.GetOrdinal("FullName"));
+            }
+
             return session;
         }
     }

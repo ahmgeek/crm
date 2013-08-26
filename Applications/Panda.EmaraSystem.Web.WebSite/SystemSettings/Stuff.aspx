@@ -92,7 +92,8 @@
          <asp:Button ID="btnInsert" Visible="false" type="submit"  class="btn btn-primary" runat="server" Text="Insert" OnClick="btnInsert_Click" />
 
             <asp:Button ID="btnSave" Visible="false" type="submit"  class="btn btn-primary" runat="server" Text="Save" OnClick="btnSave_Click" />
-        </div>
+            <a href="/SystemSettings/Users.aspx" class="btn btn-info" >Cancel</a>
+             </div>
 
     </div>
         </div>

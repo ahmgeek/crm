@@ -59,6 +59,57 @@ namespace Panda.EmaraSystem.DAL
            }
            return list;
        }
+       
+       public static List<WaitingList> GetUnServedList()
+       {
+           List<WaitingList> list = new List<WaitingList>();
+           SqlConnection con;
+           using (SqlDataReader dr =
+               DataManager.GetDataReader("ESystem_WaitingListGetByUnReserved", out con))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       list.Add(FillDataRecord(dr));
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+               }
+
+               con.Close();
+           }
+           return list;
+       }
+
+       //
+       public static List<WaitingList> GetServedList()
+       {
+           List<WaitingList> list = new List<WaitingList>();
+           SqlConnection con;
+           using (SqlDataReader dr =
+               DataManager.GetDataReader("ESystem_WaitingListGetServed", out con))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       list.Add(FillDataRecord(dr));
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+               }
+
+               con.Close();
+           }
+           return list;
+       }
+
+
 
        public static int Insert(WaitingList waitingList)
        {

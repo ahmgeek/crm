@@ -58,8 +58,15 @@ public partial class SystemSettings_User : System.Web.UI.Page
         }
 
         arr = (string[])roleList.ToArray(typeof(string));
-
-        userBll.CreatUser(txtUserName.Text, txtEmail.Text, txtPassword.Text, arr);
+        try
+        {
+            userBll.CreatUser(txtUserName.Text, txtEmail.Text, txtPassword.Text, arr);
+            Response.Redirect("/SystemSettings/Users.aspx",false);
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("/SystemSettings/Users.aspx",false);
+        }
 
     }
 

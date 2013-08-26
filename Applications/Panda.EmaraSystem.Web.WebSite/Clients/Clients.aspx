@@ -43,6 +43,7 @@
                 OnRowDataBound="grdUsers_RowDataBound" 
                 OnPageIndexChanging="grdUsers_PageIndexChanging"
                 OnPreRender="grdUsers_PreRender"
+                            AllowPaging="true" PageSize="10"
                 >
                 <Columns>
                     <asp:TemplateField>
@@ -98,7 +99,7 @@
                                  runat="server" CssClass="btn btn-small btn-metis-5" Text="Edit" />
                             
                              <asp:LinkButton ID="LinkButton2"
-                                href='<%#"/Clients/"%>'
+                                href='<%#"/Clients/Clients.aspx"%>'
                                  runat="server" CssClass="btn btn-small btn-metis-1" Text="DeActivate" />
                         </ItemTemplate>
                     </asp:TemplateField>

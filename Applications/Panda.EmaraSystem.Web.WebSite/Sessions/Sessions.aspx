@@ -6,17 +6,11 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
 
-    <asp:Timer ID="timer" OnTick="timer_Tick" Interval="280000" runat="server">
+    <asp:Timer ID="timer" OnTick="timer_Tick" Interval="28000" runat="server">
     </asp:Timer>
 
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-
-
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="timer" EventName="Tick"  />
-
-        </Triggers>
         <ContentTemplate>
 
         <div class="box">
@@ -37,7 +31,7 @@
             </div>
 
                 <asp:GridView ID="grdWaitList"
-                CssClass="table table-bordered responsive"
+                CssClass="table table-bordered table-hover table-striped responsive "
                 runat="server"
                 GridLines="None"
                 CellSpacing="-1"

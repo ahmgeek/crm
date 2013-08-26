@@ -29,7 +29,7 @@
                     <span>Waiting List</span>
                     <span class="label label-info">View</span>
                 </a>
-                <a class="quick-btn" href="/Sessions/NewSession.aspx">
+                <a class="quick-btn" href="/Sessions/Sessions.aspx">
                     <i class="icon-building icon-2x"></i>
                     <span>New Session</span>
                     <span class="label label-important">New</span>

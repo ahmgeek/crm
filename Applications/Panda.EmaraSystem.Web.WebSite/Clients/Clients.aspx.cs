@@ -59,6 +59,7 @@ public partial class Clients_Clients : System.Web.UI.Page
     {
         currentPageUser = e.NewPageIndex;
         grdUsers.PageIndex = e.NewPageIndex;
+        BindGrid();
     }
 
     void BindGrid()

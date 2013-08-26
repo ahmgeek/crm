@@ -21,6 +21,18 @@ namespace Panda.EmaraSystem.BLL
         {
             return WaitingListDAL.GetList();
         }
+        public static List<WaitingList> GetUnServedList()
+        {
+            return WaitingListDAL.GetUnServedList();
+        }
+        public static List<WaitingList> GetServedList()
+        {
+            return WaitingListDAL.GetServedList();
+        }
+
+
+       
+
 
         public static int Insert(WaitingList waitlist)
         {

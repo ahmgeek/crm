@@ -18,9 +18,56 @@
         <div id="List" class="body collapse in">
 
             <div class="tac">
+              <asp:GridView ID="grdUnServed"
+                CssClass="table table-bordered table-hover table-striped responsive"
+                runat="server"
+                GridLines="None"
+                CellSpacing="-1"
+                AutoGenerateColumns="False"
+                ShowFooter="True" ShowHeaderWhenEmpty="True"
+                 EmptyDataText="Empty !"
+                 OnRowDataBound="grdUnServed_RowDataBound"
+                 OnPageIndexChanging="grdUnServed_PageIndexChanging"
+                 OnPreRender="grdUnServed_PreRender"
+                 
+                  AllowPaging="True" PageSize="10">
+                <Columns>
+
+                    <asp:TemplateField  HeaderText="#">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRank" runat="server" Text='<%# Container.DataItem %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                     <asp:TemplateField HeaderText="Name">
+                        <ItemTemplate>
+                            <asp:Label ID="lblFullName" runat="server"  Text='<%#Eval("FullName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Status">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server"  Text='<%#Eval("IsReserved") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Time">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTime" Visible="false" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
+                            <asp:Label ID="lblDate"  runat="server"></asp:Label>
+                            <asp:Label ID="lblNewTime" runat="server"></asp:Label>
+
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+
+                </Columns>
+
+            </asp:GridView>
+
             </div>
+            <hr />
             <asp:GridView ID="grdWaitList"
-                CssClass="table table-bordered responsive"
+                CssClass="table table-bordered table-hover table-striped responsive"
                 runat="server"
                 GridLines="None"
                 CellSpacing="-1"
@@ -29,16 +76,9 @@
                  EmptyDataText="Empty !"
                  OnRowDataBound="grdUsers_RowDataBound"
                  OnPageIndexChanging="grdUsers_PageIndexChanging"
-                 OnPreRender="grdWaitList_PreRender">
+                 OnPreRender="grdWaitList_PreRender"
+                AllowPaging="True" PageSize="10">
                 <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:CheckBox ID="chkAll" runat="server" AutoPostBack="True" OnCheckedChanged="chkAll_CheckedChanged" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chk" runat="server" AutoPostBack="True" OnCheckedChanged="chk_CheckedChanged" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
 
                     <asp:TemplateField  HeaderText="#">
                         <ItemTemplate>

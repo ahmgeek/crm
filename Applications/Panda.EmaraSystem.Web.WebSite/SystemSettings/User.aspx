@@ -65,7 +65,9 @@
         <div class="form-actions">
         <asp:Button ID="btnSave" type="submit"  class="btn btn-primary" runat="server" Text="Save" OnClick="btnSave_Click" />
     <asp:Button ID="btnUpdate" type="submit"  class="btn btn-info" runat="server" Text="Update" OnClick="btnUpdate_Click" />
-        </div>
+
+
+              </div>
 
     </div>
 </asp:Content>

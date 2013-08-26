@@ -155,20 +155,19 @@
 
                     <li id="MenuDash" class="accordion-group">
                         <a data-parent="#menu"
-                             data-toggle="collapse" href="/Default.aspx"
-                             class="accordion-toggle" data-target="#dashboard-nav">
+                              href="/Default.aspx">
                             <i class="icon-dashboard  icon-large"></i> Dashboard
                         </a>
                     </li>
 
 
                     <li class="accordion-group ">
-                        <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#component-nav">
-                            <i class="icon-user icon-large"></i> Clients <span class="label label-inverse pull-right">2</span>
+                        <a data-parent="#menu" 
+                            href="/Clients/Clients.aspx">
+                            <i class="icon-user icon-large"></i> Clients <span class="label label-important pull-right"></span>
                         </a>
                         <ul class="collapse " id="component-nav">
-                            <li><a href="/Clients/Clients.aspx"><i class="icon-male"></i> CLients</a></li>
-                            <li><a href="/Clients/Relatives.aspx"><i class="icon-link"></i> Relative Clients</a></li>
+                            <li><a ><i class="icon-male"></i> CLients</a></li>
                         </ul>
                     </li>
 
@@ -176,11 +175,11 @@
 
                     <li class="accordion-group ">
                         <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
-                            <i class="icon-table icon-large"></i> Waiting List <span class="label label-inverse pull-right">2</span>
+                            <i class="icon-table icon-large"></i> Waiting List <span class="label label-important pull-right">2</span>
                         </a>
                         <ul class="collapse" id="form-nav">
                             <li><a href="/WaitingList/WaitingList.aspx"><i class="icon-list-ol"></i> Waiting List</a></li>
-                            <li><a href="/WaitingList/Appointments.aspx"><i class="icon-list-alt"></i> Appointments</a></li>
+                            <li><a href="/WaitingList/appointments.aspx"><i class="icon-list-alt"></i> Appointments</a></li>
                         </ul>
                     </li>
 
@@ -193,7 +192,7 @@
 
                     <li class="accordion-group ">
                         <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Setting">
-                            <i class="icon-wrench icon-large"></i> System Settings <span class="label label-inverse pull-right">2</span>
+                            <i class="icon-wrench icon-large"></i> System Settings <span class="label label-warning pull-right">1</span>
                         </a>
                         <ul class="collapse " id="Setting">
                             <li><a href="/SystemSettings/Users.aspx"><i class="icon-user"></i> Users</a></li>
