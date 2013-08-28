@@ -73,16 +73,19 @@
                             <asp:Label ID="lblAccountNumber" runat="server"  Text='<%#Eval("AccountNumber") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="City">
                         <ItemTemplate>
                             <asp:Label ID="lblcity" runat="server"  Text='<%#Eval("city") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Phone">
                         <ItemTemplate>
                             <asp:Label ID="lblTelephone" runat="server"  Text='<%#Eval("Telephone") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Client Moblie">
                         <ItemTemplate>
                             <asp:Label ID="lblMob" runat="server"  Text='<%#Eval("Mob") %>'></asp:Label>
@@ -92,7 +95,7 @@
 
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
-        <asp:Literal ID="LitUserName" Visible="false"  runat="server"></asp:Literal>
+        <asp:Literal ID="litClientId" Visible="false" Text='<%#Eval("ClientId") %>'  runat="server"></asp:Literal>
 
                             <asp:LinkButton ID="btnEdit"
                                 href='<%#"/Clients/ClientsDetail.aspx?Acc="+Eval("ClientId")%>'

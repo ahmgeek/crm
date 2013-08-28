@@ -165,7 +165,8 @@ namespace Panda.EmaraSystem.BO
              DataManager.CreateParameter("@datetime", SqlDbType.DateTime, Session.DateTime),
              DataManager.CreateParameter("@report", SqlDbType.NVarChar, Session.Report),
              DataManager.CreateParameter("@notes", SqlDbType.NVarChar, Session.Notes),
-             DataManager.CreateParameter("@isactive", SqlDbType.Bit, Session.IsActive));
+             DataManager.CreateParameter("@isactive", SqlDbType.Int, Session.IsActive),
+             DataManager.CreateParameter("@isServed", SqlDbType.Int, Session.IsServed));
 
              return Convert.ToInt32(o);
         }

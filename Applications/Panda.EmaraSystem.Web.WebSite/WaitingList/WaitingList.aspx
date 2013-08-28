@@ -52,10 +52,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Time">
                         <ItemTemplate>
-                            <asp:Label ID="lblTime" Visible="false" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
-                            <asp:Label ID="lblDate"  runat="server"></asp:Label>
-                            <asp:Label ID="lblNewTime" runat="server"></asp:Label>
-
+                            <asp:Label ID="lblTime" Visible="true" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -99,10 +96,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Time">
                         <ItemTemplate>
-                            <asp:Label ID="lblTime" Visible="false" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
-                            <asp:Label ID="lblDate"  runat="server"></asp:Label>
-                            <asp:Label ID="lblNewTime" runat="server"></asp:Label>
-
+                            <asp:Label ID="lblTime" Visible="true" runat="server" Text='<%#Eval("DateTime") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 

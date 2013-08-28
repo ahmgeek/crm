@@ -19,6 +19,13 @@ public partial class Prescriptions_Prescriptions : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindGrid();
+            if (Session["Message"] != null)
+            {
+                string message = Session["Message"].ToString();
+                this.ShowHelperMessage("Info", message, HelperNotify.NotificationType.success);
+                Session.Remove("Message");
+
+            }
         }
     }
    protected void timer_Tick(object sender, EventArgs e)
@@ -85,20 +92,7 @@ public partial class Prescriptions_Prescriptions : System.Web.UI.Page
            lblFullName.CssClass = "label label-info";
 
            Label lblTime = (Label)item.FindControl("lblTime");
-           string date = lblTime.Text.Substring(0, 10);
-           string time = lblTime.Text.Substring(10, 11);
-
-
-
-           Label lblDate = (Label)item.FindControl("lblDate");
-           Label lblNewTime = (Label)item.FindControl("lblNewTime");
-
-           lblDate.Text = date;
-           lblDate.CssClass = "label label-info";
-
-
-           lblNewTime.Text = time;
-           lblNewTime.CssClass = "label";
+           lblTime.CssClass = "label label-info";
        }
    }
 

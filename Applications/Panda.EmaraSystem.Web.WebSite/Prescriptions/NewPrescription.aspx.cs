@@ -8,6 +8,7 @@ using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
 using Notification.Helper;
 using System.Threading;
+using System.Transactions;
 
 public partial class Prescriptions_NewPrescriptions : System.Web.UI.Page
 {
@@ -21,11 +22,8 @@ public partial class Prescriptions_NewPrescriptions : System.Web.UI.Page
             {
                 BindGrid();
                 BindRepeater();
-                string[] cd = { "التعامل مع الناس", "مفجرات الثقة بالنفس" };
-                for (int i = 0; i < cd.Length; i++)
-                {
-                    txtCD.Items.Add(cd[i]);
-                }
+                BindSessionRepeater();
+                BindArrays();
             }
 
         }
@@ -37,13 +35,21 @@ public partial class Prescriptions_NewPrescriptions : System.Web.UI.Page
 
     private void BindGrid()
     {
-
-        Client _client = ClientBLL.GetItem(id);
-        List<Client> list = new List<Client>();
-        list.Add(_client);
-        grdUser.DataSource = list;
-        grdUser.DataBind();
-        BindDate();
+        try
+        {
+            Client _client = ClientBLL.GetItem(id);
+            List<Client> list = new List<Client>();
+            list.Add(_client);
+            grdUser.DataSource = list;
+            grdUser.DataBind();
+            BindDate();
+        }
+        catch (Exception ex)
+        {
+            grdUser.EmptyDataText = ex.Message;
+            grdUser.DataBind();
+        }
+        
     }
     private void BindDate()
     {
@@ -55,9 +61,16 @@ public partial class Prescriptions_NewPrescriptions : System.Web.UI.Page
     }
     private void BindRepeater()
     {
-        List<SessionQuestion> list = SessionQuestionBLL.GetClientList(id);
-        questionRepeater.DataSource = list;
-        questionRepeater.DataBind();
+        try
+        {
+            List<SessionQuestion> list = SessionQuestionBLL.GetClientList(id);
+            questionRepeater.DataSource = list;
+            questionRepeater.DataBind();
+        }
+        catch (Exception ex)
+        {
+            this.ShowHelperMessage("Error", ex.Message, HelperNotify.NotificationType.error);
+        }
     }
 
 
@@ -95,4 +108,167 @@ public partial class Prescriptions_NewPrescriptions : System.Web.UI.Page
         e.Row.CssClass = "success";
 
     }
-}
+
+
+    private void BindSessionRepeater()
+    {
+        try
+        {
+            List<PrescriptionSession> mySessions = new List<PrescriptionSession>();
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 1" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 2" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 3" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 4" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 5" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 6" });
+            mySessions.Add(new PrescriptionSession { SessionName = "TLT 7" });
+            mySessions.Add(new PrescriptionSession { SessionName = "energy " });
+            mySessions.Add(new PrescriptionSession { SessionName = "Dr Ahmad " });
+            mySessions.Add(new PrescriptionSession { SessionName = "Other sessions" });
+            mySessions.Add(new PrescriptionSession { SessionName = "جلسات مخاوف" });
+            repeatSessions.DataSource = mySessions;
+            repeatSessions.DataBind();
+
+        }
+        catch (Exception ex)
+        {
+            this.ShowHelperMessage("Error", ex.Message, HelperNotify.NotificationType.error);
+        }
+    }
+
+
+    private void BindArrays()
+    {
+        string[] cd = { "التعامل مع الناس",
+                          "مفجرات الثقة بالنفس",
+                          "التخلص من الوساوس" ,
+                          "مواجهة المخاوف",
+                          "العلاقات الزوجية",
+                          "التعامل مع المراهقين",
+                          "المذاكرة بسهولة واستمتاع"};
+
+
+        string[] Courses = { "قوة الكلمة والتفكير",
+                          "ثورة الاهداف",
+                          "الثبات الانفعالى والتحكم فى الغضب" ,
+                          "الطاقة الحيوية والشفاء الذاتى",
+                          "تربية الاطفال",
+                          "تربية الاولاد",
+                          "الوزن المثالى ",
+                           "تطبيقات الجذب"};
+
+        for (int i = 0; i < cd.Length; i++)
+        {
+            lstCourses.Items.Add(Courses[i]);
+            lstCD.Items.Add(cd[i]);
+        }
+
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            using (TransactionScope trans = new TransactionScope())
+            {
+
+                #region INIT
+                Prescription presc = new Prescription();
+                PrescriptionCD prescCd = new PrescriptionCD();
+                PrescriptionCourses prescCourses = new PrescriptionCourses();
+                PrescriptionSession prescSession = new PrescriptionSession();
+                #endregion
+                Sessions session = SessionBLL.GetByClient(id);
+
+
+                // Prescription Insertion 
+                #region Prescription Insertion
+                presc.SessionId = session.SessionId;
+                presc.ClientId = id;
+                presc.DateTime = DateTime.Now;
+                presc.Report = txtFinalReport.Text;
+                presc.IsServed = IsServed.UnServed;
+                int prescriptionId = PrescriptionBLL.Insert(presc);
+                Thread.Sleep(150);
+                #endregion
+
+                //Prescription Courseslst
+                #region Prescription Courseslst
+                foreach (ListItem item in lstCourses.Items)
+                {
+                    if (item.Selected)
+                    {
+                        prescCourses.PrescriptionId = prescriptionId;
+                        prescCourses.CourseName = item.Text;
+                        prescCourses.Notes = string.Empty;
+                        PrescriptionCoursesBLL.Insert(prescCourses);
+
+                    }
+                }
+                Thread.Sleep(150);
+                #endregion
+
+                //Prescription CD
+                #region Prescription CD
+                foreach (ListItem item in lstCD.Items)
+                {
+                    if (item.Selected)
+                    {
+                        prescCd.PrescriptionId = prescriptionId;
+                        prescCd.CdName = item.Text;
+                        prescCd.Note = string.Empty;
+                        PrescriptionCdBLL.Insert(prescCd);
+
+                    }
+                }
+                Thread.Sleep(150);
+
+                #endregion
+
+
+
+
+
+                //Prescription Sessions
+                #region Prescription Sessions
+                foreach (RepeaterItem item in repeatSessions.Items)
+                {
+                    prescSession.PrescriptionId = prescriptionId;
+
+                    CheckBox chkSession = (CheckBox)item.FindControl("chkCourse");
+
+                    if (chkSession.Checked)
+                    {
+                        //Session Name
+                        TextBox txtSessionName = (TextBox)item.FindControl("txtSessionName");
+                        prescSession.SessionName = "";
+                        prescSession.SessionName = txtSessionName.Text;
+                        //Session Counter
+                        TextBox txtCounter = (TextBox)item.FindControl("txtCounter");
+                        prescSession.Number = Convert.ToInt32(txtCounter.Text);
+
+
+                        TextBox txtComment = (TextBox)item.FindControl("txtComment");
+                        prescSession.Comment = "";
+                        prescSession.Comment = txtComment.Text;
+                        PrescriptionSessionBLL.Insert(prescSession);
+                    }
+
+                }
+                #endregion
+
+
+                trans.Complete();
+            }
+            Session["Message"] = " Report Has Been Sent ";
+            Response.Redirect("/Prescriptions/Prescriptions.aspx", false);
+
+        }
+        catch (Exception ex)
+        {
+            Session["Message"] = "";
+            Session["Message"] = ex.Message;
+            Response.Redirect("/Prescriptions/Prescriptions.aspx", false);
+
+        }
+    }
+}  

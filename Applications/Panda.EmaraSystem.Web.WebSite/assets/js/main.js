@@ -438,7 +438,23 @@ function formGeneral() {
 
     /*----------- BEGIN spinner CODE -------------------------*/
 
-    $('#ContentPlaceHolder1_txtNumber').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_0').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_1').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_2').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_3').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_4').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_5').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_6').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_7').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_8').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_9').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_10').spinner();
+    $('#ContentPlaceHolder1_repeatSessions_txtCounter_11').spinner();
+
+
+
+
+    //
     $("#spin2").spinner({
         step: 0.01,
         numberFormat: "n"
@@ -570,7 +586,7 @@ function formGeneral() {
 function formWysiwyg() {
 
     /*----------- BEGIN wysihtml5 CODE -------------------------*/
-    $('#wysihtml5').wysihtml5();
+    $('#ContentPlaceHolder1_txtFinalReport').wysihtml5();
     /*----------- END wysihtml5 CODE -------------------------*/
 
     /*----------- BEGIN Markdown.Editor CODE -------------------------*/
@@ -580,10 +596,10 @@ function formWysiwyg() {
     /*----------- END Markdown.Editor CODE -------------------------*/
 
     /*----------- BEGIN cleditor CODE -------------------------*/
-    editor = $("#cleditor").cleditor({width: "100%", height: "100%"})[0].focus();
+    editor = $("#cleditor").cleditor({ width: "100%", height: "100%" })[0].focus();
     $(window).resize();
 
-    $(window).resize(function() {
+    $(window).resize(function () {
         var $win = $('#cleditorDiv');
         $("#cleditor").width($win.width() - 24).height($win.height() - 24).offset({
             left: 15,
@@ -593,8 +609,7 @@ function formWysiwyg() {
     });
     /*----------- END cleditor CODE -------------------------*/
 
-}
-/*--------------------------------------------------------
+}    /*--------------------------------------------------------
  END FORM-WYSIWYG.HTML SCRIPTS
  ---------------------------------------------------------*/
 

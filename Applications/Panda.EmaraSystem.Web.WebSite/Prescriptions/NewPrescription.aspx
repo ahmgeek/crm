@@ -1,6 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="NewPrescription.aspx.cs" Inherits="Prescriptions_NewPrescriptions" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" ValidateRequest="false" AutoEventWireup="true" CodeFile="NewPrescription.aspx.cs" Inherits="Prescriptions_NewPrescriptions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+     <script type="text/javascript" src="/assets/js/lib/jquery.sparkline.min.js"></script>
+
+    <script type="text/javascript" src="/assets/wysihtml5/lib/js/wysihtml5-0.3.0.min.js"></script>
+    <script type="text/javascript" src="/assets/wysihtml5/dist/bootstrap-wysihtml5-0.0.2.min.js"></script>
+    <script type="text/javascript" src="/assets/CLEditor1_4_3/jquery.cleditor.min.js"></script>
+
+    <script type="text/javascript" src="/assets/pagedown-bootstrap/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="/assets/pagedown-bootstrap/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="/assets/pagedown-bootstrap/Markdown.Editor.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -171,33 +181,93 @@
             </div>
         </header>
 
-        <div id="Presc" class="body collapse in">
+        <div id="Presc" class="body collapse">
             <div class="form-horizontal">
                     <div class="control-group">
                         <label class="control-label"> CD's : </label>
 
                         <div class="controls">
-                            <asp:DropDownList runat="server" ID="txtCD"
-                                data-placeholder="Choose The CD Name"
-                                multiple CssClass="span6 chzn-select  chzn-rtl">
-                            </asp:DropDownList>
+                            <asp:ListBox ID="lstCD" 
+                                multiple CssClass="span6 chzn-select  chzn-rtl"
+                                SelectionMode="Multiple" 
+                                runat="server"></asp:ListBox>
                         </div>
                     </div>
+
+                                 <div class="control-group">
+                        <label class="control-label"> Courses : </label>
+
+                        <div class="controls">
+                            <asp:ListBox ID="lstCourses" 
+                                SelectionMode="Multiple"
+                                multiple CssClass="span6 chzn-select  chzn-rtl"
+                                runat="server"></asp:ListBox>
+                           
+                        </div>
+                    </div>
+
+
+
                 <div class="control-group">
                         <label class="control-label"> Sessions : </label>
-                        <div class="controls">
-                            <table class="table responsive">
-                                <tbody>
-                                    <tr>
-                                        <td><asp:TextBox ID="txtNumber" Width="40" runat="server"></asp:TextBox></td>
-                                        <td><asp:Label ID="lblSessionName" Text="TLT1" CssClass="label label-success" runat="server"></asp:Label></td>
-                                        <td><asp:TextBox ID="txtComment" runat="server" CssClass="span4"></asp:TextBox></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                    <div class="controls" style="width:650px;">
+                        <table class="table responsive">
+                            <tbody">
+                                <asp:Repeater ID="repeatSessions" ViewStateMode="Enabled" runat="server">
+                                    <ItemTemplate>
+                                       
+                                        <tr >
+                                            <td>
+                                                <label>Counter</label>
+                                                <asp:TextBox runat="server" ID="txtCounter" CssClass="span4">
+                                                        </asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <label>Session Name</label>
+                                                <asp:TextBox runat="server" ID="txtSessionName"
+                                                  Text='<%# Eval("SessionName") %>'  ReadOnly="true" CssClass="span9"></asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <label>Comment</label>
+                                                <asp:TextBox runat="server" ID="txtComment"
+                                                  Width="300"   CssClass="span12">
+                                                        </asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <label>&nbsp;</label>
+                                         <asp:CheckBox id="chkCourse" runat="server" />
+                                            </td>
+                                        </tr>
+                                        
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
                         </div>
                 </div>
+                  <div class="box">
+                      <header>
+                          <div class="icons"><i class="icon-th-large"></i></div>
+                          <h5>Final Report</h5>
+                          <ul class="nav pull-right">
+                          </ul>
+                      </header>
+                      <hr />
+                      <div>
+                          <asp:TextBox ID="txtFinalReport" runat="server" CssClass="span9"
+                              Height="200"></asp:TextBox>
+                      </div>
+
+                  </div>
+                
+                   <div class="form-actions no-margin-bottom">
+                        <asp:Button ID="btnSave" Width="600" Text="Save"
+                            runat="server" class="btn btn-success btn-large btn-block" OnClick="btnSave_Click" />
+                    </div>
+
+
+
+
             </div>
 
               

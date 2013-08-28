@@ -12,6 +12,7 @@ namespace Panda.EmaraSystem.BO {
 
 
         public int PrescriptionId { get; set; }
+        public int SessionId { get; set; }
         public int ClientId { get; set; }
         public DateTime DateTime { get; set; }
         public string Report { get; set; }

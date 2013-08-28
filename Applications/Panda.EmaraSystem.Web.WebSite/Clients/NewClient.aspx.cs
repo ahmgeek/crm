@@ -12,6 +12,7 @@ using Panda.EmaraSystem.BO;
 using Countreis.CountryList;
 using System.Data.SqlClient;
 using System.Threading;
+using System.Transactions;
 
 public partial class Clients_NewClient : System.Web.UI.Page {
 
@@ -114,6 +115,9 @@ public partial class Clients_NewClient : System.Web.UI.Page {
         try
         {
 
+            using (TransactionScope trans = new TransactionScope())
+            {
+
 
                 #region CLient Data
                 //Load the data into the object
@@ -177,11 +181,11 @@ public partial class Clients_NewClient : System.Web.UI.Page {
                 waitList.CreatedBy = userName;
                 WaitingListBLL.Insert(waitList);
                 #endregion
-
+                trans.Complete();
                 //session fore firing the jquery notify
                 string message = "CLient has been sent to the WaitingList";
-                Response.Redirect("/Clients/Clients.aspx?message="+message,false);
-
+                Response.Redirect("/Clients/Clients.aspx?message=" + message, false);
+            }
         }
         catch (Exception ex)
         {

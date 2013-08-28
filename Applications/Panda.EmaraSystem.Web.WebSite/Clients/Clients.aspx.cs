@@ -147,6 +147,31 @@ public partial class Clients_Clients : System.Web.UI.Page
     }
     protected void btnDeleteUser_Click(object sender, EventArgs e)
     {
+        try
+        {
+            CheckBox chkUSer;
+            Literal litId;
+            foreach (GridViewRow row in grdUsers.Rows)
+            {
+                chkUSer = (CheckBox)row.Cells[1].FindControl("chkUser");
+                if (chkUSer.Checked)
+                {
+                    litId = (Literal)row.Cells[6].FindControl("litClientId");
+                    int id = Convert.ToInt32(litId.Text);
+                    Client client = ClientBLL.GetItem(id);
+                    ClientBLL.Delete(client);
+                }
+            }
+            BindGrid();
+            string message = "The client has been removed";
+            this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
 
+        }
+        catch (Exception ex)
+        {
+            string message = ex.Message;
+            this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
+        }
+               
     }
 }

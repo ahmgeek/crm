@@ -136,20 +136,10 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
         lblFullName.CssClass = "label label-info";
 
         Label lblTime = (Label)item.FindControl("lblTime");
-        string date = lblTime.Text.Substring(0, 10);
-        string time = lblTime.Text.Substring(10, 11);
+        lblTime.CssClass = "label label-info";
 
 
 
-        Label lblDate = (Label)item.FindControl("lblDate");
-        Label lblNewTime = (Label)item.FindControl("lblNewTime");
-
-        lblDate.Text = date;
-        lblDate.CssClass = "label label-info";
-
-
-        lblNewTime.Text = time;
-        lblNewTime.CssClass = "label";
         }
     }
 
@@ -185,21 +175,11 @@ public partial class WaitingList_WaitingList : System.Web.UI.Page
             Label lblFullName = (Label)item.FindControl("lblFullName");
             lblFullName.CssClass = "label label-info";
 
+
             Label lblTime = (Label)item.FindControl("lblTime");
-            string date = lblTime.Text.Substring(0, 10);
-            string time = lblTime.Text.Substring(10, 11);
+            lblTime.CssClass = "label label-info";
 
 
-
-            Label lblDate = (Label)item.FindControl("lblDate");
-            Label lblNewTime = (Label)item.FindControl("lblNewTime");
-
-            lblDate.Text = date;
-            lblDate.CssClass = "label label-info";
-
-
-            lblNewTime.Text = time;
-            lblNewTime.CssClass = "label";
         }
 
     }

@@ -8,6 +8,7 @@ using Panda.EmaraSystem.BLL;
 using Panda.EmaraSystem.BO;
 using Notification.Helper;
 using System.Threading;
+using System.Transactions;
 
 public partial class Sessions_NewSession : System.Web.UI.Page
 {
@@ -102,38 +103,43 @@ public partial class Sessions_NewSession : System.Web.UI.Page
     {
         try
         {
-            Sessions mysession = new Sessions();
-            SessionQuestion sessionQuestions = new SessionQuestion();
-
-            mysession.ClientId = id;
-            mysession.DateTime = DateTime.Now;
-            mysession.Report = txtReport.Text;
-            mysession.Notes = string.Empty;
-            mysession.IsActive = IsActive.Active;
-
-            int sessionId = SessionBLL.Insert(mysession);
-
-            foreach (RepeaterItem item in questionRepeater.Items)
+            using (TransactionScope trans = new TransactionScope())
             {
-                sessionQuestions.SessionId = sessionId;
 
 
-                TextBox txtQ = (TextBox)item.FindControl("txtQ");
-                sessionQuestions.Question = "";
-                sessionQuestions.Question = txtQ.Text;
+                Sessions mysession = new Sessions();
+                SessionQuestion sessionQuestions = new SessionQuestion();
 
-                TextBox txtAns = (TextBox)item.FindControl("txtAns");
-                sessionQuestions.Answer = "";
-                sessionQuestions.Answer = txtAns.Text;
+                mysession.ClientId = id;
+                mysession.DateTime = DateTime.Now;
+                mysession.Report = txtReport.Text;
+                mysession.Notes = string.Empty;
+                mysession.IsActive = IsActive.Active;
+                mysession.IsServed = IsServed.UnServed;
+                int sessionId = SessionBLL.Insert(mysession);
 
-
-                Thread.Sleep(150);
-                if (txtAns != null && txtQ.Text != null)
+                foreach (RepeaterItem item in questionRepeater.Items)
                 {
-                    SessionQuestionBLL.Insert(sessionQuestions);
-                }
-            }
+                    sessionQuestions.SessionId = sessionId;
 
+
+                    TextBox txtQ = (TextBox)item.FindControl("txtQ");
+                    sessionQuestions.Question = "";
+                    sessionQuestions.Question = txtQ.Text;
+
+                    TextBox txtAns = (TextBox)item.FindControl("txtAns");
+                    sessionQuestions.Answer = "";
+                    sessionQuestions.Answer = txtAns.Text;
+
+
+                    Thread.Sleep(150);
+                    if (txtAns != null && txtQ.Text != null)
+                    {
+                        SessionQuestionBLL.Insert(sessionQuestions);
+                    }
+                }
+                trans.Complete();
+            }
             Session["Message"] = " Client Has Been Served";
             Response.Redirect("/Sessions/Sessions.aspx",false);
 

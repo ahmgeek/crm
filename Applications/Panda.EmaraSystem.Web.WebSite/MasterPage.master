@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="/assets/css/datepicker.css" />
     <link rel="stylesheet" href="/assets/css/daterangepicker.css" />
     <link rel="stylesheet" href="/assets/css/bootstrap-toggle-buttons.css" />
-    
+    <link type="text/css" rel="stylesheet" href="/assets/wysihtml5/lib/css/wysiwyg-color.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/wysihtml5/dist/bootstrap-wysihtml5-0.0.2.css" />
+
     <script type="text/javascript" src="/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -275,9 +277,11 @@
     <script type="text/javascript" src="/assets/js/lib/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/assets/js/lib/bootstrap-timepicker.js"></script>
     <script type="text/javascript" src="/assets/js/lib/jquery.toggle.buttons.js"></script>
+    <script src="/assets/js/lib/jquery.tablesorter.min.js"></script>
 
+    <script type="text/javascript" src="/assets/wysihtml5/lib/js/wysihtml5-0.3.0.min.js"></script>
+    <script type="text/javascript" src="/assets/wysihtml5/dist/bootstrap-wysihtml5-0.0.2.min.js"></script>
 
-       <script src="/assets/js/lib/jquery.tablesorter.min.js"></script>
 
 
 
@@ -286,7 +290,8 @@
             $(function () {
                 dashboard();
                 formGeneral();
-         
+                formWysiwyg();
+
             });
         </script>
     <!-- Java Script -->
