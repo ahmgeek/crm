@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Panda.EmaraSystem.BO
 {
-    public  enum  IsServed
+    public enum CaseStatus
     {
-        Served = 1,
-        UnServed = 0 
+        opened =1 ,
+        closed = 0,
+        notdefined = -1
     }
 }

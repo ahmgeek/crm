@@ -7,27 +7,67 @@ namespace Panda.EmaraSystem.BO {
     public  class Prescription {
 
         #region Private Variables
-        private IsServed service = IsServed.UnServed;
+        private List<PrescriptionSession> _prescriptionSessions = new List<PrescriptionSession>();
+        private List<PrescriptionCD>  _prescriptionCds = new List<PrescriptionCD>();
+        private List<PrescriptionCourses> _prescriptionCourseses = new List<PrescriptionCourses>(); 
+
+        private PrescriptionStatus _status = PrescriptionStatus.onhold;
         #endregion
 
 
         public int PrescriptionId { get; set; }
-        public int SessionId { get; set; }
-        public int ClientId { get; set; }
-        public DateTime DateTime { get; set; }
+        public int CaseId { get; set; }
         public string Report { get; set; }
-        public IsServed IsServed
+        public PrescriptionStatus  Status
         {
             get
             {
-                return service;
+                return _status;
             }
             set
             {
-                service = value;
+                _status = value;
             }
 
         }
-        public string FullName { get; set; }
+        public string ConfermedComment { get; set; }
+
+
+        public List<PrescriptionSession> PrescriptionSessions
+        {
+            get
+            {
+                return _prescriptionSessions;
+            }
+            set
+            {
+                _prescriptionSessions = value;
+            }
+        }
+
+        public List<PrescriptionCD> PrescriptionCds
+        {
+            get
+            {
+                return _prescriptionCds;
+            }
+            set
+            {
+                _prescriptionCds = value;
+            }
+        }
+
+        public List<PrescriptionCourses> PrescriptionCourseses
+        {
+            get
+            {
+                return _prescriptionCourseses;
+            }
+            set
+            {
+                _prescriptionCourseses = value;
+            }
+        }
+
     }
 }

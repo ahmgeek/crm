@@ -24,21 +24,6 @@
                     <span>New Client </span>
                     <span class="label label-important">New</span>
                 </a>
-                <a class="quick-btn" href="/WaitingList/WaitingList.aspx">
-                    <i class="icon-list-ul icon-2x"></i>
-                    <span>Waiting List</span>
-                    <span class="label label-info">View</span>
-                </a>
-                <a class="quick-btn" href="/Sessions/Sessions.aspx">
-                    <i class="icon-building icon-2x"></i>
-                    <span>New Session</span>
-                    <span class="label label-important">New</span>
-                </a>
-                <a class="quick-btn" href="/Prescriptions/NewPrescription.aspx">
-                    <i class="icon-medkit icon-2x"></i>
-                    <span>Prescription</span>
-                    <span class="label label-important">New</span>
-                </a>
                 <a class="quick-btn" href="Clients/Clients.aspx">
                     <i class="icon-male icon-2x"></i>
                     <span>Clients</span>

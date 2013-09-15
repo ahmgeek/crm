@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppointmentsDAL.cs" />
     <Compile Include="ClientDAL.cs" />
+    <Compile Include="ClientDetailsDAL.cs" />
     <Compile Include="Helper\DataManager.cs" />
     <Compile Include="PrescriptionCdDAL.cs" />
     <Compile Include="PrescriptionCoursesDAL.cs" />
@@ -52,7 +52,6 @@
     <Compile Include="SessionDAL.cs" />
     <Compile Include="SessionQuestionDAL.cs" />
     <Compile Include="StuffDAL.cs" />
-    <Compile Include="WaitingListDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Panda.EmaraSystem.BO\Panda.EmaraSystem.BO.csproj">

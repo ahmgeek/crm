@@ -174,19 +174,6 @@
                     </li>
 
 
-
-                    <li class="accordion-group ">
-                        <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
-                            <i class="icon-table icon-large"></i> Waiting List <span class="label label-important pull-right">2</span>
-                        </a>
-                        <ul class="collapse" id="form-nav">
-                            <li><a href="/WaitingList/WaitingList.aspx"><i class="icon-list-ol"></i> Waiting List</a></li>
-                            <li><a href="/WaitingList/appointments.aspx"><i class="icon-list-alt"></i> Appointments</a></li>
-                        </ul>
-                    </li>
-
-
-
                     <li><a href="/Sessions/Sessions.aspx"><i class="icon-desktop icon-large"></i> Sessions</a></li>
                     <li><a href="/Prescriptions/Prescriptions.aspx"><i class="icon-medkit icon-large"></i> Prescriptions</a></li>
                     <li><a href="#"><i class="icon-calendar icon-large"></i> Organizing</a></li>
