@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using Panda.EmaraSystem.BO;
 
-
-namespace Panda.EmaraSystem.BO
+namespace Panda.EmaraSystem.DAL
 {
    public class PrescriptionSessionDAL
     {
-
-
-
        public static PrescriptionSession GetItem(int id)
         {
             PrescriptionSession prescriptionSession= null;
@@ -37,9 +34,6 @@ namespace Panda.EmaraSystem.BO
             }
             return prescriptionSession;
         }
-
-
-
        public static PrescriptionSession GetByPrescId(int id)
         {
             PrescriptionSession prescriptionSession = null;
@@ -64,7 +58,6 @@ namespace Panda.EmaraSystem.BO
             }
             return prescriptionSession;
         }
-
        public static List<PrescriptionSession> GetList()
         {
             List<PrescriptionSession> list = new List<PrescriptionSession>();
@@ -88,8 +81,6 @@ namespace Panda.EmaraSystem.BO
             }
             return list;
         }
-
-
        public static int Insert(PrescriptionSession prescriptionSession)
         {
             object o = DataManager.ExecuteScalar("ESystem_PrescriptionSessionInsert",

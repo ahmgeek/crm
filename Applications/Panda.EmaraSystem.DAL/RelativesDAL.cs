@@ -9,66 +9,16 @@ using System.Data.SqlClient;
 namespace Panda.EmaraSystem.DAL
 {
     
-    
-   public class RelativesDAL
+    public class RelativesDAL
    {
-       
-       public static Relatives GetByClientId(int id)
-       {
-           Relatives relative = null;
-           SqlConnection con;
-           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_RelativeGetByClientId", out con,
-               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
-           {
-               if (dr.HasRows)
-               {
-                   while (dr.Read())
-                   {
-                       relative = FillDataRecord(dr);
-                   }
-               }
-               else
-               {
-                   throw new Exception("No Data");
-
-               }
-
-               con.Close();
-           }
-           return relative;
-
-       }
-       public static Relatives GetItem(int id)
-       {
-           Relatives relative = null;
-           SqlConnection con;
-           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_RelativeGetById", out con,
-               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
-           {
-               if (dr.HasRows)
-               {
-                   while (dr.Read())
-                   {
-                       relative = FillDataRecord(dr);
-                   }
-               }
-               else
-               {
-                   throw new Exception("No Data");
-
-               }
-
-               con.Close();
-           }
-           return relative;
-       }
-
-       public static List<Relatives> GetList()
+      
+       public static List<Relatives> GetList(int id)
        {
            List<Relatives> list = new List<Relatives>();
            SqlConnection con;
            using (SqlDataReader dr =
-               DataManager.GetDataReader("ESystem_RelativeGetAll", out con))
+               DataManager.GetDataReader("ESystem_RelativeGetAll", out con,
+               DataManager.CreateParameter("@id", SqlDbType.Int, id)))
            {
                if (dr.HasRows)
                {
@@ -86,6 +36,31 @@ namespace Panda.EmaraSystem.DAL
            }
            return list;
        }
+
+       public static List<Relatives> GetList()
+       {
+           List<Relatives> list = new List<Relatives>();
+           SqlConnection con;
+           using (SqlDataReader dr =
+               DataManager.GetDataReader("ESystem_RelativeGetAllGeneral", out con))
+           {
+               if (dr.HasRows)
+               {
+                   while (dr.Read())
+                   {
+                       list.Add(FillDataRecord(dr));
+                   }
+               }
+               else
+               {
+                   throw new Exception("No Data");
+               }
+
+               con.Close();
+           }
+           return list;
+       }
+
        public static int Insert(Relatives rel)
        {
            object o =DataManager.ExecuteScalar("ESystem_RelativeInsert",

@@ -6,8 +6,7 @@ using System.Data.SqlClient;
 using Panda.EmaraSystem.BO;
 using System.Data;
 
-
-namespace Panda.EmaraSystem.BO
+namespace Panda.EmaraSystem.DAL
 {
    public class PrescriptionDAL
     {
@@ -37,13 +36,13 @@ namespace Panda.EmaraSystem.BO
            }
            return prescription;
        }
-       //
-       public static Prescription GetByClient(int id)
+       
+       public static Prescription GetByCase(int caseId)
        {
            Prescription prescription = null;
            SqlConnection con;
-           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_PrescriptionGetByClientId", out con,
-               DataManager.CreateParameter("@clientId", SqlDbType.Int, id)))
+           using (SqlDataReader dr = DataManager.GetDataReader("ESystem_PrescriptionGetByCase", out con,
+               DataManager.CreateParameter("@caseId", SqlDbType.Int, caseId)))
            {
                if (dr.HasRows)
                {
@@ -91,66 +90,69 @@ namespace Panda.EmaraSystem.BO
        public static int Insert(Prescription prescription)
         {
             object o = DataManager.ExecuteScalar("ESystem_PrescriptionInsert",
-             DataManager.CreateParameter("@sessionId", SqlDbType.Int, prescription.SessionId),
-             DataManager.CreateParameter("@ClientId", SqlDbType.Int, prescription.ClientId),
-             DataManager.CreateParameter("@datetime", SqlDbType.DateTime, prescription.DateTime),
+             DataManager.CreateParameter("@caseId", SqlDbType.Int, prescription.CaseId),
              DataManager.CreateParameter("@report", SqlDbType.NVarChar, prescription.Report),
-             DataManager.CreateParameter("@isServed", SqlDbType.Int, prescription.IsServed));
+             DataManager.CreateParameter("@status", SqlDbType.NVarChar, prescription.Status),
+             DataManager.CreateParameter("@confermedComment", SqlDbType.NVarChar, prescription.ConfermedComment));
 
             return Convert.ToInt32(o);
         }
        public static int Update(Prescription prescription)
        {
-           object o = DataManager.ExecuteScalar("ESystem_PrescriptionInsert",
-            DataManager.CreateParameter("@prescid", SqlDbType.Int, prescription.PrescriptionId),
-            DataManager.CreateParameter("@sessionId", SqlDbType.Int, prescription.SessionId),
-            DataManager.CreateParameter("@ClientId", SqlDbType.Int, prescription.ClientId),
-            DataManager.CreateParameter("@datetime", SqlDbType.DateTime, prescription.DateTime),
-            DataManager.CreateParameter("@report", SqlDbType.NVarChar, prescription.Report),
-            DataManager.CreateParameter("@isServed", SqlDbType.Int, prescription.IsServed));
+           object o = DataManager.ExecuteScalar("ESystem_PrescriptionUpdate",
+             DataManager.CreateParameter("@prescid", SqlDbType.Int, prescription.PrescriptionId),
+             DataManager.CreateParameter("@caseId", SqlDbType.Int, prescription.CaseId),
+             DataManager.CreateParameter("@report", SqlDbType.NVarChar, prescription.Report),
+             DataManager.CreateParameter("@status", SqlDbType.NVarChar, prescription.Status),
+             DataManager.CreateParameter("@confermedComment", SqlDbType.NVarChar, prescription.ConfermedComment));
+
+           return Convert.ToInt32(o);
+       }
+       //Update By CaseId
+       public static int UpdateByCase(Prescription prescription)
+       {
+           object o = DataManager.ExecuteScalar("ESystem_PrescriptionUpdateByCaseId",
+             DataManager.CreateParameter("@caseId", SqlDbType.Int, prescription.CaseId),
+             DataManager.CreateParameter("@report", SqlDbType.NVarChar, prescription.Report),
+             DataManager.CreateParameter("@status", SqlDbType.NVarChar, prescription.Status),
+             DataManager.CreateParameter("@confermedComment", SqlDbType.NVarChar, prescription.ConfermedComment));
+
+           return Convert.ToInt32(o);
+       }
+       // Update the status only (Confirm)
+       public static int Confirm(Prescription prescription)
+       {
+           object o = DataManager.ExecuteScalar("ESystem_PrescriptionConfirm",
+             DataManager.CreateParameter("@caseId", SqlDbType.NVarChar, prescription.CaseId),
+             DataManager.CreateParameter("@status", SqlDbType.NVarChar, prescription.Status));
 
            return Convert.ToInt32(o);
        }
 
-        public static bool Delete(int id)
-        {
-            int result = 0;
-            result = DataManager.ExecuteNonQuery("ESystem_PrescriptionDelete",
-                   DataManager.CreateParameter("@prescid", SqlDbType.Int, id));
 
-            return result > 0;
-        }
 
         private static Prescription FillDataRecord(IDataRecord myDataRecord)
         {
             Prescription prescription = new Prescription();
 
             prescription.PrescriptionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("PrescriptionId"));
-            prescription.SessionId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("SessionId"));
-            prescription.ClientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
-
-            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("DateTime")))
-            {
-                prescription.DateTime = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("DateTime"));
-
-            }
+            prescription.CaseId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("CaseId"));
 
             if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Report")))
             {
                 prescription.Report = myDataRecord.GetString(myDataRecord.GetOrdinal("Report"));
             }
-            
-            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("IsServed")))
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Status")))
             {
-                prescription.IsServed = (IsServed)myDataRecord.GetInt32(myDataRecord.GetOrdinal("IsServed"));
+                prescription.Status = (PrescriptionStatus)myDataRecord.GetInt32(myDataRecord.GetOrdinal("Status"));
             }
-            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("FullName")))
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("ConfermedComment")))
             {
-                prescription.FullName = myDataRecord.GetString(myDataRecord.GetOrdinal("FullName"));
+                prescription.ConfermedComment = myDataRecord.GetString(myDataRecord.GetOrdinal("ConfermedComment"));
             }
 
             return prescription;
         }
-
     }
 }

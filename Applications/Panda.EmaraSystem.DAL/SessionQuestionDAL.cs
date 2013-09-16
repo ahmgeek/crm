@@ -4,8 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Panda.EmaraSystem.BO;
 
-namespace Panda.EmaraSystem.BO
+namespace Panda.EmaraSystem.DAL
 {
     public class SessionQuestionDAL
     {

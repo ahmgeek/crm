@@ -19,7 +19,7 @@ namespace Panda.EmaraSystem.BO
         public int CaseId { get; set; }
         public int ClientId { get; set; }
         public string CaseNumber { get; set; }
-        public ClientCase CaseStatus { get; set; }
+        public CaseStatus CaseStatus { get; set; }
         public DateTime dateTime { get; set; }
 
         //FirstCallData

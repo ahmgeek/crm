@@ -12,11 +12,11 @@ namespace Panda.EmaraSystem.DAL
     public  class ClientDetailsDAL
     {
 
-        public static Client GetItem(int id)
+        public static ClientDetail GetItem(int id)
         {
-            Client clnt = null;
+            ClientDetail clnt = null;
             SqlConnection con;
-            using (SqlDataReader dr = DataManager.GetDataReader("ESystem_CLientGetById", out con,
+            using (SqlDataReader dr = DataManager.GetDataReader("ESystem_ClientDetailsGetById", out con,
                 DataManager.CreateParameter("@id", SqlDbType.Int, id)))
             {
 
@@ -39,12 +39,12 @@ namespace Panda.EmaraSystem.DAL
             return clnt;
         }
 
-        public static List<Client> GetList()
+        public static List<ClientDetail> GetList()
         {
-            List<Client> list = new List<Client>();
+            List<ClientDetail> list = new List<ClientDetail>();
             SqlConnection con;
             using (SqlDataReader dr =
-                DataManager.GetDataReader("ESystem_ClientView", out con))
+                DataManager.GetDataReader("ESystem_ClientDetailsGetAll", out con))
             {
                 if (dr.HasRows)
                 {
@@ -101,6 +101,8 @@ namespace Panda.EmaraSystem.DAL
         {
             ClientDetail client = new ClientDetail();
 
+            client.CLientId = myDataRecord.GetInt32(myDataRecord.GetOrdinal("ClientId"));
+
             if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("city")))
             {
                 client.City = myDataRecord.GetString(myDataRecord.GetOrdinal("city"));
@@ -144,7 +146,7 @@ namespace Panda.EmaraSystem.DAL
             }
 
 
-            return ClientDetail;
+            return client;
         }
 
     }

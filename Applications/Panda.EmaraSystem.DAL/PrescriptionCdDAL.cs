@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
-
-namespace Panda.EmaraSystem.BO
+using Panda.EmaraSystem.BO;
+namespace Panda.EmaraSystem.DAL
 {
     public class PrescriptionCdDAL
     {

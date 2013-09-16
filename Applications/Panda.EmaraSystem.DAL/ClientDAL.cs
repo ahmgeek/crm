@@ -45,7 +45,7 @@ namespace Panda.EmaraSystem.DAL
             List<Client> list = new List<Client>();
             SqlConnection con;
             using (SqlDataReader dr =
-                DataManager.GetDataReader("ESystem_ClientView", out con))
+                DataManager.GetDataReader("ESystem_ClientGetAll", out con))
             {
                 if (dr.HasRows)
                 {

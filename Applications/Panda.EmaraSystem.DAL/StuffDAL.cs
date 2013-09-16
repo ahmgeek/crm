@@ -6,7 +6,7 @@ using System.Text;
 using Panda.EmaraSystem.BO;
 using System.Data.SqlClient;
 
-namespace Panda.EmaraSystem.BO
+namespace Panda.EmaraSystem.DAL 
 {
    public class StuffDAL
     {
