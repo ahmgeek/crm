@@ -40,23 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientCaseDAL.cs" />
+    <Compile Include="Case\ClientCaseDAL.cs" />
     <Compile Include="ClientDAL.cs" />
-    <Compile Include="ClientDetailsDAL.cs" />
-    <Compile Include="FirstCallDAL.cs" />
+    <Compile Include="Case\FirstCall\FirstCallDAL.cs" />
     <Compile Include="Helper\DataManager.cs" />
-    <Compile Include="PrescriptionCdDAL.cs" />
-    <Compile Include="PrescriptionCdDataDAL.cs" />
-    <Compile Include="PrescriptionCourseDataDAL.cs" />
-    <Compile Include="PrescriptionCoursesDAL.cs" />
-    <Compile Include="PrescriptionDAL.cs" />
-    <Compile Include="PrescriptionSessionDAL.cs" />
-    <Compile Include="PrescriptionSessionDataDAL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCdDAL.cs" />
+    <Compile Include="Case\Data\PrescriptionCdDataDAL.cs" />
+    <Compile Include="Case\Data\PrescriptionCourseDataDAL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCoursesDAL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionDAL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionSessionDAL.cs" />
+    <Compile Include="Case\Data\PrescriptionSessionDataDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativesDAL.cs" />
-    <Compile Include="SessionDAL.cs" />
-    <Compile Include="SessionDataDAL.cs" />
-    <Compile Include="SessionQuestionDAL.cs" />
+    <Compile Include="Case\Sessions\SessionDAL.cs" />
+    <Compile Include="Case\Data\SessionQuestionDataDAL.cs" />
+    <Compile Include="Case\Sessions\SessionQuestionDAL.cs" />
     <Compile Include="StuffDAL.cs" />
   </ItemGroup>
   <ItemGroup>

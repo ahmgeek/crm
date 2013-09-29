@@ -13,39 +13,33 @@ namespace Panda.EmaraSystem.BLL
     {
 
 
-
-
         public static Client GetItem(int id)
         {
-            return ClientDAL.GetItem(id);
+            Client client = ClientDAL.GetItem(id);
+            return client;
         }
-
-        public static Client GetItemMenimal(int id)
-        {
-            return ClientDAL.GetItemMenimal(id);
-        }
-
 
         public static List<Client> GetList()
         {
-            return ClientDAL.GetList();
+            List<Client> clients = ClientDAL.GetList();
+            return clients;
         }
-       
-
         public static int Insert(Client client)
         {
-          client.CLientId=  ClientDAL.Insert(client);  
+            client.CLientId = ClientDAL.Insert(client);
             return client.CLientId;
         }
-
-
-
+                    
         public static int Update(Client client)
         {
             client.CLientId = ClientDAL.Update(client);
             return client.CLientId;
 
         }
+               
+
+        // Deleteing the client. -> only from the admin area.
+        //Delete all the assoicated data.
 
         public static bool Delete(Client client)
         {

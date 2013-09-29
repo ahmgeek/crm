@@ -40,34 +40,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientDetail.cs" />
-    <Compile Include="ClientMenimal.cs" />
     <Compile Include="Enums\CaseStatus.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="ClientCase.cs" />
-    <Compile Include="Courses.cs" />
+    <Compile Include="Case\ClientCase.cs" />
+    <Compile Include="Enums\HaseRelations.cs" />
     <Compile Include="Enums\PrescriptionStatus.cs" />
     <Compile Include="Enums\FirstCallStatus.cs" />
     <Compile Include="Enums\IsActive.cs" />
-    <Compile Include="FirstCall.cs" />
-    <Compile Include="PrescriptionCD.cs" />
-    <Compile Include="PrescriptionCdData.cs" />
-    <Compile Include="PrescriptionCourseData.cs" />
-    <Compile Include="PrescriptionCourses.cs" />
-    <Compile Include="PrescriptionSession.cs" />
-    <Compile Include="PrescriptionSessionData.cs" />
+    <Compile Include="Case\FirstCall\FirstCall.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCD.cs" />
+    <Compile Include="Case\Data\PrescriptionCdData.cs" />
+    <Compile Include="Case\Data\PrescriptionCourseData.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCourses.cs" />
+    <Compile Include="Case\Prescription\PrescriptionSession.cs" />
+    <Compile Include="Case\Data\PrescriptionSessionData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Prescription.cs" />
+    <Compile Include="Case\Prescription\Prescription.cs" />
     <Compile Include="Relatives.cs" />
-    <Compile Include="SessionData.cs" />
-    <Compile Include="Sessions.cs" />
-    <Compile Include="SessionQuestion.cs" />
+    <Compile Include="Case\Data\SessionQuestionData.cs" />
+    <Compile Include="Case\Sessions\Sessions.cs" />
+    <Compile Include="Case\Sessions\SessionQuestion.cs" />
     <Compile Include="Stuff.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassesDiagram\BOClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

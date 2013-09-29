@@ -11,21 +11,20 @@ namespace Panda.EmaraSystem.BLL
    public class RelativesBLL
     {
 
-        public static Relatives GetItem(int id)
-        {
-            return RelativesDAL.GetItem(id);
-        }
 
-
-        public static Relatives GetByClient(int id)
-        {
-            int clientId = id;
-            Relatives rel = RelativesDAL.GetByClientId(clientId);
-            int relClientID = rel.CLientRelId;
-            Client relClient = ClientBLL.GetItemMenimal(relClientID);
-            rel.ClientRelName = relClient.FullName;
-            return rel;
-        }
+       public static Relatives GetItem(int id)
+       {
+          
+           Relatives rel =RelativesDAL.GetByClient(id);
+           Client cl = ClientBLL.GetItem(rel.CLientRelId);
+           rel.ClientRelName = cl.FullName;
+           rel.CLientRelId = cl.CLientId;
+           return rel;
+       }
+       public static List<Relatives> GetByClient(int id)
+       {
+           return RelativesDAL.GetList(id);
+       }
 
 
         public static List<Relatives> GetList()

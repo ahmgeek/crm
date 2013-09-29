@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,34 +16,32 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Transactions;
 
-public partial class Clients_NewClient : System.Web.UI.Page {
-
-    UsersBLL user = new UsersBLL();
-    Client client = new Client();
-    int clientID = 0;
-    string userName;
-
+public partial class Clients_NewClient : System.Web.UI.Page
+{
+    private string userName;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        UsersBLL user = new UsersBLL();
         userName = user.GetUser().UserName;
 
         //pnlClient.Visible = true;
         if (!IsPostBack)
         {
-            txtAccNum.Text = GetUniqueId.GetRandomString();
+            txtCaseNumber.Text = GetUniqueId.GetRandomString();
             CountryBind();
             BindRepater();
-
+            BindPrescriptionData();
         }
-    
+
     }
 
 
     #region InterFace Methods
+
     private void CountryBind()
     {
-        drpCountry.DataSource = Countries.BindCountries() ;
+        drpCountry.DataSource = Countries.BindCountries();
         drpCountry.DataBind();
     }
 
@@ -58,9 +57,9 @@ public partial class Clients_NewClient : System.Web.UI.Page {
             return false;
         }
     }
+
     protected void rdlst_SelectedIndexChanged(object sender, EventArgs e)
     {
-        btnWaitList.Enabled = true;
         if (HasArelation())
         {
             BindClients();
@@ -71,7 +70,8 @@ public partial class Clients_NewClient : System.Web.UI.Page {
             pnlRelation.Visible = false;
         }
     }
-    void BindClients()
+
+    private void BindClients()
     {
         try
         {
@@ -82,124 +82,259 @@ public partial class Clients_NewClient : System.Web.UI.Page {
         }
         catch (Exception)
         {
-                this.ShowHelperMessage("Error","There is no clients so far",HelperNotify.NotificationType.error);
+            this.ShowHelperMessage("Error", "There is no clients so far", HelperNotify.NotificationType.error);
         }
 
 
     }
 
-    void BindRepater()
+    private void BindRepater()
     {
-        List<SessionQuestion> questions = new List<SessionQuestion>();
-        questions.Add(new SessionQuestion { Question = "نوع الاستشارة ( نفسيه ، علاقات زوجيه ، تربية اطفال  ، مذاكرة ودراسة ،  حياتية نجاح في الحياة)" });
-        questions.Add(new SessionQuestion { Question = "ما الاعراض النفسية التي تشتكى منها ؟ والدرجة المئوية لكل عرض" });
-        questions.Add(new SessionQuestion { Question = "ما الاعراض الجسمية التي تشتكى منها ؟ والدرجة المئوية  لكل عرض" });
-        questions.Add(new SessionQuestion { Question = "متى بدأ عرض (  تاريخه  )" });
-        questions.Add(new SessionQuestion { Question = "ما هي اسباب ظهوره من وجهة نظرك ؟" });
-        questions.Add(new SessionQuestion { Question = "ما هي الحالة النفسية التي تريد ان تكون عليها ؟" });
-        questions.Add(new SessionQuestion { Question = "ما الحالة الجسمية التي تريد ان تكون عليها ؟" });
-        questions.Add(new SessionQuestion { Question = "هل زرت طبيبا آخر من قبل؟ وهل انت مستمر على علاج دوائي ومتى ؟" });
-        questions.Add(new SessionQuestion { Question = "فى حاله زيارة طبيب آخر اذكر الحالة الاولى في البداية التي ذهبت بسببها للطبيب؟" });
-        questions.Add(new SessionQuestion { Question = "اذكر بالتفصيل أكثر شيء في الحياة يضايقك ويؤثر عليك سلبياً؟ نقاط الاكثر فالأقل تأثيرا" });
-        questions.Add(new SessionQuestion { Question = "اذكر بالتفصيل اكثر شيء في الحياة يشعرك بالسعادة والراحة؟" });
-        questions.Add(new SessionQuestion { Question = "ما المدة الزمنية التي تتوقعها لكي تكون متعافي تماما (ما يدور في خيالك بصدق قبل الحضور)" });
-        questions.Add(new SessionQuestion { Question = "اذكر أكثر موقف سلبى حدث لك في الماضي" });
-        questions.Add(new SessionQuestion { Question = "اذكر أكثر موقف إيجابي حدث لك في المستقبل" });
-        questions.Add(new SessionQuestion { Question = "اذكر أكثر حيوان تحبه ومحبب الى قلبك" });
-        questions.Add(new SessionQuestion { Question = "اذكر أكثر حيوان تتقزز منه وكريه الى قلبك" });
-        questions.Add(new SessionQuestion { Question = "هل سبق ان حضرت كورس؟" });
+        List<SessionQuestionData> questions = SessionQuestionDataBLL.GetList();
         questionRepeater.DataSource = questions;
         questionRepeater.DataBind();
+
+        //Bind Prescription Session Repeater
+        List<PrescriptionSessionData> prscSessionData = PrescriptionSessionDataBLL.GetList();
+        repeatSessions.DataSource = prscSessionData;
+        repeatSessions.DataBind();
     }
+
+    private void BindPrescriptionData()
+    {
+        List<PrescriptionCourseData> prscCourseData = PrescriptionCourseDataBLL.GetList();
+        lstCourses.DataSource = prscCourseData;
+        lstCourses.DataBind();
+
+        List<PrescriptionCdData> prscCdData = PrescriptionCdDataBLL.GetList();
+        lstCD.DataSource = prscCdData;
+        lstCD.DataBind();
+    }
+
+
+
     #endregion
 
 
 
-
-    //Saving The Data TODO{ CommitTransAction() }
-    protected void btnWaitList_Click(object sender, EventArgs e)
+    protected void repeatSessions_OnPreRender(object sender, EventArgs e)
     {
-        try
+        foreach (RepeaterItem item in repeatSessions.Items)
         {
 
-            using (TransactionScope trans = new TransactionScope())
-            {
+            TextBox txtSessionName = (TextBox) item.FindControl("txtSessionName");
+            txtSessionName.ForeColor = System.Drawing.Color.Maroon;
 
-
-                #region CLient Data
-                //Load the data into the object
-
-                //Re Initialize
-                client.AccountNumber = string.Empty;
-                client.AccountNumber = txtAccNum.Text;
-
-
-                client.FirstName = string.Empty;
-                client.FirstName = txtFName.Text;
-
-
-                client.MiddleName = string.Empty;
-                client.MiddleName = txtMiddleName.Text;
-
-
-                client.SurrName = string.Empty;
-                client.SurrName = txtSurrName.Text;
-
-
-                client.City = txtCity.Text;
-                client.Country = drpCountry.SelectedItem.Text;
-                client.Address = txtAdress.Text;
-                client.Telephone = txtTelephone.Text;
-                client.Mob = txtMob.Text;
-                client.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
-                client.Gender = drpGender.SelectedItem.Text;
-                client.PrfrdTimeForCall = drpTime.SelectedItem.Text;
-                client.Notes = txtNotes.Text;
-                client.CreationDate = DateTime.Now;
-                client.CreatedBy = userName;
-                client.IsActive = IsActive.Active;
-                client.HasArelation = Convert.ToInt16(HasArelation());
-                clientID = ClientBLL.Insert(client);
-
-                #endregion
-
-                Thread.Sleep(1000);
-                #region Relation Data
-
-                if (HasArelation())
-                {
-
-
-                    Relatives relative = new Relatives();
-                    relative.ClientId = clientID;
-                    relative.CLientRelId = Convert.ToInt32(drpClients.SelectedItem.Value);
-                    relative.RelationName = txtRelName.Text;
-                    RelativesBLL.Insert(relative);
-                }
-
-                #endregion
-                Thread.Sleep(1000);
-                #region WaitList Data
-                WaitingList waitList = new WaitingList();
-                waitList.ClientId = clientID;
-                waitList.DateTime = DateTime.Now;
-                waitList.IsReserved = IsServed.UnServed;
-                waitList.Notes = string.Empty;
-                waitList.CreatedBy = userName;
-                WaitingListBLL.Insert(waitList);
-                #endregion
-                trans.Complete();
-                //session fore firing the jquery notify
-                string message = "CLient has been sent to the WaitingList";
-                Response.Redirect("/Clients/Clients.aspx?message=" + message, false);
-            }
-        }
-        catch (Exception ex)
-        {
-            string message = ex.Message;
-            Response.Redirect("/Clients/Clients.aspx?message=" + message);
         }
     }
 
+    protected void btnSendToConfirm_OnClick(object sender, EventArgs e)
+    {
+        //  try
+        //{
+        using (TransactionScope trans = new TransactionScope())
+        {
+            #region Objects
 
+            //Client Object
+            Client client = new Client();
+
+            //Case object
+            ClientCase clientCase = new ClientCase();
+
+            //Session ibject
+            Sessions casesession = new Sessions();
+            SessionQuestion sessionQuestions = new SessionQuestion();
+
+            //Prescription Object
+            Prescription prsc = new Prescription();
+
+            PrescriptionSession prescSession = new PrescriptionSession();
+            PrescriptionCourses prscCourse = new PrescriptionCourses();
+            PrescriptionCD prscCd = new PrescriptionCD();
+
+            #endregion
+
+            #region CLient and relation data
+
+            //Load the data into the object
+            client.FirstName = txtFName.Text;
+            client.MiddleName = txtMiddleName.Text;
+            client.SurrName = txtSurrName.Text;
+            client.CreationDate = DateTime.Now;
+            client.CreatedBy = userName;
+            client.IsActive = IsActive.Active;
+            client.Notes = txtNotes.Text;
+            //ClientDetail
+            client.CLientId = client.CLientId;
+            client.City = txtCity.Text;
+            client.Country = drpCountry.Text;
+            client.Address = txtAdress.Text;
+            client.Telephone = txtTelephone.Text;
+            client.Mob = txtMob.Text;
+            client.DateOfBirth = Convert.ToDateTime(txtDateOf.Text);
+            client.Gender = drpGender.Text;
+            if (HasArelation())
+            {
+                client.HasArelation = HasRelations.yes;
+            }
+            else
+            {
+                client.HasArelation = HasRelations.no;
+            }
+            client.CLientId = ClientBLL.Insert(client);
+            Thread.Sleep(150);
+
+            #region Relation Data
+
+            if (HasArelation())
+            {
+                Relatives relative = new Relatives();
+                relative.ClientId = client.CLientId;
+                relative.CLientRelId = Convert.ToInt32(drpClients.SelectedItem.Value);
+                relative.RelationName = txtRelName.Text;
+                Thread.Sleep(150);
+                RelativesBLL.Insert(relative);
+            }
+
+            #endregion
+
+            #endregion
+
+
+            #region Client case
+
+            clientCase.ClientId = client.CLientId;
+            clientCase.CaseNumber = txtCaseNumber.Text;
+            clientCase.CaseStatus = CaseStatus.opened;
+            clientCase.dateTime = DateTime.Now;
+            Thread.Sleep(150);
+            clientCase.CaseId = ClientCaseBLL.Insert(clientCase);
+
+            #endregion
+
+            #region Questions and answers
+
+            //Session Insertion
+            casesession.CaseId = clientCase.CaseId;
+            casesession.Report = txtReport.Text;
+            casesession.Notes = string.Empty;
+
+            //Session Questions Insertion
+            Thread.Sleep(150);
+            int sessionId = SessionBLL.Insert(casesession);
+            foreach (RepeaterItem item in questionRepeater.Items)
+            {
+                sessionQuestions.SessionId = sessionId;
+                Label lblQuestion = (Label) item.FindControl("lblQuestion");
+                sessionQuestions.Question = lblQuestion.Text;
+
+                TextBox txtAns = (TextBox) item.FindControl("txtAns");
+                sessionQuestions.Answer = "";
+                sessionQuestions.Answer = txtAns.Text;
+                if (txtAns != null)
+                {
+                    SessionQuestionBLL.Insert(sessionQuestions);
+                }
+            }
+
+            #endregion
+
+            #region Prescription
+
+            #region Prescription Insertion
+
+            prsc.CaseId = clientCase.CaseId;
+            prsc.Report = txtFinalReport.Text;
+            prsc.Status = PrescriptionStatus.onhold;
+            //Init prsc.ConfirmedComment
+            prsc.ConfermedComment = string.Empty;
+            Thread.Sleep(150);
+            int prescriptionId = PrescriptionBLL.Insert(prsc);
+
+            #endregion
+
+            //Prescription CD
+
+            #region Prescription CD
+
+            foreach (ListItem cdItem in lstCD.Items)
+            {
+                if (cdItem.Selected)
+                {
+                    prscCd.PrescriptionId = prescriptionId;
+                    prscCd.CdName = cdItem.Text;
+                    prscCd.Note = string.Empty;
+                    PrescriptionCdBLL.Insert(prscCd);
+
+                }
+            }
+
+            #endregion
+
+            //Prescription Coursesls
+
+            #region Prescription Courseslst
+
+            foreach (ListItem courseItem in lstCourses.Items)
+            {
+                if (courseItem.Selected)
+                {
+                    prscCourse.PrescriptionId = prescriptionId;
+                    prscCourse.CourseName = courseItem.Text;
+                    prscCourse.Notes = string.Empty;
+                    PrescriptionCoursesBLL.Insert(prscCourse);
+
+                }
+            }
+
+            #endregion
+
+            //Prescription Sessions
+
+            #region Prescription Sessions
+
+            foreach (RepeaterItem sessionItem in repeatSessions.Items)
+            {
+                prescSession.PrescriptionId = prescriptionId;
+
+                CheckBox chkSession = (CheckBox) sessionItem.FindControl("chkCourse");
+
+                if (chkSession.Checked)
+                {
+                    //Session Name
+                    TextBox txtSessionName = (TextBox) sessionItem.FindControl("txtSessionName");
+                    prescSession.SessionName = "";
+                    prescSession.SessionName = txtSessionName.Text;
+                    //Session Counter
+                    TextBox txtCounter = (TextBox) sessionItem.FindControl("txtCounter");
+                    prescSession.Number = Convert.ToInt32(txtCounter.Text);
+
+
+                    TextBox txtComment = (TextBox) sessionItem.FindControl("txtComment");
+                    prescSession.Comment = "";
+                    prescSession.Comment = txtComment.Text;
+                    PrescriptionSessionBLL.Insert(prescSession);
+                }
+
+            }
+
+            #endregion
+
+
+            #endregion
+
+            trans.Complete();
+            //session fore firing the jquery notify
+            string message = "CLient has been saved and waiting to revised";
+            Response.Redirect("/Clients/Clients.aspx?message=" + message, false);
+        }
+        //    }
+    }
+
+    //catch (Exception ex)
+    //{
+    //    string message = ex.Message;
+    //    Response.Redirect("/Clients/Clients.aspx?message=" + message,false);
+    //}
 }

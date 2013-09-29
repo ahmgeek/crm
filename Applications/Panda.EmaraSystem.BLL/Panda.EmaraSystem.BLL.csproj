@@ -42,18 +42,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientBLL.cs" />
-    <Compile Include="PrescriptionBLL.cs" />
-    <Compile Include="PrescriptionCdBLL.cs" />
-    <Compile Include="PrescriptionCoursesBLL.cs" />
-    <Compile Include="PrescriptionSessionBLL.cs" />
+    <Compile Include="Case\ClientCaseBLL.cs" />
+    <Compile Include="Case\FirstCall\FirstCallBLL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionBLL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCdBLL.cs" />
+    <Compile Include="Case\Data\PrescriptionCdDataBLL.cs" />
+    <Compile Include="Case\Data\PrescriptionCourseDataBLL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionCoursesBLL.cs" />
+    <Compile Include="Case\Prescription\PrescriptionSessionBLL.cs" />
+    <Compile Include="Case\Data\PrescriptionSessionDataBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativesBLL.cs" />
-    <Compile Include="RolesBLL.cs" />
-    <Compile Include="SessionBLL.cs" />
-    <Compile Include="SessionQuestionBLL.cs" />
+    <Compile Include="MemberShip\RolesBLL.cs" />
+    <Compile Include="Case\Sessions\SessionBLL.cs" />
+    <Compile Include="Case\Data\SessionQuestionDataBLL.cs" />
+    <Compile Include="Case\Sessions\SessionQuestionBLL.cs" />
     <Compile Include="StuffBLL.cs" />
-    <Compile Include="UsersBLL.cs" />
-    <Compile Include="WaitingListBLL.cs" />
+    <Compile Include="MemberShip\UsersBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Panda.EmaraSystem.BO\Panda.EmaraSystem.BO.csproj">

@@ -34,18 +34,6 @@
 
 
                             <div class="control-group">
-                                <label for="text1" class="control-label">Account Number</label>
-
-                                <div class="controls with-tooltip">
-
-                                    <asp:TextBox ID="txtAccNum" ReadOnly="true" runat="server" class="span3 input-tooltip"
-                                        data-original-title="Unique CLient ID" data-placement="right"></asp:TextBox>
-
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
                                 <label for="pass1" class="control-label">First Name</label>
 
                                 <div class="controls with-tooltip">
@@ -167,18 +155,6 @@
 
 
                             <div class="control-group">
-                                <label for="tags" class="control-label">Prefered Time For Call</label>
-                                <div class="controls">
-                                    <asp:DropDownList ID="drpTime" CssClass="span6 chzn-select" runat="server">
-                                        <asp:ListItem></asp:ListItem>
-                                        <asp:ListItem>10AM - 3PM</asp:ListItem>
-                                        <asp:ListItem>3PM - 8PM</asp:ListItem>
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ErrorMessage="*" ForeColor="Red" ControlToValidate="drpTime" runat="server" />
-                                </div>
-
-                            </div>
-                            <div class="control-group">
                                 <label for="tags" class="control-label">Notes</label>
 
                                 <div class="controls with-tooltip">
@@ -209,14 +185,13 @@
                                 <asp:Panel runat="server" ID="pnlRelationData">
                                 <div class="control-group">
                                     <label class="control-label">Related To </label>
-
                                     <div class="controls with-tooltip">
                                         <asp:DropDownList ID="drpClients" runat="server"
                                             CssClass="span6 chzn-select">
                                             <asp:ListItem></asp:ListItem>
-
                                         </asp:DropDownList>
-                                    </div>
+                                    </div> 
+                          
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Relation Name</label>
@@ -226,7 +201,9 @@
                                         </asp:TextBox>
 
                                     </div>
+                                 
                                 </div>
+                                      
                             </asp:Panel>
 
                             </asp:Panel>
@@ -243,8 +220,14 @@
                 <div class="form-actions no-margin-bottom">
                     <asp:Button ID="btnSave" Text="Update"
                         runat="server" OnClick="btnSave_Click" class="btn btn-primary" />
+                    &nbsp;
+                                        <asp:Button ID="btnCanel" Text="Cancel"
+                        runat="server" OnClick="btnCanel_OnClick" class="btn btn-warning" />
+
                 </div>
+          
             </div>
+          
         </div>
     </div>
 

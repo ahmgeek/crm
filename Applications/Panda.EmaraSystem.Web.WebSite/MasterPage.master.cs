@@ -19,16 +19,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         if (Request.IsAuthenticated)
         {
             litName.Text = u.GetUser().UserName;
-            litTime.Text = u.GetUser().LastActivityDate.ToShortDateString() + " "+
-                u.GetUser().LastLoginDate.ToShortTimeString();
-            string[] roles = u.UserRoles(litName.Text);
-            StringBuilder build = new StringBuilder();
-            foreach (var item in roles)
-            {
-                build.AppendLine("\r\n");
-                build.AppendLine(item);
-                liteRole.Text = build.ToString();
-            }
         }
         else
         {

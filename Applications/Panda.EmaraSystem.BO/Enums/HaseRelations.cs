@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Panda.EmaraSystem.BO
 {
-    public enum CaseStatus
+    public enum HasRelations
     {
-        opened =1 ,
-        closed = 0,
-        onhold = 2,//only when waiting client enagagment
+        yes = 1,
+        no = 0,
+        notdefined=-1
     }
 }

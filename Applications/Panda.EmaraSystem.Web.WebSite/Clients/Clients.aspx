@@ -7,21 +7,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-       <div class="tac">
-        <a class="quick-btn"  href="/Clients/NewClient.aspx">
+  <a class="quick-btn"  href="/Clients/NewClient.aspx">
             <i class="icon-user icon-2x"></i>
             <span>New Client</span>
             <span class="label label-important">New Client</span>
         </a>
-    </div>
-
-
 
 
     <!-- Views-->
     
-    <!-- Users -->
-        <div class="box">
+  <div class="row-fluid">
+        <div class="span12">
+        <div class="box dark">
         <header>
             <div class="icons"><i class="icon-user-md"></i></div>
             <h5> Clients </h5>
@@ -43,18 +40,11 @@
                 OnRowDataBound="grdUsers_RowDataBound" 
                 OnPageIndexChanging="grdUsers_PageIndexChanging"
                 OnPreRender="grdUsers_PreRender"
-                            AllowPaging="true" PageSize="10"
+                OnRowCommand="grdUsers_OnRowCommand"  
+                AllowPaging="true" 
+                PageSize="10"
                 >
                 <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:CheckBox ID="chkAllUser" runat="server" AutoPostBack="True" OnCheckedChanged="chkAllUser_CheckedChanged"  />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkUser" runat="server" AutoPostBack="True" OnCheckedChanged="chkUser_CheckedChanged"  />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
                        <asp:TemplateField HeaderText="#">
                         <ItemTemplate>
                             <asp:Label ID="lblRank" runat="server" Text='<%# Container.DataItem %>'></asp:Label>
@@ -64,59 +54,49 @@
 
                       <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
-                            <asp:Label ID="lblFullName" Font-Bold="true" Font-Size="Medium" runat="server"  Text='<%#Eval("FullName") %>'></asp:Label>
+                            <asp:Label ID="lblFullName" Font-Bold="true" style="width:180px;" runat="server"  Text='<%#Eval("FullName") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                      <asp:TemplateField HeaderText="Account Number">
+                    <asp:TemplateField HeaderText="Regestration Date">
                         <ItemTemplate>
-                            <asp:Label ID="lblAccountNumber" runat="server"  Text='<%#Eval("AccountNumber") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="City">
-                        <ItemTemplate>
-                            <asp:Label ID="lblcity" runat="server"  Text='<%#Eval("city") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Phone">
-                        <ItemTemplate>
-                            <asp:Label ID="lblTelephone" runat="server"  Text='<%#Eval("Telephone") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Client Moblie">
-                        <ItemTemplate>
-                            <asp:Label ID="lblMob" runat="server"  Text='<%#Eval("Mob") %>'></asp:Label>
+                            <asp:Label ID="lblRegister" runat="server" style="width:140px;" Text='<%#Eval("CreationDate") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                    
+                       <asp:TemplateField HeaderText="City">
+                        <ItemTemplate>
+                            <asp:Label ID="lblCity" runat="server" style="width:90px;" Text='<%#Eval("City") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    
+                       <asp:TemplateField HeaderText="Client Moblie">
+                        <ItemTemplate>
+                            <asp:Label ID="lblMob" runat="server" style="width:90px;" Text='<%#Eval("Mob") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    
+                         <asp:TemplateField HeaderText="Has Relatives ? ">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRelation" runat="server" style="width:40px;" Text='<%#Eval("HasArelation") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
-        <asp:Literal ID="litClientId" Visible="false" Text='<%#Eval("ClientId") %>'  runat="server"></asp:Literal>
-
                             <asp:LinkButton ID="btnEdit"
-                                href='<%#"/Clients/ClientsDetail.aspx?Acc="+Eval("ClientId")%>'
+                                CommandArgument='<%# Eval("ClientId") %>'  CommandName="EditCommand"
                                  runat="server" CssClass="btn btn-small btn-metis-5" Text="Edit" />
-                            
-                             <asp:LinkButton ID="LinkButton2"
-                                href='<%#"/Clients/Clients.aspx"%>'
-                                 runat="server" CssClass="btn btn-small btn-metis-1" Text="DeActivate" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
 
             </asp:GridView>
         </div>
-                        <div class="form-actions">
-                <asp:Button ID="btnDeleteUser"
-                     type="submit" class="btn btn-danger" OnClientClick="return confirm(' Delete ? ')"
-                    OnClick="btnDeleteUser_Click"
-                     runat="server" Text="Delte" />
-
-            </div>
    </div>
+   </div>
+
+   </div>
+
 </asp:Content>
 

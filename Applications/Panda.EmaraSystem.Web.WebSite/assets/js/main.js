@@ -457,6 +457,7 @@ function formGeneral() {
     //
     $("#spin2").spinner({
         step: 0.01,
+        
         numberFormat: "n"
     });
     $("#spin3").spinner({

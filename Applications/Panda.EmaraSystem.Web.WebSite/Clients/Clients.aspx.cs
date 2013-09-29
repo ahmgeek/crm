@@ -24,7 +24,6 @@ public partial class Clients_Clients : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindGrid();
-            btnDeleteUser.Enabled = false;
 
         }
         
@@ -61,56 +60,6 @@ public partial class Clients_Clients : System.Web.UI.Page
         grdUsers.PageIndex = e.NewPageIndex;
         BindGrid();
     }
-
-    void BindGrid()
-    {
-        try
-        {
-            List<Client> ds = ClientBLL.GetList();
-            grdUsers.DataSource = ds;  //clntBLL.GetAllClients();
-            grdUsers.DataBind();
-
-        }
-        catch (Exception ex)
-        {
-
-            grdUsers.EmptyDataText = ex.Message;
-            grdUsers.DataBind();
-        }
-
-    }
-
-
-    protected void chkUser_CheckedChanged(object sender, EventArgs e)
-    {
-         CheckBox chkUser;
-        CheckBox chkAllUser;
-        foreach (GridViewRow row in grdUsers.Rows)
-        {
-            chkUser = (CheckBox)row.Cells[0].FindControl("chkUser");
-            chkAllUser = (CheckBox)grdUsers.HeaderRow.Cells[0].FindControl("chkAllUser");
-            if (chkUser.Checked)
-            {
-                chkAllUser.Checked = false;
-                btnDeleteUser.Enabled = true;
-                return;
-            }
-        }
-        btnDeleteUser.Enabled = false;
-    }
-    protected void chkAllUser_CheckedChanged(object sender, EventArgs e)
-    {
-        CheckBox chkallUser = (CheckBox)sender;
-        //btnDeleteUser.Enabled = chkallUser.Checked;
-        CheckBox chkUSer;
-        foreach (GridViewRow row in grdUsers.Rows)
-        {
-            chkUSer = (CheckBox)row.Cells[0].FindControl("chkUser");
-            chkUSer.Checked = chkallUser.Checked;
-        }
-    }
-
-
     protected void grdUsers_PreRender(object sender, EventArgs e)
     {
 
@@ -125,53 +74,90 @@ public partial class Clients_Clients : System.Web.UI.Page
 
             }
 
-      
+
             Label lblFullName = (Label)item.FindControl("lblFullName");
-            lblFullName.CssClass = "label label-info";
+            lblFullName.CssClass = "label label-inverse";
 
-            Label lblAccountNumber = (Label)item.FindControl("lblAccountNumber");
-            lblAccountNumber.CssClass = "label label-important";
+            Label lblRegister = (Label)item.FindControl("lblRegister");
+            lblRegister.CssClass = "label label-info";
 
-            Label lblcity = (Label)item.FindControl("lblcity");
-            lblcity.CssClass = "label label-inverse";
+            Label lblCity = (Label)item.FindControl("lblCity");
+            lblCity.CssClass = "label label-info";
 
-            Label lblTelephone = (Label)item.FindControl("lblTelephone");
-            lblTelephone.CssClass = "label label-success";
 
             Label lblMob = (Label)item.FindControl("lblMob");
-            lblMob.CssClass = "label label-success";
+            lblMob.CssClass = "label label-info";
 
-            
+            Label lblRelatives = (Label)item.FindControl("lblRelation");
+            if (lblRelatives.Text == "yes")
+            {
+                lblRelatives.CssClass = "label label-success";
+
+            }
+            else
+            {
+                lblRelatives.CssClass = "label label-important";
+            }
+
 
         }
     }
-    protected void btnDeleteUser_Click(object sender, EventArgs e)
+    protected void grdUsers_OnRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "EditCommand")
+        {
+            Response.Redirect("/Clients/ClientsDetail.aspx?id=" + e.CommandArgument);
+        }
+    }
+
+    void BindGrid()
     {
         try
         {
-            CheckBox chkUSer;
-            Literal litId;
-            foreach (GridViewRow row in grdUsers.Rows)
-            {
-                chkUSer = (CheckBox)row.Cells[1].FindControl("chkUser");
-                if (chkUSer.Checked)
-                {
-                    litId = (Literal)row.Cells[6].FindControl("litClientId");
-                    int id = Convert.ToInt32(litId.Text);
-                    Client client = ClientBLL.GetItem(id);
-                    ClientBLL.Delete(client);
-                }
-            }
-            BindGrid();
-            string message = "The client has been removed";
-            this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
+            List<Client> ds = ClientBLL.GetList();
+            grdUsers.DataSource = ds;  
+            grdUsers.DataBind();
 
         }
         catch (Exception ex)
         {
-            string message = ex.Message;
-            this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
+
+            grdUsers.EmptyDataText = ex.Message;
+            grdUsers.DataBind();
         }
-               
+
     }
+
+
+
+    //protected void btnDeleteUser_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        CheckBox chkUSer;
+    //        Literal litId;
+    //        foreach (GridViewRow row in grdUsers.Rows)
+    //        {
+    //            chkUSer = (CheckBox)row.Cells[1].FindControl("chkUser");
+    //            if (chkUSer.Checked)
+    //            {
+    //                litId = (Literal)row.Cells[6].FindControl("litClientId");
+    //                int id = Convert.ToInt32(litId.Text);
+    //                //Client client = ClientBLL.GetItem(id);
+    //               // ClientBLL.Delete(client);
+    //            }
+    //        }
+    //        BindGrid();
+    //        string message = "The client has been removed";
+    //        this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        string message = ex.Message;
+    //        this.ShowHelperMessage("Succeeded", message, HelperNotify.NotificationType.success);
+    //    }
+               
+    //}
+   
 }

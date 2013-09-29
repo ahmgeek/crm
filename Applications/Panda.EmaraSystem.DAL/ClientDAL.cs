@@ -67,15 +67,23 @@ namespace Panda.EmaraSystem.DAL
         public static int Insert(Client client)
         {
             object o = DataManager.ExecuteScalar("ESystem_ClientInsert",
-             DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, client.FirstName),
-             DataManager.CreateParameter("@middleName", SqlDbType.NVarChar, client.MiddleName),
-             DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, client.SurrName),
-             DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
-             DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
-             DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
-             DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes)
-             );
-            
+                DataManager.CreateParameter("@firstName", SqlDbType.NVarChar, client.FirstName),
+                DataManager.CreateParameter("@middleName", SqlDbType.NVarChar, client.MiddleName),
+                DataManager.CreateParameter("@surrName", SqlDbType.NVarChar, client.SurrName),
+                DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
+                DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
+                DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
+                DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes),
+                DataManager.CreateParameter("@city", SqlDbType.NVarChar, client.City),
+                DataManager.CreateParameter("@country", SqlDbType.NVarChar, client.Country),
+                DataManager.CreateParameter("@address", SqlDbType.NVarChar, client.Address),
+                DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, client.Telephone),
+                DataManager.CreateParameter("@mob", SqlDbType.NVarChar, client.Mob),
+                DataManager.CreateParameter("@dateofbirth", SqlDbType.DateTime, client.DateOfBirth),
+                DataManager.CreateParameter("@gender", SqlDbType.NVarChar, client.Gender),
+                DataManager.CreateParameter("@hasArelation", SqlDbType.Int, client.HasArelation)
+                );
+
             return Convert.ToInt32(o);
         }
 
@@ -90,7 +98,16 @@ namespace Panda.EmaraSystem.DAL
                 DataManager.CreateParameter("@creationdate", SqlDbType.DateTime, client.CreationDate),
                 DataManager.CreateParameter("@createdBy", SqlDbType.NVarChar, client.CreatedBy),
                 DataManager.CreateParameter("@IsActive", SqlDbType.Int, client.IsActive),
-                DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes));
+                DataManager.CreateParameter("@notes", SqlDbType.NVarChar, client.Notes),
+                DataManager.CreateParameter("@city", SqlDbType.NVarChar, client.City),
+                DataManager.CreateParameter("@country", SqlDbType.NVarChar, client.Country),
+                DataManager.CreateParameter("@address", SqlDbType.NVarChar, client.Address),
+                DataManager.CreateParameter("@telephone", SqlDbType.NVarChar, client.Telephone),
+                DataManager.CreateParameter("@mob", SqlDbType.NVarChar, client.Mob),
+                DataManager.CreateParameter("@dateofbirth", SqlDbType.DateTime, client.DateOfBirth),
+                DataManager.CreateParameter("@gender", SqlDbType.NVarChar, client.Gender),
+                DataManager.CreateParameter("@hasArelation", SqlDbType.Int, client.HasArelation)
+                );
 
             return Convert.ToInt32(o);
         }
@@ -138,6 +155,44 @@ namespace Panda.EmaraSystem.DAL
                 client.Notes = myDataRecord.GetString(myDataRecord.GetOrdinal("notes"));
             }
 
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("city")))
+            {
+                client.City = myDataRecord.GetString(myDataRecord.GetOrdinal("city"));
+
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("country")))
+            {
+                client.Country = myDataRecord.GetString(myDataRecord.GetOrdinal("country"));
+
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("address")))
+            {
+                client.Address = myDataRecord.GetString(myDataRecord.GetOrdinal("address"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Telephone")))
+            {
+                client.Telephone = myDataRecord.GetString(myDataRecord.GetOrdinal("Telephone"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Mob")))
+            {
+                client.Mob = myDataRecord.GetString(myDataRecord.GetOrdinal("Mob"));
+            }
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("DateOfBirth")))
+            {
+                client.DateOfBirth = myDataRecord.GetDateTime(myDataRecord.GetOrdinal("DateOfBirth"));
+            }
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("Gender")))
+            {
+                client.Gender = myDataRecord.GetString(myDataRecord.GetOrdinal("Gender"));
+            }
+
+
+            if (!myDataRecord.IsDBNull(myDataRecord.GetOrdinal("HasArelation")))
+            {
+                client.HasArelation = (HasRelations)myDataRecord.GetInt32(myDataRecord.GetOrdinal("HasArelation"));
+            }
 
             return client;
         }

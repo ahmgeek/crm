@@ -11,8 +11,35 @@ namespace Panda.EmaraSystem.DAL
     
     public class RelativesDAL
    {
-      
-       public static List<Relatives> GetList(int id)
+
+        public static Relatives GetByClient(int id)
+        {
+            Relatives rel = null;
+            SqlConnection con;
+            using (SqlDataReader dr = DataManager.GetDataReader("ESystem_RelativeGetByClient", out con,
+                DataManager.CreateParameter("@id", SqlDbType.Int, id)))
+            {
+
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        rel = FillDataRecord(dr);
+                    }
+                }
+
+
+                else
+                {
+                    throw new Exception("No Data");
+                }
+                con.Close();
+            }
+            return rel;
+        }
+
+        public static List<Relatives> GetList(int id)
        {
            List<Relatives> list = new List<Relatives>();
            SqlConnection con;
