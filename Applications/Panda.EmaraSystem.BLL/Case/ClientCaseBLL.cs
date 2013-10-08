@@ -14,6 +14,7 @@ namespace Panda.EmaraSystem.BLL
         {
             ClientCase clientCase = ClientCaseDAL.GetItem(id);
             Client client = ClientBLL.GetItem(clientCase.ClientId);
+            Prescription presc = PrescriptionBLL.GetByCase(clientCase.CaseId);
             try
             {
                 Relatives rel = RelativesBLL.GetItem(clientCase.ClientId);
@@ -23,10 +24,11 @@ namespace Panda.EmaraSystem.BLL
             catch (Exception)
             {                
             }
-
             clientCase.FullName = client.FullName;
             clientCase.Mob = client.Mob;
             clientCase.Gender = client.Gender;
+            clientCase.PrescriptionStatus = presc.Status;
+
             //Prescription
             
             return clientCase;

@@ -395,7 +395,9 @@ function formGeneral() {
     /*----------- BEGIN autosize CODE -------------------------*/
     $('#ContentPlaceHolder1_txtAdress').autosize();
     $('#ContentPlaceHolder1_txtNotes').autosize();
-    
+
+    $('#ContentPlaceHolder1_txtCallReport').autosize();
+    $('#ContentPlaceHolder1_txtTechnichalReport').autosize();
     $('#ContentPlaceHolder1_questionRepeater_txtAns_0').autosize();
     $('#ContentPlaceHolder1_questionRepeater_txtAns_1').autosize();
     $('#ContentPlaceHolder1_questionRepeater_txtAns_2').autosize();
@@ -413,6 +415,9 @@ function formGeneral() {
     $('#ContentPlaceHolder1_questionRepeater_txtAns_14').autosize();
     $('#ContentPlaceHolder1_questionRepeater_txtAns_15').autosize();
     $('#ContentPlaceHolder1_questionRepeater_txtAns_16').autosize();
+
+
+
     
     $('#ContentPlaceHolder1_txtReport').autosize();
 

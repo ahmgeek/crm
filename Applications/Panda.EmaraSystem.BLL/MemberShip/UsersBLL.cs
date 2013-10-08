@@ -33,7 +33,7 @@ namespace Panda.EmaraSystem.BLL
                    throw new Exception("The user account was successfully created!");
                    break;
                 case MembershipCreateStatus.DuplicateUserName:
-                    throw new Exception("There already exists a user with this username.");
+                    throw new Exception("There already exists a user with this user name.");
                     break;
                 case MembershipCreateStatus.DuplicateEmail:
                     throw new Exception("There already exists a user with this email address.");

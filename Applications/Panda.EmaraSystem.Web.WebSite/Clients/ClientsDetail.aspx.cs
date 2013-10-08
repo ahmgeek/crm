@@ -178,12 +178,19 @@ public partial class Clients_ClientsDetail : System.Web.UI.Page
                 }
                 else
                 {
+                    try
+                    {
                         List<Relatives> rel = RelativesBLL.GetByClient(Convert.ToInt32(Request.QueryString["id"]));
                         foreach (Relatives item in rel)
                         {
                             RelativesBLL.Delete(item);
                         }
                         client.HasArelation = HasRelations.no;
+                    }
+                    catch (Exception)
+                    {    
+                    }
+                      
                         clientID = ClientBLL.Update(client);
                 }
             }

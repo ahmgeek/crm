@@ -134,7 +134,7 @@
                             <div class="controls">
 
                                 <div class="input-append date" id="dpYears" data-date="" data-date-format="dd/mm/yyyy" data-date-viewmode="years">
-                                    <asp:TextBox data-original-title="Please enter Mobile Number" 
+                                    <asp:TextBox 
                                         data-placement="right" ID="txtDateOf" runat="server" type="text" 
                                         class="span11" data-date-format="dd/mm/yyyy" required></asp:TextBox>
                                     <span class="add-on"><i class="icon-calendar"></i></span>

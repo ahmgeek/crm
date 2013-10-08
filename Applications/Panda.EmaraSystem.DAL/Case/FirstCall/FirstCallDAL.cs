@@ -91,7 +91,7 @@ namespace Panda.EmaraSystem.DAL
 
         public static int Insert(FirstCall firstCall)
         {
-            object o = DataManager.ExecuteScalar("ESystem_FirstCallUpdate",
+            object o = DataManager.ExecuteScalar("ESystem_FirstCallInsert",
              DataManager.CreateParameter("@caseId", SqlDbType.Int, firstCall.CaseId),
              DataManager.CreateParameter("@dateTime", SqlDbType.NVarChar, firstCall.dateTime),
              DataManager.CreateParameter("@report", SqlDbType.NVarChar, firstCall.Report),
@@ -109,7 +109,7 @@ namespace Panda.EmaraSystem.DAL
         public static int Update(FirstCall firstCall)
         {
 
-            object o = DataManager.ExecuteScalar("ESystem_ClientUpdate",
+            object o = DataManager.ExecuteScalar("ESystem_FirstCallUpdate",
                 DataManager.CreateParameter("@fCallId", SqlDbType.Int, firstCall.FcallId),
                 DataManager.CreateParameter("@caseId", SqlDbType.Int, firstCall.CaseId),
                 DataManager.CreateParameter("@dateTime", SqlDbType.NVarChar, firstCall.dateTime),

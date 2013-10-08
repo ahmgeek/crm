@@ -115,6 +115,7 @@ public partial class Cases_CaseEdit : System.Web.UI.Page
             }
 
             txtFinalReport.Text = prescription.Report;
+            txtComment.Text = prescription.ConfermedComment;
         }
         catch (Exception ex)
         {

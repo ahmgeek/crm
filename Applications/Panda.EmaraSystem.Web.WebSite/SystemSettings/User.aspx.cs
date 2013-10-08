@@ -63,7 +63,7 @@ public partial class SystemSettings_User : System.Web.UI.Page
             userBll.CreatUser(txtUserName.Text, txtEmail.Text, txtPassword.Text, arr);
             Response.Redirect("/SystemSettings/Users.aspx",false);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             Response.Redirect("/SystemSettings/Users.aspx",false);
         }

@@ -107,7 +107,6 @@
                                     <asp:TextBox ID="txtTelephone" class="span6 input-tooltip"
                                         data-original-title="Please entre Phone Number" data-placement="right"
                                         runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtTelephone" runat="server" />
                                 </div>
                             </div>
                             <div class="control-group">
@@ -222,7 +221,7 @@
                         runat="server" OnClick="btnSave_Click" class="btn btn-primary" />
                     &nbsp;
                                         <asp:Button ID="btnCanel" Text="Cancel"
-                        runat="server" OnClick="btnCanel_OnClick" class="btn btn-warning" />
+                        runat="server" OnClick="btnCanel_OnClick" CausesValidation="false" class="btn btn-warning" />
 
                 </div>
           

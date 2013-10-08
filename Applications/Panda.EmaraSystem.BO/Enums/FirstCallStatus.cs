@@ -7,8 +7,8 @@ namespace Panda.EmaraSystem.BO
 {
     public enum FirstCallStatus
     {
-        available = 0,
-        unavailable = 1,
-        notdefined = -1
+        available = 1,
+        onhold = 2,
+        unavailable = 3
     }
 }

@@ -109,7 +109,7 @@
                 <div class="media user-media hidden-phone">
                     <a href="#" class="user-link">
                         <img src="/assets/img/user.png" alt="" class="media-object img-polaroid user-img" />
-                        <i class="icon-user"></i> : <asp:Literal ID="litName" style="" runat="server" />
+                        <i class="icon-user"></i> : <asp:Literal ID="litName"  runat="server" />
                         <span class="label user-label"></span>
                     </a>
 
@@ -141,7 +141,7 @@
 
 
                  <li><a href="/Cases/View.aspx"><i class="icon-briefcase icon-large"></i> Cases</a></li>
-                    
+                 <li><a href="/Calls/View.aspx"><i class="icon-phone-sign icon-large"></i> Calls</a></li>   
                     <li><a href="/Prescriptions/Prescriptions.aspx"><i class="icon-calendar icon-large"></i> Visitations</a></li>
                      <li><a href="/Prescriptions/Prescriptions.aspx"><i class="icon-paper-clip icon-large"></i> Reports</a></li>
 
@@ -197,7 +197,11 @@
         <div class="clearfix"></div>
 
         <!-- #helpModal -->
-        
+          <!-- BEGIN FOOTER -->
+        <div id="footer">
+            <p>2013 © Metis Admin</p>
+        </div>
+        <!-- END FOOTER -->
         <!-- /#helpModal -->
          <!-- Java Script -->   
 
