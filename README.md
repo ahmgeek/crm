@@ -1,10 +1,13 @@
-EmaraSystem
-===========
+# EmaraSystem
 
-Private repository for Emara Internal System.
+This repo contains code written for a specific client, he never purchased the whole system, and it's never been fully done.
 
-Please keep in mind that, this project is for private use only and for Emara co.
-all copyrights reserved to  the developer of the system.
+You can read, copy or do whatever you want with the code.
 
+== License
 
-in the development stage for now ...
+EmaraSystem is released under the MIT License.  See the LICENSE file for details.
+
+== Author
+
+Ahmad A.Elghany <tolpa1@gmail.com>
