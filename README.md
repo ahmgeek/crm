@@ -1,4 +1,4 @@
-# EmaraSystem
+# Semi CRM
 
 This repo contains code written for a specific client, he never purchased the whole system, and it's never been fully done.
 
